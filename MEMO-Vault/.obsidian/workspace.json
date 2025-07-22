@@ -115,8 +115,7 @@
               "title": "Bookmarks"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "horizontal",
@@ -208,7 +207,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -221,7 +221,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0d33e559b2e20baf",
+  "active": "00da51c307881bd4",
   "lastOpenFiles": [
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/README.md",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
