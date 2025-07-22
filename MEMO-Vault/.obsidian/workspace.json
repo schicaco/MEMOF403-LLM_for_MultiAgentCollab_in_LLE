@@ -115,7 +115,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -191,13 +192,23 @@
               "icon": "lucide-list",
               "title": "Outline of create a link"
             }
+          },
+          {
+            "id": "bda3bfd7a8bbeb05",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
           }
-        ]
+        ],
+        "currentTab": 4
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -210,28 +221,39 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "0dc2de2bea7a50c8",
+  "active": "0d33e559b2e20baf",
   "lastOpenFiles": [
-    "Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/README.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials/hybrid architecture idea.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials/TODO list.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials/Support.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials/How to ML Paper – A Brief Guide.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Theorical Concepts/Definitions.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Theorical Concepts",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers/VDN.pdf",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers/LLE_multi-agent_coord.pdf",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers Summaries/Laser Learning Environment - A new environment for coordination-critical multi-agent tasks.md",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers Summaries",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images/ToM_embodied_agent.png",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images/LLE.png",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault",
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE",
     "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
     "Theorical Concepts/Definitions.md",
     "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
     "Thesis materials/hybrid architecture idea.md",
     "Thesis materials/Support.md",
-    "Papers/LLE_multi-agent_coord.pdf",
     "Papers Summaries/Laser Learning Environment - A new environment for coordination-critical multi-agent tasks.md",
     "Images/ToM_embodied_agent.png",
     "Images/LLE.png",
     "Thesis materials/TODO list.md",
     "Thesis materials/How to ML Paper – A Brief Guide.md",
-    "Theorical Concepts",
-    "Images",
-    "Thesis materials",
-    "Papers/VDN.pdf",
-    "Papers Summaries",
-    "Theorical Concepts/Deep Q-network",
-    "Papers",
-    "Refactoring_CI_Daf.pdf",
     "Welcome.md"
   ]
 }
