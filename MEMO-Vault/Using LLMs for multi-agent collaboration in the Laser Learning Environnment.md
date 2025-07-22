@@ -5,21 +5,14 @@
 
 # Problem Statement and Objectives 
 
-See if it change something if it is decentrelised or centralised observation for each agent
+See if it changes something if it is decentrelised or centralised observation for each agent
 
 ---
 
 # State of the Art 
 
-### 3.1 Cooperative Multi-Agent Reinforcement Learning
 
-There is several cooperative multi-agent environments that exists such as, overcooked, hanabi, etc. 
-
-Most of the time the algorithms used to address those kind of problems are deep Q-network based. 
-
-
-
-### 3.2 The Laser Learning Environment (LLE)
+### 3.1 The Laser Learning Environment (LLE)
 
 The Laser Learning Environment is a multi-agent grid world populated by agents of different colours. It includes various types of tiles: floor, start, wall, laser, laser source, and exit tiles.
 
@@ -51,11 +44,43 @@ In this project, we will focus on level 6 of the LLE, which features 4 agents, 3
 
 ![[LLE.png|400]]
 
-#Todo  Present the algorithms use for this level, the results (maybe explain why the level 6 is pertinent? )
+#TODO   Present the algorithms use for this level, the results (maybe explain why the level 6 is pertinent? )
+
+### 3.2 Cooperative Multi-Agent Reinforcement Learning
+
+There are several cooperative multi-agent environments that have been proposed , such as **Overcooked**, **Hanabi**,the one that we presented,  the **Laser Learning Environment (LLE)**.
+
+These environments are typically designed to test agents on tasks that require **tight coordination**, and **team-level rewards**. Most of the time, the algorithms used to address these problems are **deep Q-network (DQN)** based, extended to handle multiple agents acting simultaneously.
+
+#### Background 
+
+##### Deep Q-Network 
+
+The Deep Q-Network (DQN) is one of the basic algorithms in reinforcement learning. It allows an agent to learn how to act by estimating the expected reward it can get by taking a certain action in a given state. The idea is to use a neural network to approximate this so-called Q-function, and update it over time as the agent interacts with the environment.
+
+In the case of multi-agent setting, there could be some difficulties especially due to **non-stationarity**: as each agent learns and updates its policy, the environment becomes unstable from the perspective of any one agent.
+
+##### Value decomposition network 
+
+Value Decomposition Networks (VDN) introduce a simple but effective idea: instead of learning a single joint Q-function for the entire team, the total team value is approximated as the sum of individual agents’ Q-values.
+
+Formally:  
+    Q_total(s, a₁, ..., aₙ) ≈ Σ Qᵢ(sᵢ, aᵢ)
+
+This decomposition allows for:
+#TODO Check this 
+- **Centralized training**, where the full state and joint actions are used to compute gradients.
+- **Decentralized execution**, where each agent selects its action based only on its own local observation.
+
+VDN addresses the non-stationarity issue and enables scalable learning in cooperative tasks.
+
+In our case, since we are focusing on the Laser Learning Environment (LLE), we highlight the fact that VDN was the algorithm that performed best among the baseline methods tested.
+
+While VDN is relatively simple compared to more advanced algorithms like [[QMIX.pdf|QMIX]], it was found to be more robust in the LLE setting, achieving higher scores and exit rates across different levels.
 
 ### 3.3 Large Language Models for Multi-Agent Collaboration
 
-#todo change GTP-4 by other thing (since chatgpt, gpt-4 and gpt4-belief were used)
+#TODO change GTP-4 by other thing (since chatgpt, gpt-4 and gpt4-belief were used)
 
 Large Language Model, especially GPT-4, have been used recently to explored the multi-agent collaboration task. 
 
@@ -65,7 +90,7 @@ Recent work done by [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] demonst
 
 Despite the absence of explicit multi-agent training, GPT-4 agents training exhibit: coordinated task allocation, synchronized movement and strategy negotiation and delegation. 
 
-One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning—that is, to make inferences about what other agents know or believe.
+One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning, that is, to make inferences about what other agents know or believe.
 
 The use of belief states allows agents to: 
 - Maintain reliable knowledge about the situation
@@ -77,22 +102,22 @@ In the bomb defusal task, GPT-4 agents equipped with belief states consistently 
 Some vulnerabilities remains such as proposing invalid actions or the agents having 
 hallucinations.
 
-#Todo  Find other kind of example where they use LLMs to make 2 agents cooperate? 
-#### 3.3.1 Types of LLMs 
-
-
-
-
+#TODO  Find other kind of example where they use LLMs to make 2 agents cooperate? 
+#### 3.3.1 Types of LLMs (which one would be the better fit)
 
 
 --- 
 
 # Proposed Approach
 
-
+- Which LLM use to do the experiment 
 - Try only with LLMs 
 - Try with a mix of VDN and LLMs 
 - Try with centralized view 
 - Try with decentralized view 
 - Do a review to know which 
+
+
+
+
 

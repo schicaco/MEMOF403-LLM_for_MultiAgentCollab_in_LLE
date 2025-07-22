@@ -8,7 +8,7 @@
 # Autres  
 - Environnements MARL qui existent [https://agents.inf.ed.ac.uk/blog/multiagent-learning-environments/](https://agents.inf.ed.ac.uk/blog/multiagent-learning-environments/ "https://agents.inf.ed.ac.uk/blog/multiagent-learning-environments/")
 # Writing papers  
-- H [[How to ML Paper – A Brief Guide]]
+-  [[How to ML Paper – A Brief Guide]]
 - Ecriture scientifique en informatique: [https://informatique.umons.ac.be/algo/redacSci.pdf](https://informatique.umons.ac.be/algo/redacSci.pdf "https://informatique.umons.ac.be/algo/redacsci.pdf")
 
 # Outils  
