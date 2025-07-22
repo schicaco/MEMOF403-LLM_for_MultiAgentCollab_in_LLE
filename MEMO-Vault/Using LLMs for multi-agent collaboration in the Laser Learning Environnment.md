@@ -45,6 +45,8 @@ In this project, we will focus on level 6 of the LLE, which features 4 agents, 3
 
 ![[LLE.png|400]]
 
+#Todo
+
 ### 3.3 Large Language Models for Multi-Agent Collaboration
 
 Large Languade Model, specially GPT-4, have been used recently to explored the multi-agent collaboration task. 

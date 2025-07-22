@@ -29,7 +29,17 @@
               "state": {
                 "file": "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
                 "mode": "source",
-                "source": false
+                "source": false,
+                "backlinks": true,
+                "backlinkOpts": {
+                  "collapseAll": false,
+                  "extraContext": false,
+                  "sortOrder": "alphabetical",
+                  "showSearch": false,
+                  "searchQuery": "",
+                  "backlinkCollapsed": false,
+                  "unlinkedCollapsed": true
+                }
               },
               "icon": "lucide-file",
               "title": "Using LLMs for multi-agent collaboration in the Laser Learning Environnment"
@@ -207,8 +217,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "left-ribbon": {
     "hiddenItems": {
@@ -221,7 +230,7 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "00da51c307881bd4",
+  "active": "0dc2de2bea7a50c8",
   "lastOpenFiles": [
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/README.md",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
