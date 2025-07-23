@@ -85,7 +85,7 @@ While VDN is relatively simple compared to more advanced algorithms like [[QMIX.
 
 ### 2.3 Large Language Models for Multi-Agent Collaboration
 
-#TODO *change GTP-4 by other thing (since chatgpt, gpt-4 and gpt4-belief were used)*
+#TODO *change GTP-4 by other thing (since chatgpt, gpt-4 and gpt4-belief were used) -> LLM-based agent*
 
 Large Language Models, especially GPT-4, have been used recently to explored the multi-agent collaboration task. 
 
@@ -108,6 +108,7 @@ In the bomb defusal task, GPT-4 agents equipped with belief states consistently 
 Some vulnerabilities remains such as proposing invalid actions or the agents having 
 hallucinations.
 
+#TODO Explain what is Theory of Mind ? 
 #TODO  Find other kind of example where they use LLMs to make 2 agents cooperate? 
 
 
@@ -127,7 +128,7 @@ hallucinations.
 As in shown in the paper "Theory of Mind for Multi-Agent Collaboration via Large Language Models" when using the LLMs in the environment, there is not a training through system reward. Instead, they rely on zero-shot or few-shot prompting. 
 
 That would be one of the approaches taken to implement LLMs to the Laser Learning Environment. 
-Instead of using an algorithm such as VDN we would  
+Instead of using an algorithm such as VDN we would ... explain how to implement it  
 
 ##### 3.2.2 Exploring multi-agent collabation with LLM and VDN 
 
