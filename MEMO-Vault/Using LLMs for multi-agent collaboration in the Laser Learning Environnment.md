@@ -1,15 +1,29 @@
 
-# Introduction 
+#TODO  Fuse point 1 and 2 
+# 1. Introduction 
+
+Multi-agent reinforcement learning (MARL) focuses on training multiple agents to work together in shared environments. While some environments allow agents to learn good strategies independently, others require a high level of coordination and planning. The Laser Learning Environment (LLE) is one such example, where agents must collaborate to overcome obstacles like laser traps and shared bottlenecks. This project explores whether large language models (LLMs) can help improve coordination in these kinds of complex, cooperative tasks.
 
 ---
 
-# Problem Statement and Objectives 
 
-See if it changes something if it is decentrelised or centralised observation for each agent
+# 2. Problem Statement and Objectives 
+
+The Laser Learning Environment (LLE) is a collaborative multi-agent reinforcement learning setting. It introduces specific challenges such as **perfect coordination**, **interdependence**, and **zero-incentive dynamics**. These require agents to rely on each other and perform key actions that don’t provide direct rewards.
+
+Standard reinforcement learning methods have been applied to LLE and achieved good results on some levels, but they still fall short of solving the hardest tasks. In particular, they struggle with long-term planning and exploration when coordination steps are not rewarded.
+
+This project investigates whether **Large Language Models (LLMs)** can help agents coordinate better in LLE by using communication and reasoning capabilities.
+
+The objectives are:
+- Integrate LLMs with value-based MARL methods in LLE
+- Enable LLM-controlled agents to communicate and make cooperative decisions
+- Study how belief states and Theory of Mind (ToM) can support collaboration
+- Evaluate the impact on score, exit rate, and the quality of coordination
 
 ---
 
-# State of the Art 
+# 3. State of the Art 
 
 
 ### 3.1 The Laser Learning Environment (LLE)
@@ -87,7 +101,6 @@ Large Language Model, especially GPT-4, have been used recently to explored the 
 Unlike traditional reinforcement learning approaches, LLMs are not trained through a system of reward. Instead, they rely on [[Definitions#Zero prompting|zero-shot]] or [[Definitions#Few-shot prompting|few-shot]] prompting, basing themself only on the LLM logic and the mission context. 
 
 Recent work done by [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] demonstrate in the collaborative learning environment - where 3 agents which communicate through GPT-4 need to defuse color-coded bombs (where a sequence order needs to be respect to defuse it) scattered in an unexplored environment - display emergent cooperative behaviors. 
-
 Despite the absence of explicit multi-agent training, GPT-4 agents training exhibit: coordinated task allocation, synchronized movement and strategy negotiation and delegation. 
 
 One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning, that is, to make inferences about what other agents know or believe.
@@ -103,19 +116,29 @@ Some vulnerabilities remains such as proposing invalid actions or the agents hav
 hallucinations.
 
 #TODO  Find other kind of example where they use LLMs to make 2 agents cooperate? 
-#### 3.3.1 Types of LLMs (which one would be the better fit)
+
 
 
 --- 
 
-# Proposed Approach
+# 4. Proposed Approach
 
-- Which LLM use to do the experiment 
-- Try only with LLMs 
-- Try with a mix of VDN and LLMs 
+#### 4.1 Which LLM use (which one would be the better fit)
+
+- Review to know which LLM would be used (which one would be the better fit)
+
+#### 4.2 Using LLM in the LLE 
+
+
+
+##### 4.2.1 Exploring multi-agent collaboration only with LLM
+
+##### 4.2.2 Exploring multi-agent collabation with LLM
+
+#### 4.3 Test on different type of observation
+
 - Try with centralized view 
 - Try with decentralized view 
-- Do a review to know which 
 
 
 
