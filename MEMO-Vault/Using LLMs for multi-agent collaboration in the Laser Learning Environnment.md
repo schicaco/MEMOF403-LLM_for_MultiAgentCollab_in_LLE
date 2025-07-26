@@ -109,7 +109,7 @@ Some vulnerabilities remains such as proposing invalid actions or the agents hav
 hallucinations.
 
 #TODO Explain what is Theory of Mind ? 
-#TODO  Find other kind of example where they use LLMs to make 2 agents cooperate? 
+#TODO  Find other kind of example where they use LLMs to make 2 agents cooperate? (Related work)
 
 
 
@@ -119,16 +119,38 @@ hallucinations.
 
 #### 3.1 Which LLM use (which one would be the better fit)
 
-- Review to know which LLM would be used (which one would be the better fit)
+
+
+2 options: 
+
 
 #### 3.2 Using LLM in the LLE 
 
 ##### 3.2.1 Exploring multi-agent collaboration only with LLM
 
-As in shown in the paper "Theory of Mind for Multi-Agent Collaboration via Large Language Models" when using the LLMs in the environment, there is not a training through system reward. Instead, they rely on zero-shot or few-shot prompting. 
+As shown in the paper _Theory of Mind for Multi-Agent Collaboration via Large Language Models_, when using LLMs in multi-agent environments, the models are not trained through a reward-based system. Instead, they rely on **zero-shot** or **few-shot prompting**. 
 
-That would be one of the approaches taken to implement LLMs to the Laser Learning Environment. 
-Instead of using an algorithm such as VDN we would ... explain how to implement it  
+This would be one of the approaches explored in this project to implements LLMs in the Laser Learning Environment. In contrast to methods used like VDN, this method  bypass training entirely. 
+Agents will operate as LLM-driven entities capable of reasoning, planning, and communicating based on structured textual prompts. 
+
+To implement this approach within LLE:
+-   Agents will take turns to interact with the environmentand when communicating with each other and taking the actions
+
+- For prompting framework, each agent will have their dedicated LLM session where 
+	- Intial prompt: A zero-shot prompt will be provided containing 
+		- The agent identity and role
+		- The game description and rules
+		- Initial observation 
+		- Belief state format
+	- Step-by-step prompting (each round), fter the initial setup, **at each round**, the agent receives:
+		- An update of its current observation  
+		- Its updated belief state, which summarizes what the agent has previously seen or inferred
+		- A record of the last round’s communication
+		- A request to generate an action and a message 
+
+#TODO  Expalin why the belief is important and how he it going to be implementes 
+
+**Types of observations **
 
 ##### 3.2.2 Exploring multi-agent collabation with LLM and VDN 
 
