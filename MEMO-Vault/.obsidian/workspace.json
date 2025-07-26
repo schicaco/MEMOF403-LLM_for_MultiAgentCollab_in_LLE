@@ -49,12 +49,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+                "file": "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Theory of Mind for Multi-Agent Collaboration via Large Language Models"
+              "title": "Using LLMs for multi-agent collaboration in the Laser Learning Environnment"
             }
           }
         ],
@@ -216,15 +216,15 @@
       "obsidian-git:Open Git source control": false
     }
   },
-  "active": "20a12769f9270b6b",
+  "active": "00da51c307881bd4",
   "lastOpenFiles": [
+    "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
     "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
     "Thesis materials/LLM/Prompts used for ToM via LLM paper.md",
     "Thesis materials/LLM/Which LLM use.md",
     "Thesis materials/LLM",
     "Thesis materials/Untitled.md",
     "Thesis materials/LLM.md",
-    "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
     "Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
     "Papers Summaries/Laser Learning Environment - A new environment for coordination-critical multi-agent tasks.md",
     "Thesis materials/Hybrid architecture idea.md",

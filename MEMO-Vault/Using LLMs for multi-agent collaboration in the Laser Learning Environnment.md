@@ -119,11 +119,9 @@ hallucinations.
 
 #### 3.1 Which LLM use (which one would be the better fit)
 
-
-
 2 options: 
-
-
+- Use the api of  chatgpt 
+- Use a open source LLM to lake it run locally 
 #### 3.2 Using LLM in the LLE 
 
 ##### 3.2.1 Exploring multi-agent collaboration only with LLM
@@ -148,16 +146,26 @@ To implement this approach within LLE:
 		- A record of the last round’s communication
 		- A request to generate an action and a message 
 
-#TODO  Expalin why the belief is important and how he it going to be implementes 
+**Types of observations**:
 
-**Types of observations **
+Another interesting aspect to explore is the type of observation each agent receives.
 
+- In the **centralized view** case, each agent has access to the full map from the beginning — they know where all the elements (lasers, gems, walls, exits, etc.) are located. The challenge here lies mainly in **planning and coordination**, as no communication is needed to discover the environment.
+
+- In the **decentralized view** case, each agent starts with only a **limited local observation**, for example seeing only the tiles within a 2-square radius. In this setting, agents must not only coordinate but also **communicate effectively** to share what they see, what they need, and what others may be missing.
+
+In the centralized setting, the main focus is on sequencing and cooperation.
+
+In the decentralized setting, **information sharing becomes critical**, as agents need to build a shared understanding of the environment before they can even begin to plan joint actions.
+
+**Belief states to allow Theory of Mind reasoning:**
+
+ #TODO  *I suppose we'll first check it without belief state*
+
+
+The hypothesis is that, by using structured communication and reasoning (rather than reinforcement signals), LLM agents may be able to exhibit **emergent collaborative behavior**.
 ##### 3.2.2 Exploring multi-agent collabation with LLM and VDN 
 
-#### 3.3 Test on different type of observation
-
-- Try with centralized view 
-- Try with decentralized view 
 
 
 
