@@ -2,18 +2,17 @@
 
 # 1. Introduction 
 
-Multi-agent reinforcement learning (MARL) focuses on training multiple agents to work together in shared environments. While some environments allow agents to learn good strategies independently ( #source), others require a high level of coordination and planning ( #source). The Laser Learning Environment (LLE) is one such example, where agents must cooperate to overcome obstacles like laser beams, unreachable zones, and shared bottlenecks.   
+Multi-agent reinforcement learning (MARL) focuses on training multiple agents to work together in shared environments. While some environments allow agents to learn good strategies independently ( #source), others require a high level of coordination and planning ( #source). The Laser Learning Environment (LLE) is one such example, where agents must cooperate to overcome obstacles like laser beams, unreachable zones, and shared bottlenecks ( #source).   
 
 Traditional MARL methods, such as value-based deep Q-networks ( #source), have achieved promising results on LLE’s simpler levels. However, they still struggle on the most difficult tasks, especially when long-term planning and unrewarded cooperation are required.
 
 This project explores whether large language models (LLMs) can support agent coordination in LLE. Rather than learning from scratch, LLM agents rely on structured prompts, memory representations, and theory of mind (ToM) reasoning to plan and collaborate in zero-shot or few-shot settings.
 
-#TODO *Still see if those are the corrects objectives*
 The main objectives are:
-- Combine LLMs with value-based MARL algorithms to solve tasks in LLE
-- Enable agents to communicate and make cooperative decisions using LLM reasoning
-- Explore how belief state prompting and ToM can support coordination
-- Measure the impact on score, exit rate, and qualitative teamwork behaviors
+- Introduce LLM-based agents in the Laser Learning Environment;  
+- Enable agents to communicate and make cooperative decisions using LLM reasoning; 
+- Explore how belief state prompting and ToM can support coordination; 
+- Measure the impact on score, exit rate, and qualitative teamwork behaviors.
 
 ---
 
@@ -72,8 +71,7 @@ Value Decomposition Networks (VDN) introduce a simple but effective idea: instea
 Formally:  
     Q_total(s, a₁, ..., aₙ) ≈ Σ Qᵢ(sᵢ, aᵢ)
 
-This decomposition allows for:
-#TODO *Check this* 
+This decomposition allows for Centralised Training with Decntralised Execution (CTDE):
 - **Centralized training**, where the full state and joint actions are used to compute gradients.
 - **Decentralized execution**, where each agent selects its action based only on its own local observation.
 
@@ -85,14 +83,12 @@ While VDN is relatively simple compared to more advanced algorithms like [[QMIX.
 
 ### 2.3 Large Language Models for Multi-Agent Collaboration
 
-#TODO *change GTP-4 by other thing (since chatgpt, gpt-4 and gpt4-belief were used) -> LLM-based agent*
-
 Large Language Models, especially GPT-4, have been used recently to explored the multi-agent collaboration task. 
 
 Unlike traditional reinforcement learning approaches, LLMs are not trained through a system of reward. Instead, they rely on [[Definitions#Zero prompting|zero-shot]] or [[Definitions#Few-shot prompting|few-shot]] prompting, basing themself only on the LLM logic and the mission context. 
 
 Recent work done by [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] demonstrate in the collaborative learning environment - where 3 agents which communicate through GPT-4 need to defuse color-coded bombs (where a sequence order needs to be respect to defuse it) scattered in an unexplored environment - that agents display emergent cooperative behaviors. 
-Despite the absence of explicit multi-agent training, GPT-4 agents training exhibit: coordinated task allocation, synchronized movement and strategy negotiation and delegation. 
+Despite the absence of explicit multi-agent training, LLM-based agents training exhibit: coordinated task allocation, synchronized movement and strategy negotiation and delegation. 
 
 One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning, that is, to make inferences about what other agents know or believe. #TODO Check 
 if correct 
@@ -103,7 +99,7 @@ The use of belief states allows agents to:
 - Keep tracks of the tools or intentions of the other agents 
 - Reason about both **first-order beliefs** (what others know) and **second-order beliefs** (what others think you know)
 
-In the bomb defusal task, GPT-4 agents equipped with belief states consistently achieve **perfect or near-perfect scores**, completing all three bomb phases with high success rates.
+In the bomb defusal task, LLM-based agents equipped with belief states consistently achieve **perfect or near-perfect scores**, completing all three bomb phases with high success rates.
 
 Some vulnerabilities remains such as proposing invalid actions or the agents having 
 hallucinations.
@@ -166,8 +162,7 @@ In the decentralized setting, **information sharing becomes critical**, as agent
 The hypothesis is that, by using structured communication and reasoning (rather than reinforcement signals), LLM agents may be able to exhibit **emergent collaborative behavior**.
 ##### 3.2.2 Exploring multi-agent collabation with LLM and VDN 
 
+#### 3.4 How the experiment could be done 
+##### 3.4.1 What kind of results are we calculate 
 
-
-
-
-
+Comparison with LLE 
