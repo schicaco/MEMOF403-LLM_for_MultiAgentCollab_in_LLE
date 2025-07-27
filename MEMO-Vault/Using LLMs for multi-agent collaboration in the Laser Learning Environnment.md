@@ -184,8 +184,6 @@ In addition, Comparing them to GPT-4 could help identify which reasoning abiliti
 ###### Current plan 
 
 
-
-
 ##### 3.4.1 What kind of results are we  oing calculate 
 
 Comparison with LLE used with VDN 
