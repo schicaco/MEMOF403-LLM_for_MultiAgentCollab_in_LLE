@@ -316,3 +316,84 @@ Explicit belief states mitigated these issues by reinforcing relevant context.
     
 
 ---
+---
+
+# Importance of belief states 
+
+### 🎯 **Purpose of First- and Second-Order Belief Reasoning**
+
+#### 1. **Better Coordination Without Direct Observation**
+
+- In decentralized environments, agents don't always know what others are seeing or doing.
+- **First-order ToM** lets an agent reason: _“Agent B doesn’t know the laser is blocked — I should tell them.”_
+- This improves coordination even when explicit communication is limited or delayed.
+
+#### 2. **Avoiding Conflicts and Redundancy**
+
+- **Second-order ToM** allows for thoughts like: _“Agent B knows that I know about the gem, so they won’t go for it.”_
+- This avoids repeated or conflicting actions and enables efficient task division.
+
+#### 3. **Emergent Strategic Behavior**
+
+- These reasoning levels lead to **emergent behaviors** such as delegation, leadership, or adaptive planning — as seen in the Li et al. paper.
+- It mimics how human teams intuitively manage shared goals through subtle understanding, not just rigid instructions.
+
+#### 4. **Necessary for Complex Tasks**
+
+- In tasks with hidden information or partial observability (like LLE or the bomb-defusal environment in the paper), **ToM is essential** to infer missing knowledge and act accordingly.
+
+
+
+---
+---
+
+# Paper hightlights 
+
+One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning, that is, to make inferences about what other agents know or believe. #TODO Check 
+if correct 
+
+#TODO  *check if correct*
+The use of belief states allows agents to: 
+- Maintain reliable knowledge about the situation
+- Keep tracks of the tools or intentions of the other agents 
+- Reason about both **first-order beliefs** (what others know) and **second-order beliefs** (what others think you know)
+
+**4. LLM-based Embodied Agents**
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=4&selection=60,0,61,33&color=yellow|ToM_for_multi-agentCollab_via_LLMs, p.4]])
+> the game rules and history from the previous two rounds, amounting to 4096 tokens.
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=4&selection=88,0,97,27&color=yellow|ToM_for_multi-agentCollab_via_LLMs, p.4]])
+> Due to the model input size limitation, LLM-based agents cannot retain the entire interaction history, yet task dynamics require the team to track key long-term information, such as room contents and bomb sequences. To augment the agents’ information retention and enhance collaboration, we propose a method of prompt engineering to represent explicit belief states
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=4&selection=106,0,107,49&color=yellow|ToM_for_multi-agentCollab_via_LLMs, p.4]])
+> The proposed belief state is inspired by the idea of chain-of-thought prompting (Wei et al., 2022)
+> -> See paper [[Chain_of_Thoughts_prompting.pdf|Chain-of-Thought Prompting Elicits Reasoning in Large Language Models]] 
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=4&selection=111,0,114,46&color=yellow|ToM_for_multi-agentCollab_via_LLMs, p.4]])
+> an initial belief state description is provided to illustrate the proper format and representations, the update rules are entirely zero-shot, relying solely on the LLM’s common sense and mission context.
+
+**5. Setups**
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=5&selection=107,5,110,42&color=red|ToM_for_multi-agentCollab_via_LLMs, p.5]])
+> each agent only has a partial observation and its own interaction history, with inter-agent communication being the sole means of information diffusion in this fully decentralized team
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=6&selection=12,18,20,49&color=red|ToM_for_multi-agentCollab_via_LLMs, p.6]])
+> he first category, introspection, assesses an agent’s ability to articulate its mental state. The second category, first-order ToM inferences, tests if agents can estimate others’ hidden mental states. The third category, second-order ToM inferences, evaluates an agent’s ability to infer what others believe about their own mental state.
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=6&selection=22,14,23,31&color=red|ToM_for_multi-agentCollab_via_LLMs, p.6]])
+> Sally–Anne test, the most widely used ToM task in human studies.
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=6&selection=23,32,25,38&color=red|ToM_for_multi-agentCollab_via_LLMs, p.6]])
+> Every time an agent conducts an action, we pose a belief reasoning question, asking if another agent 
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=6&selection=26,7,28,6&color=red|ToM_for_multi-agentCollab_via_LLMs, p.6]])
+> is aware of the potential consequence of this action. The consequence here can be either a state change
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=6&selection=30,27,33,14&color=red|ToM_for_multi-agentCollab_via_LLMs, p.6]])
+> An agent equipped with ToM should realize that while they know the consequence, the target agent might hold a false belief about it.
+
+> ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=6&selection=36,27,38,49&color=red|ToM_for_multi-agentCollab_via_LLMs, p.6]])
+> human annotators were hired to provide subjective judgment based on fully observable interaction and communication history.
+
+
+
+

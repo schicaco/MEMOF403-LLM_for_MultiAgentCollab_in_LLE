@@ -90,18 +90,17 @@ Unlike traditional reinforcement learning approaches, LLMs are not trained throu
 Recent work done by [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] demonstrate in the collaborative learning environment - where 3 agents which communicate through GPT-4 need to defuse color-coded bombs (where a sequence order needs to be respect to defuse it) scattered in an unexplored environment - that agents display emergent cooperative behaviors. 
 Despite the absence of explicit multi-agent training, LLM-based agents training exhibit: coordinated task allocation, synchronized movement and strategy negotiation and delegation. 
 
-One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning, that is, to make inferences about what other agents know or believe. #TODO Check 
-if correct 
+One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning. ( #source -> [[Chain_of_Thoughts_prompting.pdf|Chain-of-Thought Prompting Elicits Reasoning in LLMs]])
 
-#TODO  *check if correct*
 The use of belief states allows agents to: 
 - Maintain reliable knowledge about the situation
-- Keep tracks of the tools or intentions of the other agents 
 - Reason about both **first-order beliefs** (what others know) and **second-order beliefs** (what others think you know)
+
+Implementing this belief states helps agents to collaborate in better ways. For example **first order belief** lets an agent reason: *Agent B doestn't know the laser is blocked, I should tell them*, **second order belief** allows thoughts like: *Agent A knows that I know about the gem, so  they won't go for it*. 
 
 In the bomb defusal task, LLM-based agents equipped with belief states consistently achieve **perfect or near-perfect scores**, completing all three bomb phases with high success rates.
 
-Some vulnerabilities remains such as proposing invalid actions or the agents having 
+Some vulnerabilities may be encountered such as proposing invalid actions or the agents having 
 hallucinations.
 
 #TODO Explain what is Theory of Mind ? 
@@ -165,4 +164,6 @@ The hypothesis is that, by using structured communication and reasoning (rather 
 #### 3.4 How the experiment could be done 
 ##### 3.4.1 What kind of results are we calculate 
 
-Comparison with LLE 
+Comparison with LLE used with VDN 
+
+
