@@ -14,10 +14,8 @@ The main objectives are:
 - Explore how belief state prompting and ToM can support coordination; 
 - Measure the impact on score, exit rate, and qualitative teamwork behaviors.
 
----
 
 # 2. State of the Art 
-
 
 ### 2.1 The Laser Learning Environment (LLE)
 
@@ -81,13 +79,15 @@ In our case, since we are focusing on the Laser Learning Environment (LLE), we h
 
 While VDN is relatively simple compared to more advanced algorithms like [[QMIX.pdf|QMIX]], it was found to be more robust in the LLE setting, achieving higher scores and exit rates across different levels.
 
+--- 
+
 ### 2.3 Large Language Models for Multi-Agent Collaboration
 
 Large Language Models, especially GPT-4, have been used recently to explored the multi-agent collaboration task. 
 
 Unlike traditional reinforcement learning approaches, LLMs are not trained through a system of reward. Instead, they rely on [[Definitions#Zero prompting|zero-shot]] or [[Definitions#Few-shot prompting|few-shot]] prompting, basing themself only on the LLM logic and the mission context. 
 
-Recent work done by [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] demonstrate in the collaborative learning environment - where 3 agents which communicate through GPT-4 need to defuse color-coded bombs (where a sequence order needs to be respect to defuse it) scattered in an unexplored environment - that agents display emergent cooperative behaviors. 
+Recent work done by [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] demonstrate in the collaborative learning environment, where 3 agents which communicate through GPT-4 need to defuse color-coded bombs (where a sequence order needs to be respect to defuse it) scattered in an unexplored environment - that agents display emergent cooperative behaviors. 
 Despite the absence of explicit multi-agent training, LLM-based agents training exhibit: coordinated task allocation, synchronized movement and strategy negotiation and delegation. 
 
 One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning. ( #source -> [[Chain_of_Thoughts_prompting.pdf|Chain-of-Thought Prompting Elicits Reasoning in LLMs]])
@@ -96,7 +96,7 @@ The use of belief states allows agents to:
 - Maintain reliable knowledge about the situation
 - Reason about both **first-order beliefs** (what others know) and **second-order beliefs** (what others think you know)
 
-Implementing this belief states helps agents to collaborate in better ways. For example **first order belief** lets an agent reason: *Agent B doestn't know the laser is blocked, I should tell them*, **second order belief** allows thoughts like: *Agent A knows that I know about the gem, so  they won't go for it*. 
+Implementing this belief states helps agents to collaborate in better ways. For example **first order belief** lets an agent reason: *Agent B doestn't know the laser is blocked, I should tell them*, while **second order belief** allows thoughts like: *Agent A knows that I know about the gem, so  they won't go for it*. 
 
 In the bomb defusal task, LLM-based agents equipped with belief states consistently achieve **perfect or near-perfect scores**, completing all three bomb phases with high success rates.
 
@@ -106,17 +106,10 @@ hallucinations.
 #TODO Explain what is Theory of Mind ? 
 #TODO  Find other kind of example where they use LLMs to make 2 agents cooperate? (Related work)
 
-
-
 --- 
 
 # 3. Proposed Approach
 
-#### 3.1 Which LLM use (which one would be the better fit)
-
-2 options: 
-- Use the api of  chatgpt 
-- Use a open source LLM to lake it run locally 
 #### 3.2 Using LLM in the LLE 
 
 ##### 3.2.1 Exploring multi-agent collaboration only with LLM
@@ -141,7 +134,9 @@ To implement this approach within LLE:
 		- A record of the last round’s communication
 		- A request to generate an action and a message 
 
-**Types of observations**:
+The hypothesis is that, by using structured communication and reasoning (rather than reinforcement signals), LLM agents may be able to exhibit **emergent collaborative behavior**.
+
+###### Types of observations:
 
 Another interesting aspect to explore is the type of observation each agent receives.
 
@@ -153,16 +148,45 @@ In the centralized setting, the main focus is on sequencing and cooperation.
 
 In the decentralized setting, **information sharing becomes critical**, as agents need to build a shared understanding of the environment before they can even begin to plan joint actions.
 
-**Belief states to allow Theory of Mind reasoning:**
+###### Belief states to allow Theory of Mind reasoning:
 
- #TODO  *I suppose we'll first check it without belief state*
+ *I suppose we'll first check it without belief state as well*
 
-
-The hypothesis is that, by using structured communication and reasoning (rather than reinforcement signals), LLM agents may be able to exhibit **emergent collaborative behavior**.
 ##### 3.2.2 Exploring multi-agent collabation with LLM and VDN 
 
-#### 3.4 How the experiment could be done 
-##### 3.4.1 What kind of results are we calculate 
+#### 3.4 Technical aspect of the implementation 
+
+##### 3.4.1 Which LLM use (which one would be the better fit)
+
+###### Using GPT-4 API model 
+This approach has the advantage that it has demonstrated  a powerful, state-of-the-art model that has already shown promising results in multi-agent collaboration tasks (see [[ToM_for_multi-agentCollab_via_LLMs.pdf| Li et al.]]). 
+
+It has been prove that it supports zero-shot and few-shot reasoning, has strong language understanding, and has already been tested in belief-state and Theory of Mind (ToM) scenarios.
+
+The main limitation of this option is cost. Every prompt sent to the model (for each agent, at each round) consumes tokens and could lead to significant API usage fees. This could become a constraint, especially when running many trials, or testing with long interactionu histories.
+
+However, given the nature of this project, which relies on **zero-shot** or **few-shot prompting**, and the fact that it does not require shaped rewards or long training phases to discover collaborative behaviors, the overall cost is likely to remain lower than traditional AI training approaches. Unlike reinforcement learning, which often large number of interaction steps and extensive compute resources,this method builds on pre-trained knowledge, making it a more lightweight and scalable option. 
+
+###### Using an open-source LLM locally
+
+Another approach would be to use an open-source LLM, such as LLamA, DeepSeek or Mistral, and run it locally. This would remove the cost constraint and provide more flexibility in experimentation, especially when designing custom memory components or modifying the way prompts are handled.
+
+On the other hand, most open-source models are less capable than GPT-4 when it comes to complex multi-step reasoning and ToM-like inference. Some models may also have limited context windows, which is a critical factor when agents need to process history or belief states.
+
+Additional setup time is also required to host the model efficiently (possibly with quantization or GPU optimization).
+
+Beyond the technical trade-offs, it could also be interesting to compare how different types of LLMs perform on this kind of task. Testing a variety of models may reveal differences in how they reason, coordinate, or handle uncertainty — even under the same prompting structure. This could lead to insights on what capabilities matter most for multi-agent collaboration and where current models fall short.
+In addition, Comparing them to GPT-4 could help identify which reasoning abilities are essential for success in this kind of environment.
+
+
+**Which LLM to use among all the open source LLM that exist**
+
+###### Current plan 
+
+
+
+
+##### 3.4.1 What kind of results are we  oing calculate 
 
 Comparison with LLE used with VDN 
 

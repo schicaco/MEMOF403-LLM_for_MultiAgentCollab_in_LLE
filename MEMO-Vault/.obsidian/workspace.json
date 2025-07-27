@@ -20,8 +20,100 @@
               "icon": "lucide-file",
               "title": "Using LLMs for multi-agent collaboration in the Laser Learning Environnment"
             }
+          },
+          {
+            "id": "6e45b39a0addef6e",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Theory of Mind for Multi-Agent Collaboration via Large Language Models"
+            }
+          },
+          {
+            "id": "d1cd4ca864d88622",
+            "type": "leaf",
+            "state": {
+              "type": "pdf",
+              "state": {
+                "file": "Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
+                "page": 5,
+                "left": -16,
+                "top": 192,
+                "zoom": 0.9285608692438467
+              },
+              "icon": "lucide-file-text",
+              "title": "ToM_for_multi-agentCollab_via_LLMs"
+            }
           }
         ]
+      },
+      {
+        "id": "187336fc678c4912",
+        "type": "split",
+        "children": [
+          {
+            "id": "3fbc5a9303a409de",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "0b25454fd2d46078",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "Using LLMs for multi-agent collaboration in the Laser Learning Environnment"
+                }
+              },
+              {
+                "id": "651588a909a9d200",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "scratch.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "scratch"
+                }
+              }
+            ],
+            "currentTab": 1
+          },
+          {
+            "id": "fa27473af3726f6b",
+            "type": "tabs",
+            "children": [
+              {
+                "id": "34872be05196fe3e",
+                "type": "leaf",
+                "state": {
+                  "type": "markdown",
+                  "state": {
+                    "file": "scratch.md",
+                    "mode": "source",
+                    "source": false
+                  },
+                  "icon": "lucide-file",
+                  "title": "scratch"
+                }
+              }
+            ]
+          }
+        ],
+        "direction": "horizontal"
       }
     ],
     "direction": "vertical"
@@ -184,10 +276,11 @@
   },
   "active": "d88d5f20957accd1",
   "lastOpenFiles": [
+    "scratch.md",
     "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
-    "Thesis materials/How to ML Paper – A Brief Guide.md",
-    "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
     "Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
+    "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+    "Thesis materials/How to ML Paper – A Brief Guide.md",
     "Papers/Chain_of_Thoughts_prompting.pdf",
     "Papers Summaries/ToM_LLMs_annotation.md",
     "Papers Summaries/VDN.md",
@@ -221,7 +314,6 @@
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers/VDN.pdf",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images/ToM_embodied_agent.png",
-    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images/LLE.png",
-    "Welcome.md"
+    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images/LLE.png"
   ]
 }

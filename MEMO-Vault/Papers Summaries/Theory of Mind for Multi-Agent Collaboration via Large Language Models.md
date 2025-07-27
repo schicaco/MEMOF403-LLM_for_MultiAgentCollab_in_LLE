@@ -349,14 +349,6 @@ Explicit belief states mitigated these issues by reinforcing relevant context.
 
 # Paper hightlights 
 
-One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning, that is, to make inferences about what other agents know or believe. #TODO Check 
-if correct 
-
-#TODO  *check if correct*
-The use of belief states allows agents to: 
-- Maintain reliable knowledge about the situation
-- Keep tracks of the tools or intentions of the other agents 
-- Reason about both **first-order beliefs** (what others know) and **second-order beliefs** (what others think you know)
 
 **4. LLM-based Embodied Agents**
 
@@ -393,6 +385,14 @@ The use of belief states allows agents to:
 
 > ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=6&selection=36,27,38,49&color=red|ToM_for_multi-agentCollab_via_LLMs, p.6]])
 > human annotators were hired to provide subjective judgment based on fully observable interaction and communication history.
+
+**6. Experiment**
+
+> [!PDF|important] [[ToM_for_multi-agentCollab_via_LLMs.pdf#page=7&selection=129,0,132,8&color=important|ToM_for_multi-agentCollab_via_LLMs, p.7]]
+> > These findings suggest that LLMs, through learning from massive language materials, acquire essential teamwork skills without specific collaborative task training
+> 
+
+
 
 
 
