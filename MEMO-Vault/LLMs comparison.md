@@ -1,17 +1,27 @@
 
 
 ## Open source LLMs high in leader boards 
-When checking in the existing leaderboards which are public ranking on the LLMs models, where different models are compared based on how well they perform, especially standards benchmarks. Among the open source models,  Three models stand out: Deepseek-r1, Mistral and LLama. 
+
+
+When checking the existing **LLM leaderboards** where we get public rankings, such as the LLM arena ( #source) which is  a crowdsourced battle platform or llm-stat ( #source) which based its leaderboard on standarized benchmarks. 
+
+Among the **open-source** models, **four stand out consistently** for their high performance, accessibility, and reasoning ability:
+
+
+|                 | Context Window | Size | Reasoning |
+| --------------- | -------------- | ---- | --------- |
+| DeepSeek R1     | 128k           | 671B |           |
+| LLaMA 4         | 1M             | 400B |           |
+| Qwen 3          | 128k           | 235B |           |
+| Mistral Small 3 | 24B            | 24B  |           |
+|                 |                |      |           |
 
 
 
-##  Comarison 
+- DeepSeek R1 
+- Mistral 
+- LLaMA 4
+- Qwen 3
 
-| Header | Header | Header |
-| ------ | ------ | ------ |
-| Text   | Text   |        |
-|        |        |        |
-|        |        |        |
-
-## LLM that will be use 
+In our case, **DeepSeek emerges as the most suitable choice**, as it consistently outperforms the others across multiple evaluation platforms, making it the strongest candidate for our needs in multi-agent collaboration.
 

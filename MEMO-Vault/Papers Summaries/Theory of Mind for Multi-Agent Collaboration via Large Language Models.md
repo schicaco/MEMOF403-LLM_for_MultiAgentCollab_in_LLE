@@ -352,6 +352,11 @@ Explicit belief states mitigated these issues by reinforcing relevant context.
 
 **4. LLM-based Embodied Agents**
 
+> [!PDF|yellow] [[ToM_for_multi-agentCollab_via_LLMs.pdf#page=3&selection=151,0,154,38&color=yellow|ToM_for_multi-agentCollab_via_LLMs, p.3]]
+> > We chose to evaluate OpenAI’s latest chat completion models, namely gpt-3.5-turbo-0301 and gpt-4- 0314, owing to their impressive performance in various benchmarks (Zheng et al., 2023). 
+> 
+
+
 > ([[ToM_for_multi-agentCollab_via_LLMs.pdf#page=4&selection=60,0,61,33&color=yellow|ToM_for_multi-agentCollab_via_LLMs, p.4]])
 > the game rules and history from the previous two rounds, amounting to 4096 tokens.
 
