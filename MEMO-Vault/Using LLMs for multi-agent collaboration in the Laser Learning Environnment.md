@@ -2,9 +2,9 @@
 
 # 1. Introduction 
 
-Multi-agent reinforcement learning (MARL) focuses on training multiple agents to work together in shared environments. While some environments allow agents to learn good strategies independently ( #source), others require a high level of coordination and planning ( #source). The Laser Learning Environment (LLE) is one such example, where agents must cooperate to overcome obstacles like laser beams, unreachable zones, and shared bottlenecks ( #source).   
+Multi-agent reinforcement learning (MARL) focuses on training multiple agents to work together in shared environments. While some environments allow agents to learn good strategies independently, others require a high level of coordination and planning. The Laser Learning Environment (LLE) is one such example, where agents must cooperate to overcome obstacles like laser beams, unreachable zones, and shared bottlenecks.   
 
-Traditional MARL methods, such as value-based deep Q-networks ( #source), have achieved promising results on LLE’s simpler levels. However, they still struggle on the most difficult tasks, especially when long-term planning and unrewarded cooperation are required.
+Traditional MARL methods, such as value-based deep Q-networks, have achieved promising results on LLE’s simpler levels. However, they still struggle on the most difficult tasks, especially when long-term planning and unrewarded cooperation are required.
 
 This project explores whether large language models (LLMs) can support agent coordination in LLE. Rather than learning from scratch, LLM agents rely on structured prompts, memory representations, and theory of mind (ToM) reasoning to plan and collaborate in zero-shot or few-shot settings.
 
@@ -52,7 +52,7 @@ In this project, we will focus on level 6 of the LLE, which features 4 agents, 3
 
 There are several cooperative multi-agent environments that have been proposed , such as **Overcooked**, **Hanabi**,the one that we presented,  the **Laser Learning Environment (LLE)**.
 
-These environments are typically designed to test agents on tasks that require **tight coordination**, and **team-level rewards**. Most of the time, the algorithms used to address these problems are **deep Q-network (DQN)** based ( #source), extended to handle multiple agents acting simultaneously.
+These environments are typically designed to test agents on tasks that require **tight coordination**, and **team-level rewards**. Most of the time, the algorithms used to address these problems are **deep Q-network (DQN)** based, extended to handle multiple agents acting simultaneously.
 
 #### Background 
 
@@ -90,7 +90,7 @@ Unlike traditional reinforcement learning approaches, LLMs are not trained throu
 Recent work done by [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] demonstrate in the collaborative learning environment, where 3 agents which communicate through GPT-4 need to defuse color-coded bombs (where a sequence order needs to be respect to defuse it) scattered in an unexplored environment - that agents display emergent cooperative behaviors. 
 Despite the absence of explicit multi-agent training, LLM-based agents training exhibit: coordinated task allocation, synchronized movement and strategy negotiation and delegation. 
 
-One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning. ( #source -> [[Chain_of_Thoughts_prompting.pdf|Chain-of-Thought Prompting Elicits Reasoning in LLMs]])
+One key limitation of LLMs is the lack of persistent memory and internal state tracking. To address this, [[ToM_for_multi-agentCollab_via_LLMs.pdf|Li et al.]] introduce **belief state prompting**, in which each agent is given a text-based summary of what it has observed and what it believes about the environment and teammates. This technique enables the model to perform **Theory of Mind (ToM)** reasoning.
 
 The use of belief states allows agents to: 
 - Maintain reliable knowledge about the situation
