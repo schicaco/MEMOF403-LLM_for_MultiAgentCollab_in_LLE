@@ -48,23 +48,15 @@ In this project, we will focus on level 6 of the LLE, which features 4 agents, 3
 
 #TODO   Present the algorithms use for this level, the results (maybe explain why the level 6 is pertinent? )
 
-### 2.2 Cooperative Multi-Agent Reinforcement Learning
+### 2.1.1 Reinforcement Learning Approaches for Solving Coordination in LLE
 
-There are several cooperative multi-agent environments that have been proposed , such as **Overcooked**, **Hanabi**,the one that we presented,  the **Laser Learning Environment (LLE)**.
+To tackle the coordination challenges in environments like the Laser Learning Environment (LLE), several reinforcement learning (RL) algorithms have been tested , especially those designed for cooperative multi-agent settings.
 
-These environments are typically designed to test agents on tasks that require **tight coordination**, and **team-level rewards**. Most of the time, the algorithms used to address these problems are **deep Q-network (DQN)** based, extended to handle multiple agents acting simultaneously.
+A common approach is to use deep Q-learning techniques, where agents learn action policies by maximizing expected rewards over time. However, when multiple agents are involved, things get more complicated. Each agent influences the environment, so what one agent learns changes the experience of the others. This problem is known as **non-stationarity**, and it makes learning stable strategies much harder.
 
-#### Background 
+One way to deal with this is through **Value Decomposition Networks (VDN)**: 
 
-##### Deep Q-Network 
-
-The Deep Q-Network (DQN) is one of the basic algorithms in reinforcement learning. It allows an agent to learn how to act by estimating the expected reward it can get by taking a certain action in a given state. The idea is to use a neural network to approximate the Q-function, and update it over time as the agent interacts with the environment.
-
-In the case of multi-agent setting, there could be some difficulties especially due to **non-stationarity**: as each agent learns and updates its policy, the environment becomes unstable from the perspective of any one agent.
-
-##### Value decomposition network 
-
-Value Decomposition Networks (VDN) introduce a simple but effective idea: instead of learning a single joint Q-function for the entire team, the total team value is approximated as the sum of individual agents’ Q-values.
+Value Decomposition Networks (VDN) introduces a simple but effective idea: instead of learning a single joint Q-function for the entire team, the total team value is approximated as the sum of individual agents’ Q-values.
 
 Formally:  
     Q_total(s, a₁, ..., aₙ) ≈ Σ Qᵢ(sᵢ, aᵢ)
@@ -75,13 +67,13 @@ This decomposition allows for Centralised Training with Decntralised Execution (
 
 VDN addresses the non-stationarity issue and enables scalable learning in cooperative tasks.
 
-In our case, since we are focusing on the Laser Learning Environment (LLE), we highlight the fact that VDN was the algorithm that performed best among the baseline methods tested.
+According to the results from the original LLE paper, VDN was the most successful among the tested baseline algorithms. While more advanced methods like QMIX ( #source) were also evaluated, VDN performed better in terms of both score and exit rate, especially on **Level 6**, which has the highest level of interdependence among all the levels.
 
-While VDN is relatively simple compared to more advanced algorithms like [[QMIX.pdf|QMIX]], it was found to be more robust in the LLE setting, achieving higher scores and exit rates across different levels.
+For this reason, VDN serves as a solid baseline to see if LLM-based agents can come close to or match the kind of performance learning-based methods achieve.
 
 --- 
 
-### 2.3 Large Language Models for Multi-Agent Collaboration
+### 2.2 Large Language Models for Multi-Agent Collaboration
 
 Large Language Models, especially GPT-4, have been used recently to explored the multi-agent collaboration task. 
 
@@ -150,9 +142,24 @@ In the decentralized setting, **information sharing becomes critical**, as agent
 
 ###### Belief states to allow Theory of Mind reasoning:
 
- *I suppose we'll first check it without belief state as well*
+One of the key components that enables LLM agents to go beyond simple rule-following is the use of **belief states**. These are structured textual summaries that represent what an agent knows — not just about its own observations, but also what it believes about the environment and its teammates.
 
-##### 3.2.2 Exploring multi-agent collabation with LLM and VDN 
+Inspired by the prompting technique used in the paper _Theory of Mind for Multi-Agent Collaboration via Large Language Models_, each agent will maintain and update a belief state at every step. This belief state is explicitly included in the prompt and acts as a form of memory. It allows the agent to track:
+
+- What it has observed directly in the environment
+- What it infers based on communication from others
+- What others likely know or do not know
+
+By incorporating this belief tracking, agents can begin to perform **Theory of Mind (ToM)** reasoning — inferring not only the state of the world, but also the mental state of other agents. This includes:
+
+- **First-order beliefs**: “Agent B doesn’t know the yellow laser is blocked”
+- **Second-order beliefs**: “Agent C thinks that I don’t know the gem is behind the wall”
+
+These capabilities are especially important in the **decentralized view**, where agents do not see the full environment and must rely on reasoning about what others perceive and communicate.
+
+In this setup, belief states will evolve dynamically: after each round, the agent updates its belief based on new observations and messages. This updated belief is then passed as part of the next prompt, supporting continuity in reasoning across steps.
+
+The expectation is that belief-aware agents will show more coordinated and adaptive behaviors, even without being explicitly trained — especially in tasks that involve helping others, waiting, or anticipating actions based on partial information.
 
 #### 3.4 Technical aspect of the implementation 
 
@@ -179,13 +186,50 @@ Beyond the technical trade-offs, it could also be interesting to compare how dif
 In addition, Comparing them to GPT-4 could help identify which reasoning abilities are essential for success in this kind of environment.
 
 
-**Which LLM to use among all the open source LLM that exist**
+*Which LLM to use among all the open source LLM that exist:*
 
-###### Current plan 
+When checking the existing **LLM leaderboards** where we get public rankings, such as the LLM arena ( #source :  https://lmarena.ai/leaderboard/text) which is  a crowdsourced battle platform or llm-stat ( #source :https://llm-stats.com/  ) which based its leaderboard on standarized benchmarks. 
 
+Among the **open-source** models, **four stand out consistently** for their high performance, accessibility, and reasoning ability:
 
-##### 3.4.1 What kind of results are we  oing calculate 
+- DeepSeek R1 
+- Mistral 
+- LLaMA 4
+- Qwen 3
 
-Comparison with LLE used with VDN 
+In our case, **DeepSeek emerges as the most suitable choice**, as it consistently outperforms the others across multiple evaluation platforms, making it the strongest candidate for our needs in multi-agent collaboration.
 
+###### Selected Implementation Strategy
+
+For the purposes of this project, the selected approach is to go whith an open-source language model and run the model locally. Since the number of interactions or episodes needed to evaluate and compare strategies is still unknown, this approach avoids API cost limitations and gives more freedom during experimentation. It also makes it easier to scale up if needed.
+
+Another reason is that it would be interesting to test with a different LLM than the one used in the paper by Li et al. Using another model allows us to see whether the same prompting framework and belief-state setup can work beyond GPT-4. This could help assess how transferable and general the method is.
+
+Running locally also gives us more control and flexibility. This makes it easier to adapt the setup to the needs of the task, and to explore variations without being limited by a fixed API.
+
+In terms of model choice, we will begin with DeepSeek, as it consistently ranks among the top open-source models on several public benchmarks. Its strong reasoning performance makes it a good candidate for handling multi-agent communication and coordination tasks.
+
+If time allows, it could also be interesting to test how different **model sizes or architectures** affect collaboration quality, for example, whether smaller LLMs can still perform well  with the right belief state prompts. It could also be interesting to compare other open-source models like Mistral, Qwen, or LLaMA under the same setup.
+##### 3.4.1 What kind of results will be evaluated
+
+To evaluate the performance of the LLM-based agents in the Laser Laser Environment several metrics will be used.  Among them, we will use the same metrics proposed in the orignal  LLE paper ( #source): 
+
+- **Score** refers to the total number of points collected during an episode, without applying any discount.  The maximum possible score in LLE depends on the map: if there are _n_ agents and _g_ gems, the best possible score is **n + g + 1** (with the extra +1 coming from the team bonus when all agents reach the exit).
+- **Exit rate** measures how many agents make it to the exit by the end of the episode. It gives a good idea of how close the team gets to completing the task. An exit rate of **1** means that all agents successfully reached the goal.
+
+These results will then be compared to the baseline performance of VDN on Level 6 of LLE ( #source), as described in Molinghen et al. (2024). Since VDN is considered the best-performing MARL baseline in that paper, it gives us a good reference to see if LLM-based agents can reach similar or better results.
+
+In addition, we'll add a new metric that we'll want to evaluated: 
+
+- **Belief state reasoning**: whether agents show signs of Theory of Mind (e.g., adapting their behavior based on what others know or don’t know).
+
+To evaluate this metric, we will rely on **manual analysis** of selected episodes, focusing on situations where agents are expected to reason about the mental states of others. This includes identifying moments where an agent acts (or chooses not to act) based on what it believes another agent knows, has seen, or has been told.
+
+The evaluation will follow a few simple criteria inspired by the setup in the ToM paper ( #source ):
+
+1. Did the agent demonstrate awareness of what another agent has or has not observed (e.g., based on location or visibility)?
+2. Did the agent respond appropriately to information received through communication?
+3. Did the agent act in a way that suggests second-order reasoning (e.g., “they don’t know that I know X”)?
+
+By reviewing the full interaction history — including the belief states and messages exchanged — we will be able to assess whether agents are applying some form of **Theory of Mind** reasoning in practice.
 

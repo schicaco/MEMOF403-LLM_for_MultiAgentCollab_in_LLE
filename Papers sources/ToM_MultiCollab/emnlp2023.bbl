@@ -1,0 +1,265 @@
+\begin{thebibliography}{38}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Ahn et~al.(2022)Ahn, Brohan, Brown, Chebotar, Cortes, David, Finn,
+  Fu, Gopalakrishnan, Hausman et~al.}]{ahn2022can}
+Michael Ahn, Anthony Brohan, Noah Brown, Yevgen Chebotar, Omar Cortes, Byron
+  David, Chelsea Finn, Chuyuan Fu, Keerthana Gopalakrishnan, Karol Hausman,
+  et~al. 2022.
+\newblock Do as i can, not as i say: Grounding language in robotic affordances.
+\newblock \emph{arXiv preprint arXiv:2204.01691}.
+
+\bibitem[{Baker et~al.(2017)Baker, Jara-Ettinger, Saxe, and
+  Tenenbaum}]{baker2017rational}
+Chris~L Baker, Julian Jara-Ettinger, Rebecca Saxe, and Joshua~B Tenenbaum.
+  2017.
+\newblock Rational quantitative attribution of beliefs, desires and percepts in
+  human mentalizing.
+\newblock \emph{Nature Human Behaviour}, 1(4):0064.
+
+\bibitem[{Brockman et~al.(2016)Brockman, Cheung, Pettersson, Schneider,
+  Schulman, Tang, and Zaremba}]{1606.01540}
+Greg Brockman, Vicki Cheung, Ludwig Pettersson, Jonas Schneider, John Schulman,
+  Jie Tang, and Wojciech Zaremba. 2016.
+\newblock \href {http://arxiv.org/abs/arXiv:1606.01540} {Openai gym}.
+
+\bibitem[{Bubeck et~al.(2023)Bubeck, Chandrasekaran, Eldan, Gehrke, Horvitz,
+  Kamar, Lee, Lee, Li, Lundberg et~al.}]{bubeck2023sparks}
+S{\'e}bastien Bubeck, Varun Chandrasekaran, Ronen Eldan, Johannes Gehrke, Eric
+  Horvitz, Ece Kamar, Peter Lee, Yin~Tat Lee, Yuanzhi Li, Scott Lundberg,
+  et~al. 2023.
+\newblock Sparks of artificial general intelligence: Early experiments with
+  gpt-4.
+\newblock \emph{arXiv preprint arXiv:2303.12712}.
+
+\bibitem[{Chowdhery et~al.(2022)Chowdhery, Narang, Devlin, Bosma, Mishra,
+  Roberts, Barham, Chung, Sutton, Gehrmann et~al.}]{chowdhery2022palm}
+Aakanksha Chowdhery, Sharan Narang, Jacob Devlin, Maarten Bosma, Gaurav Mishra,
+  Adam Roberts, Paul Barham, Hyung~Won Chung, Charles Sutton, Sebastian
+  Gehrmann, et~al. 2022.
+\newblock Palm: Scaling language modeling with pathways.
+\newblock \emph{arXiv preprint arXiv:2204.02311}.
+
+\bibitem[{Crawford and Lepine(2013)}]{crawford2013configural}
+Eean~R Crawford and Jeffery~A Lepine. 2013.
+\newblock A configural theory of team processes: Accounting for the structure
+  of taskwork and teamwork.
+\newblock \emph{Academy of Management Review}, 38(1):32--48.
+
+\bibitem[{Fan and Yen(2004)}]{fan2004modeling}
+Xiaocong Fan and John Yen. 2004.
+\newblock Modeling and simulating human teamwork behaviors using intelligent
+  agents.
+\newblock \emph{Physics of life reviews}, 1(3):173--201.
+
+\bibitem[{Hagendorff(2023)}]{hagendorff2023machine}
+Thilo Hagendorff. 2023.
+\newblock Machine psychology: Investigating emergent capabilities and behavior
+  in large language models using psychological methods.
+\newblock \emph{arXiv preprint arXiv:2303.13988}.
+
+\bibitem[{Huang et~al.(2022)Huang, Abbeel, Pathak, and
+  Mordatch}]{huang2022language}
+Wenlong Huang, Pieter Abbeel, Deepak Pathak, and Igor Mordatch. 2022.
+\newblock Language models as zero-shot planners: Extracting actionable
+  knowledge for embodied agents.
+\newblock In \emph{International Conference on Machine Learning}, pages
+  9118--9147. PMLR.
+
+\bibitem[{Keysar et~al.(2003)Keysar, Lin, and Barr}]{keysar2003limits}
+Boaz Keysar, Shuhong Lin, and Dale~J Barr. 2003.
+\newblock Limits on theory of mind use in adults.
+\newblock \emph{Cognition}, 89(1):25--41.
+
+\bibitem[{Kosinski(2023)}]{kosinski2023theory}
+Michal Kosinski. 2023.
+\newblock Theory of mind may have spontaneously emerged in large language
+  models.
+\newblock \emph{arXiv preprint arXiv:2302.02083}.
+
+\bibitem[{Li et~al.(2022)Li, Oguntola, Hughes, Lewis, and
+  Sycara}]{li2022theory}
+Huao Li, Ini Oguntola, Dana Hughes, Michael Lewis, and Katia Sycara. 2022.
+\newblock Theory of mind modeling in search and rescue teams.
+\newblock In \emph{2022 31st IEEE International Conference on Robot and Human
+  Interactive Communication (RO-MAN)}, pages 483--489. IEEE.
+
+\bibitem[{Lim et~al.(2020)Lim, Tio, and Ong}]{lim2020improving}
+Terence~X Lim, Sidney Tio, and Desmond~C Ong. 2020.
+\newblock Improving multi-agent cooperation using theory of mind.
+\newblock \emph{arXiv preprint arXiv:2007.15703}.
+
+\bibitem[{Liu et~al.(2023)Liu, Jiang, Zhang, Liu, Zhang, Biswas, and
+  Stone}]{liu2023llm}
+Bo~Liu, Yuqian Jiang, Xiaohan Zhang, Qiang Liu, Shiqi Zhang, Joydeep Biswas,
+  and Peter Stone. 2023.
+\newblock Llm+ p: Empowering large language models with optimal planning
+  proficiency.
+\newblock \emph{arXiv preprint arXiv:2304.11477}.
+
+\bibitem[{Mahowald et~al.(2023)Mahowald, Ivanova, Blank, Kanwisher, Tenenbaum,
+  and Fedorenko}]{mahowald2023dissociating}
+Kyle Mahowald, Anna~A Ivanova, Idan~A Blank, Nancy Kanwisher, Joshua~B
+  Tenenbaum, and Evelina Fedorenko. 2023.
+\newblock Dissociating language and thought in large language models: a
+  cognitive perspective.
+\newblock \emph{arXiv preprint arXiv:2301.06627}.
+
+\bibitem[{Miller(2009)}]{miller2009children}
+Scott~A Miller. 2009.
+\newblock Children’s understanding of second-order mental states.
+\newblock \emph{Psychological bulletin}, 135(5):749.
+
+\bibitem[{Moghaddam and Honey(2023)}]{moghaddam2023boosting}
+Shima~Rahimi Moghaddam and Christopher~J Honey. 2023.
+\newblock Boosting theory-of-mind performance in large language models via
+  prompting.
+\newblock \emph{arXiv preprint arXiv:2304.11490}.
+
+\bibitem[{Oguntola et~al.(2023)Oguntola, Campbell, Stepputtis, and
+  Sycara}]{oguntola2023theory}
+Ini Oguntola, Joseph Campbell, Simon Stepputtis, and Katia Sycara. 2023.
+\newblock Theory of mind as intrinsic motivation for multi-agent reinforcement
+  learning.
+\newblock \emph{arXiv preprint arXiv:2307.01158}.
+
+\bibitem[{OpenAI(2023)}]{openai2023gpt4}
+OpenAI. 2023.
+\newblock \href {http://arxiv.org/abs/2303.08774} {Gpt-4 technical report}.
+
+\bibitem[{Park et~al.(2023)Park, O'Brien, Cai, Morris, Liang, and
+  Bernstein}]{park2023generative}
+Joon~Sung Park, Joseph~C O'Brien, Carrie~J Cai, Meredith~Ringel Morris, Percy
+  Liang, and Michael~S Bernstein. 2023.
+\newblock Generative agents: Interactive simulacra of human behavior.
+\newblock \emph{arXiv preprint arXiv:2304.03442}.
+
+\bibitem[{Rahwan et~al.(2019)Rahwan, Cebrian, Obradovich, Bongard, Bonnefon,
+  Breazeal, Crandall, Christakis, Couzin, Jackson et~al.}]{rahwan2019machine}
+Iyad Rahwan, Manuel Cebrian, Nick Obradovich, Josh Bongard, Jean-Fran{\c{c}}ois
+  Bonnefon, Cynthia Breazeal, Jacob~W Crandall, Nicholas~A Christakis, Iain~D
+  Couzin, Matthew~O Jackson, et~al. 2019.
+\newblock Machine behaviour.
+\newblock \emph{Nature}, 568(7753):477--486.
+
+\bibitem[{Riedl et~al.(2021)Riedl, Kim, Gupta, Malone, and
+  Woolley}]{riedl2021quantifying}
+Christoph Riedl, Young~Ji Kim, Pranav Gupta, Thomas~W Malone, and
+  Anita~Williams Woolley. 2021.
+\newblock Quantifying collective intelligence in human groups.
+\newblock \emph{Proceedings of the National Academy of Sciences},
+  118(21):e2005737118.
+
+\bibitem[{Samvelyan et~al.(2019)Samvelyan, Rashid, de~Witt, Farquhar, Nardelli,
+  Rudner, Hung, Torr, Foerster, and Whiteson}]{samvelyan19smac}
+Mikayel Samvelyan, Tabish Rashid, Christian~Schroeder de~Witt, Gregory
+  Farquhar, Nantas Nardelli, Tim G.~J. Rudner, Chia-Man Hung, Philiph H.~S.
+  Torr, Jakob Foerster, and Shimon Whiteson. 2019.
+\newblock {The} {StarCraft} {Multi}-{Agent} {Challenge}.
+\newblock \emph{CoRR}, abs/1902.04043.
+
+\bibitem[{Sap et~al.(2023)Sap, LeBras, Fried, and Choi}]{sap2023neural}
+Maarten Sap, Ronan LeBras, Daniel Fried, and Yejin Choi. 2023.
+\newblock \href {http://arxiv.org/abs/2210.13312} {Neural theory-of-mind? on
+  the limits of social intelligence in large lms}.
+
+\bibitem[{Sclar et~al.(2023)Sclar, Kumar, West, Suhr, Choi, and
+  Tsvetkov}]{sclar2023minding}
+Melanie Sclar, Sachin Kumar, Peter West, Alane Suhr, Yejin Choi, and Yulia
+  Tsvetkov. 2023.
+\newblock Minding language models'(lack of) theory of mind: A plug-and-play
+  multi-character belief tracker.
+\newblock \emph{arXiv preprint arXiv:2306.00924}.
+
+\bibitem[{Sharon et~al.(2015)Sharon, Stern, Felner, and
+  Sturtevant}]{sharon2015conflict}
+Guni Sharon, Roni Stern, Ariel Felner, and Nathan~R Sturtevant. 2015.
+\newblock Conflict-based search for optimal multi-agent pathfinding.
+\newblock \emph{Artificial Intelligence}, 219:40--66.
+
+\bibitem[{Sunehag et~al.(2017)Sunehag, Lever, Gruslys, Czarnecki, Zambaldi,
+  Jaderberg, Lanctot, Sonnerat, Leibo, Tuyls et~al.}]{sunehag2017value}
+Peter Sunehag, Guy Lever, Audrunas Gruslys, Wojciech~Marian Czarnecki, Vinicius
+  Zambaldi, Max Jaderberg, Marc Lanctot, Nicolas Sonnerat, Joel~Z Leibo, Karl
+  Tuyls, et~al. 2017.
+\newblock Value-decomposition networks for cooperative multi-agent learning.
+\newblock \emph{arXiv preprint arXiv:1706.05296}.
+
+\bibitem[{Thoppilan et~al.(2022)Thoppilan, De~Freitas, Hall, Shazeer,
+  Kulshreshtha, Cheng, Jin, Bos, Baker, Du et~al.}]{thoppilan2022lamda}
+Romal Thoppilan, Daniel De~Freitas, Jamie Hall, Noam Shazeer, Apoorv
+  Kulshreshtha, Heng-Tze Cheng, Alicia Jin, Taylor Bos, Leslie Baker, Yu~Du,
+  et~al. 2022.
+\newblock Lamda: Language models for dialog applications.
+\newblock \emph{arXiv preprint arXiv:2201.08239}.
+
+\bibitem[{Ullman(2023)}]{ullman2023large}
+Tomer Ullman. 2023.
+\newblock Large language models fail on trivial alterations to theory-of-mind
+  tasks.
+\newblock \emph{arXiv preprint arXiv:2302.08399}.
+
+\bibitem[{Wang et~al.(2023{\natexlab{a}})Wang, Xie, Jiang, Mandlekar, Xiao,
+  Zhu, Fan, and Anandkumar}]{wang2023voyager}
+Guanzhi Wang, Yuqi Xie, Yunfan Jiang, Ajay Mandlekar, Chaowei Xiao, Yuke Zhu,
+  Linxi Fan, and Anima Anandkumar. 2023{\natexlab{a}}.
+\newblock Voyager: An open-ended embodied agent with large language models.
+\newblock \emph{arXiv preprint arXiv:2305.16291}.
+
+\bibitem[{Wang et~al.(2023{\natexlab{b}})Wang, Cai, Liu, Ma, and
+  Liang}]{wang2023describe}
+Zihao Wang, Shaofei Cai, Anji Liu, Xiaojian Ma, and Yitao Liang.
+  2023{\natexlab{b}}.
+\newblock Describe, explain, plan and select: Interactive planning with large
+  language models enables open-world multi-task agents.
+\newblock \emph{arXiv preprint arXiv:2302.01560}.
+
+\bibitem[{Wei et~al.(2022)Wei, Wang, Schuurmans, Bosma, Chi, Le, and
+  Zhou}]{wei2022chain}
+Jason Wei, Xuezhi Wang, Dale Schuurmans, Maarten Bosma, Ed~Chi, Quoc Le, and
+  Denny Zhou. 2022.
+\newblock Chain of thought prompting elicits reasoning in large language
+  models.
+\newblock \emph{arXiv preprint arXiv:2201.11903}.
+
+\bibitem[{Williams et~al.(2022)Williams, Fiore, and
+  Jentsch}]{williams2022supporting}
+Jessica Williams, Stephen~M Fiore, and Florian Jentsch. 2022.
+\newblock Supporting artificial social intelligence with theory of mind.
+\newblock \emph{Frontiers in artificial intelligence}, 5.
+
+\bibitem[{Xie et~al.(2023)Xie, Yu, Zhu, Bai, Gong, and
+  Soh}]{xie2023translating}
+Yaqi Xie, Chen Yu, Tongyao Zhu, Jinbin Bai, Ze~Gong, and Harold Soh. 2023.
+\newblock Translating natural language to planning goals with large-language
+  models.
+\newblock \emph{arXiv preprint arXiv:2302.05128}.
+
+\bibitem[{Yu et~al.(2022)Yu, Velu, Vinitsky, Gao, Wang, Bayen, and
+  Wu}]{yu2022surprising}
+Chao Yu, Akash Velu, Eugene Vinitsky, Jiaxuan Gao, Yu~Wang, Alexandre Bayen,
+  and Yi~Wu. 2022.
+\newblock The surprising effectiveness of ppo in cooperative multi-agent games.
+\newblock \emph{Advances in Neural Information Processing Systems},
+  35:24611--24624.
+
+\bibitem[{Yuan et~al.(2021)Yuan, Fu, Zhou, Yang, and Zhu}]{yuan2021emergence}
+Luyao Yuan, Zipeng Fu, Linqi Zhou, Kexin Yang, and Song-Chun Zhu. 2021.
+\newblock Emergence of theory of mind collaboration in multiagent systems.
+\newblock \emph{arXiv preprint arXiv:2110.00121}.
+
+\bibitem[{Zhang et~al.(2012)Zhang, Hedden, and Chia}]{zhang2012perspective}
+Jun Zhang, Trey Hedden, and Adrian Chia. 2012.
+\newblock Perspective-taking and depth of theory-of-mind reasoning in
+  sequential-move games.
+\newblock \emph{Cognitive science}, 36(3):560--573.
+
+\bibitem[{Zheng et~al.(2023)Zheng, Chiang, Sheng, Zhuang, Wu, Zhuang, Lin, Li,
+  Li, Xing, Zhang, Gonzalez, and Stoica}]{zheng2023judging}
+Lianmin Zheng, Wei-Lin Chiang, Ying Sheng, Siyuan Zhuang, Zhanghao Wu, Yonghao
+  Zhuang, Zi~Lin, Zhuohan Li, Dacheng Li, Eric.~P Xing, Hao Zhang, Joseph~E.
+  Gonzalez, and Ion Stoica. 2023.
+\newblock \href {http://arxiv.org/abs/2306.05685} {Judging llm-as-a-judge with
+  mt-bench and chatbot arena}.
+
+\end{thebibliography}

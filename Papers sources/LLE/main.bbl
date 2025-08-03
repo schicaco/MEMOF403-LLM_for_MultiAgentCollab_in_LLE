@@ -1,0 +1,265 @@
+\begin{thebibliography}{31}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Amodei et~al.(2016)Amodei, Olah, Steinhardt, Christiano, Schulman, and
+  Man{\'{e}}]{amodei_2016_reward}
+Dario Amodei, Chris Olah, Jacob Steinhardt, Paul~F. Christiano, John Schulman,
+  and Dan Man{\'{e}}.
+\newblock Concrete problems in {AI} safety.
+\newblock \emph{CoRR}, abs/1606.06565, 2016.
+\newblock URL \url{http://arxiv.org/abs/1606.06565}.
+
+\bibitem[Avalos et~al.(2022)Avalos, Reymond, Nowé, and
+  Roijers]{Avalos2022LocalLearningAAMAS}
+Raphaël Avalos, Mathieu Reymond, Ann Nowé, and Diederik~M. Roijers.
+\newblock {Local Advantage Networks for Cooperative Multi-Agent Reinforcement
+  Learning}.
+\newblock In \emph{AAMAS '22: Proceedings of the 21st International Conference
+  on Autonomous Agents and MultiAgent Systems (Extended Abstract)}, 2022.
+
+\bibitem[Bard et~al.(2020)Bard, Foerster, Chandar, Burch, Lanctot, Song,
+  Parisotto, Dumoulin, Moitra, Hughes, Dunning, Mourad, Larochelle, Bellemare,
+  and Bowling]{bard_hanabi_2020}
+Nolan Bard, Jakob~N. Foerster, Sarath Chandar, Neil Burch, Marc Lanctot,
+  H.~Francis Song, Emilio Parisotto, Vincent Dumoulin, Subhodeep Moitra, Edward
+  Hughes, Iain Dunning, Shibl Mourad, Hugo Larochelle, Marc~G. Bellemare, and
+  Michael Bowling.
+\newblock The hanabi challenge: A new frontier for {AI} research.
+\newblock \emph{Artificial Intelligence}, 280:\penalty0 103216, 2020.
+\newblock ISSN 00043702.
+\newblock \doi{10.1016/j.artint.2019.103216}.
+\newblock URL \url{http://arxiv.org/abs/1902.00506}.
+
+\bibitem[Boutilier(1996)]{boutilier_planning_1996}
+Craig Boutilier.
+\newblock Planning, learning and coordination in multiagent decision processes.
+\newblock \emph{Proceedings of the 6th Conference on Theoretical Aspects of
+  Rationality and Knowledge}, page 195–210, 1996.
+
+\bibitem[Burda et~al.(2018)Burda, Edwards, Storkey, and
+  Klimov]{burda_exploration_2018_rnd}
+Yuri Burda, Harrison Edwards, Amos Storkey, and Oleg Klimov.
+\newblock Exploration by random network distillation, 2018.
+\newblock URL \url{http://arxiv.org/abs/1810.12894}.
+
+\bibitem[Cao et~al.(2013)Cao, Yu, Ren, and Chen]{cao_2013_autonomous}
+Yongcan Cao, Wenwu Yu, Wei Ren, and Guanrong Chen.
+\newblock An overview of recent progress in the study of distributed
+  multi-agent coordination.
+\newblock \emph{IEEE Transactions on Industrial Informatics}, 9\penalty0
+  (1):\penalty0 427--438, 2013.
+\newblock \doi{10.1109/TII.2012.2219061}.
+
+\bibitem[Claus and Boutilier(1998)]{claus_dynamics_1998}
+Caroline Claus and Craig Boutilier.
+\newblock The dynamics of reinforcement learning in cooperative multiagent
+  systems.
+\newblock \emph{Proceedings of the Fifteenth National Conference on Artificial
+  Intelligence and Tenth Innovative Applications of Artificial Intelligence
+  Conference, AAAI 98}, 1998.
+
+\bibitem[Klima et~al.(2018)Klima, Bloembergen, Savani, Tuyls, Wittig, Sapera,
+  and Izzo]{klima_2018_space}
+Richard Klima, Daan Bloembergen, Rahul Savani, Karl Tuyls, Alexander Wittig,
+  Andrei Sapera, and Dario Izzo.
+\newblock Space debris removal: Learning to cooperate and the price of anarchy.
+\newblock \emph{Frontiers in Robotics and AI}, 5, 2018.
+\newblock ISSN 2296-9144.
+\newblock \doi{10.3389/frobt.2018.00054}.
+\newblock URL
+  \url{https://www.frontiersin.org/articles/10.3389/frobt.2018.00054}.
+
+\bibitem[Laurent et~al.(2011)Laurent, Matignon, and
+  Le~Fort-Piat]{laurent_world_2011_non-markovian}
+Guillaume~J. Laurent, Laëtitia Matignon, and N.~Le~Fort-Piat.
+\newblock The world of independent learners is not markovian.
+\newblock \emph{International Journal of Knowledge-based and Intelligent
+  Engineering Systems}, 15\penalty0 (1):\penalty0 55--64, 2011.
+\newblock ISSN 18758827, 13272314.
+\newblock \doi{10.3233/KES-2010-0206}.
+\newblock URL
+  \url{https://www.medra.org/servlet/aliasResolver?alias=iospress&doi=10.3233/KES-2010-0206}.
+
+\bibitem[{LeCun} et~al.(1998){LeCun}, Bottou, Bengio, and
+  Ha]{lecun_gradient-based_1998_cnn}
+Yann {LeCun}, Leon Bottou, Yoshua Bengio, and Patrick Ha.
+\newblock Gradient-based learning applied to document recognition, 1998.
+
+\bibitem[Lillicrap et~al.(2016)Lillicrap, Hunt, Pritzel, Heess, Erez, Tassa,
+  Silver, and Wierstra]{ddpg_2016}
+Timothy~P. Lillicrap, Jonathan~J. Hunt, Alexander Pritzel, Nicolas Heess, Tom
+  Erez, Yuval Tassa, David Silver, and Daan Wierstra.
+\newblock Continuous control with deep reinforcement learning.
+\newblock In Yoshua Bengio and Yann LeCun, editors, \emph{ICLR}, 2016.
+\newblock URL
+  \url{http://dblp.uni-trier.de/db/conf/iclr/iclr2016.html#LillicrapHPHETS15}.
+
+\bibitem[Lowe et~al.(2017)Lowe, Wu, Tamar, Harb, Abbeel, and
+  Mordatch]{mpe_lowe2017multi}
+Ryan Lowe, Yi~Wu, Aviv Tamar, Jean Harb, Pieter Abbeel, and Igor Mordatch.
+\newblock Multi-agent actor-critic for mixed cooperative-competitive
+  environments.
+\newblock \emph{Neural Information Processing Systems (NIPS)}, 2017.
+
+\bibitem[Mnih et~al.(2015)Mnih, Kavukcuoglu, Silver, Rusu, Veness, Bellemare,
+  Graves, Riedmiller, Fidjeland, Ostrovski, Petersen, Beattie, Sadik,
+  Antonoglou, King, Kumaran, Wierstra, Legg, and Hassabis]{dqn_mnih_2015}
+Volodymyr Mnih, Koray Kavukcuoglu, David Silver, Andrei~A. Rusu, Joel Veness,
+  Marc~G. Bellemare, Alex Graves, Martin Riedmiller, Andreas~K. Fidjeland,
+  Georg Ostrovski, Stig Petersen, Charles Beattie, Amir Sadik, Ioannis
+  Antonoglou, Helen King, Dharshan Kumaran, Daan Wierstra, Shane Legg, and
+  Demis Hassabis.
+\newblock Human-level control through deep reinforcement learning.
+\newblock \emph{Nature}, 518\penalty0 (7540):\penalty0 529--533, 2015.
+\newblock ISSN 1476-4687.
+\newblock \doi{10.1038/nature14236}.
+\newblock URL \url{https://www.nature.com/articles/nature14236}.
+\newblock Number: 7540 Publisher: Nature Publishing Group.
+
+\bibitem[Mordatch and Abbeel(2017)]{mpe_mordatch2017emergence}
+Igor Mordatch and Pieter Abbeel.
+\newblock Emergence of grounded compositional language in multi-agent
+  populations.
+\newblock \emph{arXiv preprint arXiv:1703.04908}, 2017.
+
+\bibitem[Oliehoek and Amato(2016)]{oliehoek_concise_2016_pomdp}
+Frans~A. Oliehoek and Christopher Amato.
+\newblock \emph{A Concise Introduction to Decentralized {POMDPs}}.
+\newblock {SpringerBriefs} in Intelligent Systems. Springer International
+  Publishing, 2016.
+\newblock ISBN 978-3-319-28929-8.
+\newblock \doi{10.1007/978-3-319-28929-8}.
+\newblock URL \url{http://link.springer.com/10.1007/978-3-319-28929-8}.
+
+\bibitem[Oliehoek et~al.(2008{\natexlab{a}})Oliehoek, Spaan, and
+  Vlassis]{oliehoek_optimal_2008_ctde}
+Frans~A. Oliehoek, Matthijs T.~J. Spaan, and Nikos Vlassis.
+\newblock Optimal and approximate q-value functions for decentralized {POMDPs}.
+\newblock \emph{Journal of Artificial Intelligence Research}, 32:\penalty0
+  289--353, 2008{\natexlab{a}}.
+\newblock ISSN 1076-9757.
+\newblock \doi{10.1613/jair.2447}.
+\newblock URL \url{http://arxiv.org/abs/1111.0062}.
+
+\bibitem[Oliehoek et~al.(2008{\natexlab{b}})Oliehoek, Spaan, and
+  Whiteson]{oliehoek_exploiting_2008_factorisation}
+Frans~A Oliehoek, Matthijs T~J Spaan, and Shimon Whiteson.
+\newblock Exploiting locality of interaction in factored dec-{POMDPs}.
+\newblock \emph{Int. Joint Conf. on Autonomous Agents and Multi-Agent Systems},
+  pages 517--524, 2008{\natexlab{b}}.
+\newblock URL \url{http://hdl.handle.net/10993/11029}.
+
+\bibitem[Panait and Luke(2005)]{panait_cooperative_2005_marl}
+Liviu Panait and Sean Luke.
+\newblock Cooperative multi-agent learning: The state of the art.
+\newblock \emph{Autonomous Agents and Multi-Agent Systems}, 11\penalty0
+  (3):\penalty0 387--434, 2005.
+\newblock ISSN 1573-7454.
+\newblock \doi{10.1007/s10458-005-2631-2}.
+\newblock URL \url{https://doi.org/10.1007/s10458-005-2631-2}.
+
+\bibitem[Parker-Holder et~al.(2022)Parker-Holder, Jiang, Dennis, Samvelyan,
+  Foerster, Grefenstette, and Rockt{\"a}schel]{parker2022evolving}
+Jack Parker-Holder, Minqi Jiang, Michael Dennis, Mikayel Samvelyan, Jakob
+  Foerster, Edward Grefenstette, and Tim Rockt{\"a}schel.
+\newblock Evolving curricula with regret-based environment design.
+\newblock In \emph{International Conference on Machine Learning}, pages
+  17473--17498. PMLR, 2022.
+
+\bibitem[Rashid et~al.(2018)Rashid, Samvelyan, and Schroeder]{rashid_qmix_2018}
+Tabish Rashid, Mikayel Samvelyan, and Christian Schroeder.
+\newblock {QMIX}: Monotonic value function factorisation for deep multi-agent
+  reinforcement learning, 2018.
+
+\bibitem[Samvelyan et~al.(2019)Samvelyan, Rashid, de~Witt, Farquhar, Nardelli,
+  Rudner, Hung, Torr, Foerster, and Whiteson]{samvelyan19smac}
+Mikayel Samvelyan, Tabish Rashid, Christian~Schroeder de~Witt, Gregory
+  Farquhar, Nantas Nardelli, Tim G.~J. Rudner, Chia-Man Hung, Philiph H.~S.
+  Torr, Jakob Foerster, and Shimon Whiteson.
+\newblock {The} {StarCraft} {Multi}-{Agent} {Challenge}.
+\newblock \emph{CoRR}, abs/1902.04043, 2019.
+
+\bibitem[Schaul et~al.(2016)Schaul, Quan, Antonoglou, and
+  Silver]{schaul_prioritized_2016_per}
+Tom Schaul, John Quan, Ioannis Antonoglou, and David Silver.
+\newblock Prioritized experience replay.
+\newblock \emph{4th International Conference on Learning Representations,
+  {ICLR} 2016 - Conference Track Proceedings}, pages 1--21, 2016.
+
+\bibitem[Schmidhuber(1991)]{jurgen_schmidhuber_possibility_1991_curiosity}
+Jürgen Schmidhuber.
+\newblock A possibility for implementing curiosity and boredom in
+  model-building neural controllers.
+\newblock In Jean-Arcady Meyer, editor, \emph{From Animals to Animats}, pages
+  222--227. The {MIT} Press, international conference on simulation adaptive
+  behavior: from animals to animats edition, 1991.
+\newblock ISBN 978-0-262-25667-4.
+\newblock \doi{10.7551/mitpress/3115.003.0030}.
+\newblock URL
+  \url{https://direct.mit.edu/books/book/3865/chapter/162771/a-possibility-for-implementing-curiosity-and}.
+
+\bibitem[Son et~al.(2019)Son, Kim, Kang, Hostallero, and Yi]{son_qtran_2019}
+Kyunghwan Son, Daewoo Kim, Wan~Ju Kang, David~Earl Hostallero, and Yung Yi.
+\newblock {QTRAN}: Learning to factorize with transformation for cooperative
+  multi-agent reinforcement learning, 2019.
+\newblock URL \url{http://arxiv.org/abs/1905.05408}.
+
+\bibitem[Stern et~al.(2017)Stern, Sturtevant, Felner, Koenig, Ma, Walker, Li,
+  Atzmon, Cohen, Kumar, Boyarski, and Bart]{stern_multi-agent_2017_conflicts}
+Roni Stern, Nathan~R Sturtevant, Ariel Felner, Sven Koenig, Hang Ma, Thayne~T
+  Walker, Jiaoyang Li, Dor Atzmon, Liron Cohen, T~K~Satish Kumar, Eli Boyarski,
+  and Roman Bart.
+\newblock Multi-agent pathfinding: Definitions, variants, and benchmarks, 2017.
+
+\bibitem[Sunehag et~al.(2018)Sunehag, Lever, Gruslys, Czarnecki, Zambaldi,
+  Jaderberg, Lanctot, Sonnerat, Leibo, Tuyls, and
+  Graepel]{vdn_sunehag_value-decomposition_2018}
+Peter Sunehag, Guy Lever, Audrunas Gruslys, Wojciech~Marian Czarnecki, Vinicius
+  Zambaldi, Max Jaderberg, Marc Lanctot, Nicolas Sonnerat, Joel~Z. Leibo, Karl
+  Tuyls, and Thore Graepel.
+\newblock Value-decomposition networks for cooperative multi-agent learning
+  based on team reward.
+\newblock \emph{Proceedings of the International Joint Conference on Autonomous
+  Agents and Multiagent Systems, {AAMAS}}, 3:\penalty0 2085--2087, 2018.
+\newblock ISSN 15582914.
+\newblock {ISBN}: 9781510868083.
+
+\bibitem[Sutton and Barto(2018)]{sutton_barto_2018_rlbook}
+Richard~S. Sutton and Andrew~G. Barto.
+\newblock Reinforcement learning: an introduction, 2018.
+
+\bibitem[Sutton(1984)]{sutton_1984_credit_assignment}
+Richard~Stuart Sutton.
+\newblock \emph{Temporal Credit Assignment in Reinforcement Learning}.
+\newblock PhD thesis, University of Massachusetts Amherst, 1984.
+\newblock AAI8410337.
+
+\bibitem[Tuyls and Weiss(2012)]{tuyls_multiagent_2012_moving_target}
+Karl Tuyls and Gerhard Weiss.
+\newblock Multiagent learning: Basics, challenges, and prospects.
+\newblock \emph{{AI} Magazine}, 33\penalty0 (3):\penalty0 41, 2012.
+\newblock ISSN 2371-9621, 0738-4602.
+\newblock \doi{10.1609/aimag.v33i3.2426}.
+\newblock URL
+  \url{https://ojs.aaai.org/index.php/aimagazine/article/view/2426}.
+
+\bibitem[Watkins(1989)]{Watkins_1989_n-step-return}
+Christopher Watkins.
+\newblock \emph{Learning From Delayed Rewards}.
+\newblock PhD thesis, University of Cambridge, 1989.
+
+\bibitem[Wu et~al.(2021)Wu, Wang, Evans, Tenenbaum, Parkes, and
+  Kleiman-Weiner]{overcooked_wu_wang2021too}
+Sarah~A. Wu, Rose~E. Wang, James~A. Evans, Joshua~B. Tenenbaum, David~C.
+  Parkes, and Max Kleiman-Weiner.
+\newblock Too many cooks: Coordinating multi-agent collaboration through
+  inverse planning.
+\newblock \emph{Topics in Cognitive Science}, 2021.
+\newblock \doi{https://doi.org/10.1111/tops.12525}.
+\newblock URL \url{https://onlinelibrary.wiley.com/doi/abs/10.1111/tops.12525}.
+
+\end{thebibliography}

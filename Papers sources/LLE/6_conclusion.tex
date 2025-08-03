@@ -1,0 +1,10 @@
+\section{Conclusion}
+In this paper, we introduced the Laser Learning Environment (LLE), a new cooperative multi-agent grid world that, to the best of our knowledge, exhibits a unique combination of three properties: \textit{perfect coordination}, \textit{interdependence} and \textit{zero-incentive dynamics}. We discussed that the interdependence property induces state space bottlenecks that are difficult to overcome.
+
+We tested IQL, VDN and QMIX against LLE and showed that those algorithms struggled at completing the cooperative task. Our experiments demonstrated that agents successfully achieve perfect coordination but also showed that due to interdependence and zero-incentive dynamics, agents fail at long-term coordination and thus never complete the task. We highlighted that prioritised experience replay and $n$-steps return hinder the agents' performance because of the zero-incentive dynamics of the environment. Intrinsic curiosity with random network distillation also did not provide enough incentive to escape state space bottlenecks and did not enable agents to learn significantly better policies.
+
+Overall, our experiments demonstrated that current state-of-the-art value-based methods fail in LLE and reveal that new benchmarks are needed in cooperative Multi-Agent Reinforcement Learning. This is why we look forward to seeing how the MARL community will approach the Laser Learning Environment and use it to tackle the challenges discussed in this paper and other topics such as generalisation, curriculum learning and inter-agent communication.
+
+
+\section*{Acknowledgements}
+Raphaël Avalos is supported by the FWO (Research Foundation – Flanders) under the grant 11F5721N. Tom Lenaerts is supported by an FWO project (grant nr. G054919N) and two FRS-FNRS PDR (grant numbers 31257234 and 40007793). His is furthermore supported by Service Public de Wallonie Recherche under grant n° 2010235–ariac by digitalwallonia4.ai. Ann Nowé and Tom Lenaerts are also suported by the Flemish Government through the AI Research Program and TAILOR, a project funded by EU Horizon 2020 research and innovation programme under GA No 952215.

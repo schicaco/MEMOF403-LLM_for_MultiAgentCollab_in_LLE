@@ -1,4 +1,4 @@
-
+link: https://arxiv.org/pdf/2404.03596
 code: https://github.com/yamoling/lle.
 
 # Problem Addressed
@@ -255,3 +255,13 @@ Adds an intrinsic reward based on prediction error of a randomly initialized tar
     - Curriculum learning in MARL.
     - Communication and coordination learning.
     - Reward design in multi-agent systems.
+
+
+---
+---
+
+# Paper highlights
+
+> [!PDF|yellow] [[LLE_multi-agent_coord.pdf#page=9&selection=163,14,169,36&color=yellow|LLE_multi-agent_coord, p.9]]
+> > VDN performs best on this map. That being said, none of the algorithms ever reaches the highest possible score of 9 and at most half of the agents ever reach the end exit tiles
+

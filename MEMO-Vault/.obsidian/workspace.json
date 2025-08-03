@@ -4,43 +4,21 @@
     "type": "split",
     "children": [
       {
-        "id": "c9e54a0e3b4b753b",
+        "id": "ca486464e3056279",
         "type": "tabs",
         "children": [
           {
-            "id": "651588a909a9d200",
+            "id": "b07dc8b6c132f4a5",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "LLMs comparison.md",
+                "file": "Others multi-agent environments.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "LLMs comparison"
-            }
-          }
-        ]
-      },
-      {
-        "id": "c6a1d902e748eaa6",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "999d3b3f40098e9d",
-            "type": "leaf",
-            "state": {
-              "type": "pdf",
-              "state": {
-                "file": "Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
-                "page": 3,
-                "left": -20,
-                "top": 766,
-                "zoom": 0.8227276087058777
-              },
-              "icon": "lucide-file-text",
-              "title": "ToM_for_multi-agentCollab_via_LLMs"
+              "title": "Others multi-agent environments"
             }
           }
         ]
@@ -100,8 +78,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 222.5
   },
   "right": {
     "id": "cbebe226e7010a01",
@@ -205,32 +182,38 @@
       "pdf-plus:PDF++: Toggle auto-paste": false
     }
   },
-  "active": "651588a909a9d200",
+  "active": "b07dc8b6c132f4a5",
   "lastOpenFiles": [
-    "Papers/ToM_for_multi-agentCollab_via_LLMs.pdf",
-    "LLMs comparison.md",
-    "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
-    "Papers/judging_bench.pdf",
-    "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
-    "Papers/LLE_multi-agent_coord.pdf",
-    "Theorical Concepts/Definitions.md",
-    "Papers/simclass.pdf",
-    "Thesis materials/How to ML Paper – A Brief Guide.md",
+    "Papers/LLM-based agents",
+    "Papers/RL",
+    "Papers/LLM-based agents/generativeAgent_humanbehavior.pdf",
+    "Untitled.md",
+    "Papers/LLM-based agents/LLM-collab.pdf",
+    "Papers/aci-04-02-019.pdf",
+    "Papers/LLM-based agents/scaling_LLM_based_multi-agent_collab.pdf",
+    "Others multi-agent environments.md",
     "Papers/Chain_of_Thoughts_prompting.pdf",
+    "(OLD)  Cooperative Multi-Agent Reinforcement Learning.md",
+    "Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
+    "Papers/RL/LLE_multi-agent_coord.pdf",
+    "Papers/RL/QMIX.pdf",
+    "Papers Summaries/Laser Learning Environment - A new environment for coordination-critical multi-agent tasks.md",
+    "The.md",
+    "Thesis materials/Support.md",
+    "Thesis materials/TODO list.md",
+    "Thesis materials/Hybrid architecture idea.md",
+    "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+    "Papers/LLM-based agents/ToM_for_multi-agentCollab_via_LLMs.pdf",
+    "Papers/judging_bench.pdf",
+    "Theorical Concepts/Definitions.md",
+    "Thesis materials/How to ML Paper – A Brief Guide.md",
     "Papers Summaries/ToM_LLMs_annotation.md",
     "Papers Summaries/VDN.md",
-    "Papers/VDN.pdf",
-    "Papers/QMIX.pdf",
     "Test.md",
-    "Papers Summaries/Laser Learning Environment - A new environment for coordination-critical multi-agent tasks.md",
     "Thesis materials/LLM/Prompts used for ToM via LLM paper.md",
     "Thesis materials/LLM/Which LLM use.md",
-    "Thesis materials/LLM",
     "Thesis materials/Untitled.md",
     "Thesis materials/LLM.md",
-    "Thesis materials/Hybrid architecture idea.md",
-    "Thesis materials/TODO list.md",
-    "Thesis materials/Support.md",
     "Images/ToM_embodied_agent.png",
     "Images/LLE.png",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Papers Summaries/Laser Learning Environment - A new environment for coordination-critical multi-agent tasks.md",
@@ -239,11 +222,6 @@
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials/TODO list.md",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/README.md",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Using LLMs for multi-agent collaboration in the Laser Learning Environnment.md",
-    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials/Support.md",
-    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials/How to ML Paper – A Brief Guide.md",
-    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Thesis materials",
-    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Theorical Concepts/Definitions.md",
-    "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Theorical Concepts",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images/ToM_embodied_agent.png",
     "MEMOF403-LLM_for_MultiAgentCollab_in_LLE/MEMO-Vault/Images/LLE.png"
   ]

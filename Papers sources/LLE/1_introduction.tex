@@ -1,0 +1,19 @@
+\section{Introduction}
+
+Many problems, ranging from societal to technological, are inherently multi-agent and often require coordination (or cooperation) among the agents to achieve individually and collectively defined goals \citep{cao_2013_autonomous, klima_2018_space}. While evolution has provided humans with the skills to deal with such tasks, researchers and engineers have to train the artificial agents in a much shorter time span to also manage such tasks. 
+
+We are interested in Reinforcement Learning \citep[RL]{sutton_barto_2018_rlbook} as one of the branches of Machine Learning that holds the promise of training such agents by interacting with their environment. Deep RL has made dazzling progress in recent years with deep $Q$-learning, showing human or superior to human performance in a wide range of single-agent situations \citep{dqn_mnih_2015}, and this progress influenced Multi-Agent Reinforcement Learning \citep[MARL]{panait_cooperative_2005_marl}.
+
+In comparison to single-agent RL, centralised MARL faces the issue of the exponential growth of state and joint action spaces with the number of agents, making this approach intractable even for relatively small problems. Decentralised MARL approaches avoid the exponential growth of the action space at the cost of nonstationarity \cite{laurent_world_2011_non-markovian}: Since multiple learning agents adapt their policy over time, each agent continuously has to adapt to the changing policy of the other agents, making it more challenging to acquire robust and general policies. To mitigate that effect, \citet{oliehoek_optimal_2008_ctde} introduce the paradigm of Centralised Training with Decentralised Execution (CTDE) that has demonstrated how successful it can be in complex cooperative multi-agent tasks \citep{vdn_sunehag_value-decomposition_2018, rashid_qmix_2018, Avalos2022LocalLearningAAMAS}.
+
+In the last five years, a variety of environments have been developed for cooperative MARL. Among others, the Multi-agent Particle Environment \cite[MPE]{mpe_lowe2017multi, mpe_mordatch2017emergence}, the StarCraft Multi-Agent Challenge \cite[SMAC]{samvelyan19smac}, the Hanabi Learning Environment \cite[HLE]{bard_hanabi_2020} and Overcooked \cite{overcooked_wu_wang2021too} respectively aim at studying different aspects of cooperative multi-agent problem-solving such as the ability to infer the intentions of other agents or the emergence of basic compositional language.
+
+\paragraph{Contributions} In this work, we focus on fully cooperative multi-agent problems where agents optimise a single shared reward. We identify a category of such problems that is not well studied, introduce the Laser Learning Environment (LLE) that fits in that category and test state-of-the-art CTDE methods against it. To the best of our knowledge, LLE exhibits a unique combination of three properties: 
+\begin{enumerate*}[label=\arabic*)]
+    \item \textit{perfect coordination}: failing to coordinate can be fatal;
+    \item \textit{interdependence}: agents need each other to progress;
+    \item \textit{zero-incentive dynamics}: key steps toward success are not rewarded.
+\end{enumerate*}
+We then show how agents successfully achieve perfect coordination but are unable to overcome the zero-incentive dynamics and escape state space bottlenecks, even when using $Q$-learning extensions such as prioritised experience replay \citep{schaul_prioritized_2016_per} and $n$-steps return \citep{Watkins_1989_n-step-return}. Finally, we show that intrinsic curiosity with Random Network Distillation \citep{burda_exploration_2018_rnd} does not overcome the state space bottlenecks created by the interdependence of the agents. Together, our results demonstrate that LLE is a relevant benchmark for future work and aim to point researchers in new relevant directions of cooperative MARL research.
+
+
