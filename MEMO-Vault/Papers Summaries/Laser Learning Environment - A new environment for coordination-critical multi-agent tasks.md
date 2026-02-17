@@ -9,11 +9,8 @@ The authors address a central limitation in current research on cooperative Mult
 - Existing MARL benchmarks (e.g. SMAC, Overcooked, Hanabi) capture some aspects of cooperation but typically:
     
     - Allow partial progress without all agents coordinating perfectly.
-        
     - Provide intermediate rewards even for incomplete cooperation.
-        
     - Permit agents to make progress alone or asynchronously.
-        
 
 **Key gap:** Realistic coordination-critical tasks often involve unrewarded but essential cooperation steps that current MARL methods fail to learn.
 
