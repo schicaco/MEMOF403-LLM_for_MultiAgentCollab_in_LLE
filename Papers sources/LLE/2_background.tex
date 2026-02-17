@@ -1,0 +1,42 @@
+\section{Background}
+
+\subsection{Multi-agent Markov Decision Process}
+\label{sec:mdp}
+A Multi-agent Markov Decision Process \citep[MMDP]{boutilier_planning_1996} is described as a tuple $\left<n, S, A, T, R, s_0, s_f, \gamma\right>$ where $n$ is the number of agents, $S$ is the set of states, $A \equiv A_1 \times \dots \times A_n$ is the set of joint actions and $A_i$ is the set of actions of agent $i$, $T\colon S \times A \rightarrow \Delta_S$ is a function that gives the probability of transitioning from state $s$ to state $s'$ by taking action $a$, $R: S \times A \times S \rightarrow \mathbb{R}$ is the function that gives the reward obtained by transitioning from $s$ to $s'$ by performing joint action $\bm{a}$, $s_0 \in S$ is the initial state, $s_f$ is the final state and $\gamma \in \left[0, 1\right)$ is a discount factor.\\
+A transition is defined as $\tau = \left<s, \bm{a}, r, s'\right>$ with $ s, s' \in S, \bm{a} \in A, r \in \mathbb{R}$. An episode of length $l$ is a sequence of transitions $\tau_1, \dots, \tau_l$ such that $\tau_1 = \left< s_0, \bm{a}, r, s'\right>$ and $\tau_l = \left<s_{l-1}, \bm{a}, r, s_f\right>$. Each agent $i$ acts according to a policy $\pi_i \colon S  \rightarrow \Delta_{A_i}$ and their objective is to find the joint policy $\bm{\pi} = \left<\pi_1, \dots, \pi_n\right>$ that maximises their expected discounted reward $\mathbb{E}\left[\sum_{t=0}^{\infty} \gamma^{t} R_t | s=s_0, \bm{\pi}\right]$. The action-value function of a policy measures the expected return obtained by taking action $\bm{a}$ is state $s$ by following policy $\bm{\pi}$. In particular, we define the joint action-value function $Q^{\bm{\pi}}: S \times \bm{A} \rightarrow \mathbb{R}$.\\
+Scenarios where agents receive individual observations of the state instead of the full state are referred to as Decentralised Partially Observable Markov Decision Processes \citep{oliehoek_concise_2016_pomdp}.
+
+
+\subsection{\textit{Q}-value factorisation}
+\label{sec:ctde}
+
+\citet{laurent_world_2011_non-markovian} showed that multi-agent systems suffer from a non-stationarity problem (\citet{tuyls_multiagent_2012_moving_target} also refer to it as the multi-agent moving target problem) because learning agents perceive the other learning agents as part of the environment. \citet{claus_dynamics_1998} have shown that naive implementations of Independent Q-Learning (IQL) were often unsuccessful, even for very simple tasks, partly because of this non-stationarity.
+
+To tackle this non-stationarity problem, \citet{vdn_sunehag_value-decomposition_2018} introduce Value Decomposition Network (VDN), an algorithm based on the concept of $Q$-value factorisation \citep{oliehoek_exploiting_2008_factorisation} in which each agent $i$ has its own utility function $Q_i: S \times A_i \rightarrow \mathbb{R}$. VDN decomposes the joint $Q$-value into a simple sum of the agents' utility.
+
+This factorisation allows for decentralised execution thanks to the Individual Global Max property \citep[IGM]{son_qtran_2019} that ensures consistency in action selection between the centralised training and the decentralised execution.
+QMIX \citep{rashid_qmix_2018} extends VDN by allowing more complex factorisation using a monotonically increasing hype-network conditioned on the state. 
+
+% then introduce QMIX, a value factorisation method that relaxes the sum assumption by introducing a neural network that combines the $Q_i$ in a non-linear fashion. This neural network parameterised by $\theta$ is constrained to be a monotonically increasing function $f_\theta$ in order to keep the IGM property. \citet{rashid_qmix_2018} use the environment state to generate the weights $\theta$ of the neural network that mixes $Q_i$.
+
+%\vspace{-0.4cm}
+%\begin{equation}
+%    \label{eq:qmix}
+%    Q_{tot}^{\text{\tiny QMIX}}(s, \bm{a}) = f_{\theta(s)}(Q_1(s, a_1), \dots, Q_1(s, a_n))
+%\end{equation}
+
+
+
+\subsection{Cooperative multi-agent environments}
+\label{sec:environemnts}
+
+In the last few years, several cooperative multi-agent environments have emerged to study different aspects of the cooperative multi-agent problem and we give here an overview of popular environments with discrete action spaces.
+
+\subsubsection{The StarCraft Multi-Agent Challenge} \citep[SMAC]{samvelyan19smac} comes with a wide range of maps and offers a complex cooperative partially observable problem where individual agents of the same team have to defeat the opponent team in a short skirmish. This environment has been introduced to study whether agents could learn complex behaviours such as kiting.
+
+\subsubsection{Overcooked} \citep{overcooked_wu_wang2021too} is a cooperative environment in which multiple agents receive recipes and have to cook them before serving them on a plate. On top of spatial movements, this environment has been introduced to study the ability of agents to infer the hidden intentions of others as well as the ability of agents to learn when to split the tasks amongst themselves (divide and conquer) and when to work on the same task (cooperate).
+
+\subsubsection{Hanabi Learning Environment} \citep[HLE]{bard_hanabi_2020} is an environment that comes from a board game with the same name. In Hanabi, every player plays one after the other and has to decide whether to play a card or give a clue to a teammate. This environment is well suited to study reasoning, beliefs and intentions of other players.
+
+\subsubsection{The Multi-agent Particle Environment} \citep[MPE]{mpe_lowe2017multi, mpe_mordatch2017emergence} is a set of cooperative and competitive 2D tasks with a dense reward signal. It has both partially and fully observable variants and offers scenarios that involve communication. This environment has been introduced to study the emergence of a basic compositional language.
+

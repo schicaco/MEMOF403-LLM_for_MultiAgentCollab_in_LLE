@@ -1,0 +1,101 @@
+\documentclass{standalone}
+
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage[T1]{fontenc}    % use 8-bit T1 fonts
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{booktabs}       % professional-quality tables
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage[dvipsnames]{xcolor}
+\usepackage{graphicx}
+\usepackage{verbatim}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{pgfplots}
+\usepackage{pgffor}
+\usepackage{tikz}
+\usepackage{multirow}
+\usepackage{colortbl} % Cell colour
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{natbib}
+%\usepackage{cite}
+\usepackage[inline]{enumitem}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
+
+
+\colorlet{vdn}{blue!70}
+\colorlet{dqn}{orange!80}
+\colorlet{qmix}{purple!80}
+\colorlet{per}{red!70}
+\colorlet{rnd}{ForestGreen}
+\colorlet{3step}{Apricot}
+\colorlet{5step}{Emerald}
+\colorlet{7step}{MidnightBlue}
+\colorlet{9step}{Lavender}
+
+
+\input{utils}
+
+\pgfplotsset{compat=newest}
+\usepgfplotslibrary{groupplots, fillbetween}
+
+
+\begin{document}
+	\begin{tikzpicture}
+		\begin{groupplot}[
+			group style={group size= 1 by 2},
+			height=4cm,
+			width=6.8cm, 
+			grid=major,
+			legend columns=-1,
+			xtick={0, 200000, 400000, 600000, 800000, 1000000},
+			xticklabels={0, 0.2, 0.4, 0.6, 0.8, 1m},
+			scaled x ticks=false,
+			title style={yshift=-0.25cm},
+			]
+			\nextgroupplot[title={Score}, legend to name=link, ymin=-1.5, ymax=5.5, xmin=0, xmax=1000000]
+			\plotMean[VDN]{vdn}{score};
+			\plotMean[PER]{per}{score};
+			\plotMean[RND]{rnd}{score};
+			\plotMean[3Step]{3step}{score};
+			
+			\plotCI{vdn}{score};
+			\plotCI{per}{score};
+			\plotCI{rnd}{score};
+			\plotCI{3step}{score};
+			
+			\coordinate (top-left) at (rel axis cs:0,1);% coordinate at top left of the first plot
+			\coordinate (bot-left) at (rel axis cs:0,0);
+			
+			\nextgroupplot[
+				title={Exit rate}, 
+				ymin=-0.05, 
+				ymax=0.5, 
+				xmin=0, 
+				xmax=1000000, 
+				%xshift=-0.3cm
+			]
+			\plotMean{vdn}{exit_rate};
+			\plotMean{per}{exit_rate};
+			\plotMean{rnd}{exit_rate};
+			\plotMean{3step}{exit_rate};
+			
+			\plotCI{vdn}{exit_rate};
+			\plotCI{per}{exit_rate};
+			\plotCI{rnd}{exit_rate};
+			\plotCI{3step}{exit_rate};
+			
+			\coordinate (right) at (rel axis cs:1,1);
+			\coordinate (bot) at (rel axis cs:1,0);% coordinate at bottom of the last plot
+		\end{groupplot}
+		\path (top-left)--(bot) coordinate[midway] (center);
+		\path (top-left)--(bot-left) coordinate[midway] (center-left);
+		\path (top-left)--(right) coordinate[midway] (h-center);
+		\node[below=4.7cm, inner sep=0pt] at (h-center) {\pgfplotslegendfromname{link}};
+	\end{tikzpicture}
+\end{document}

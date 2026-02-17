@@ -1,0 +1,159 @@
+
+\section{Experiments}
+\label{sec:experients}
+
+We analyse the score and exit rate on level 6\footnote{Results for each level can be found in Appendix~\ref{apx:all-results}.} shown in \autoref{fig:lvl6-annotated} with Independent deep $Q$-Learning \citep[IQL]{dqn_mnih_2015}, Value Decomposition Network \citep[VDN]{vdn_sunehag_value-decomposition_2018} and QMIX \citep{rashid_qmix_2018}. Then, we discuss in \autoref{sec:discussion} the results with regard to  perfect coordination, interdependence and zero-incentive dynamics.
+
+In their respective papers, VDN and QMIX have been introduced in the scope of partially observable environments while LLE is fully observable. We treat the fully observable case as the particular case of Dec-POMDP where the individual observations are equal to the state. We motivate the usage of QMIX by the fact that it has demonstrated its superior representational capability in comparison to VDN with a fully observable example referred to as \textit{Two-Step game} \citep{rashid_qmix_2018}. Therefore, we use a feed-forward neural network instead of a recurrent one.
+
+
+\paragraph{Experimental setup} In our experiments, agents interact with the environment for one million time steps and policies are updated every 5 steps on a batch of 64 transitions. Agents use an $\epsilon$-greedy policy linearly annealed from $1$ to $0.05$ over 500k time steps and use a replay memory of 50k transitions. We use Double $Q$-learning for all algorithms. The target network is updated via soft updates with $\tau=0.01$ \citep{ddpg_2016} which has experimentally provided better results in our experiments than periodic hard updates of the target network. All hyperparameters can be found in \autoref{apx:hyperparameters}.
+
+The utility values $Q_i$ of each agent $i \in \left\{1, \dots, n\right\}$ are estimated with a convolutional neural network \citep{lecun_gradient-based_1998_cnn} to take advantage of the spatial nature of the layered observations. Since the observations are designed such that every \textit{pixel} gives information, the stride of the convolutions is $1$. \autoref{apx:nn_architecture} provides a more detailed description of the neural network architecture. Since LLE is fully observable and agents share the same neural network weights, we concatenate the flattened output of the CNN with a one-hot encoding of the agent id. This allows the neural network to output different $Q_i$-values for each agent.
+
+We define the maximal episode duration to be $\lfloor{\frac{width \times height}{2}\rceil}$ steps after which the episode is truncated and taken to an end. This heuristic for episode duration allows the agents to discover a lot of dynamics of the environment without polluting the replay memory too much with useless transitions. For instance in level 6, if agents red and yellow reach the exit tiles but did not open the way for blue and green, then the remaining time steps of the episode would just be the latter two waiting behind the beam.
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}
+        \begin{groupplot}[
+            group style={group size=2 by 1, horizontal sep=1cm},
+            height=4cm,
+            width=6.8cm, 
+            grid=major,
+            xtick={0, 200000, 400000, 600000, 800000, 1000000},
+            xticklabels={0, 0.2, 0.4, 0.6, 0.8, 1m},
+            scaled x ticks=false,
+            legend columns=-1,
+            title style={yshift=-0.25cm},
+            %legend style={empty legend}
+        ]
+            \nextgroupplot[title={Score}, legend to name=zelda, ymin=-1.5, ymax=5, xmin=0, xmax=1000000]            
+                % Draw the mean first for legend to work properly
+                \plotMean[IQL]{dqn}{score};
+                \plotMean[VDN]{vdn}{score};
+                \plotMean[QMix]{qmix}{score};
+
+                % Plot confidence intervals
+                \plotCI{dqn}{score};
+                \plotCI{qmix}{score};
+                \plotCI{vdn}{score};
+                                        
+                \coordinate (top-left) at (rel axis cs:0,1);% coordinate at top left of the first plot
+                \coordinate (bot-left) at (rel axis cs:0,0);
+                
+            \nextgroupplot[ymin=-0.05, ymax=0.5, xmin=0, xmax=1000000, title={Exit rate}]
+                \plotMean{dqn}{exit_rate};
+                \plotMean{vdn}{exit_rate};
+                \plotMean{qmix}{exit_rate};
+            
+                \plotCI{dqn}{exit_rate};
+                \plotCI{qmix}{exit_rate};
+                \plotCI{vdn}{exit_rate};
+
+                \coordinate (right) at (rel axis cs:1,1);
+                \coordinate (bot) at (rel axis cs:1,0);% coordinate at bottom of the last plot
+        \end{groupplot}
+        \path (top-left)--(bot) coordinate[midway] (center);
+        \path (top-left)--(bot-left) coordinate[midway] (center-left);
+        \path (top-left)--(right) coordinate[midway] (h-center);
+        \node[above=0.2cm, inner sep=0pt] at (h-center) {\pgfplotslegendfromname{zelda}};
+    \end{tikzpicture}
+    \caption{Training score and exit rate over time for IQL, VDN and QMIX on level 6 (\autoref{fig:lvl6-annotated}). The maximal achievable score is 9. Results averaged on 20 different seeds and shown with 95\% confidence interval, capped by the minimum and maximum.}
+    \label{fig:dqn-vdn-qmix}
+\end{figure}
+
+
+\paragraph{Foreanalysis}
+Level 6 (\autoref{fig:lvl6-annotated}) is of size $12 \times 13$ and has 4 agents and 4 gems. The maximal score is hence $4+4+1=9$ as explained in \autoref{sec:metrics}. The optimal policy in level 6 is the following: 
+\begin{enumerate*}[label=\textbf{\roman*)}]
+    \item Agent green should collect the gem in the top left corner;
+    \item Agent red should block the red laser and wait for every other agent to cross;
+    \item Agent yellow should cross the red laser and collect the gem that only he can collect near the yellow source;
+    \item Agent yellow should block the laser for every agent to cross;
+    \item Agents should collect the remaining gems on the bottom half;
+    \item Agents should go to the exit tiles.
+\end{enumerate*}
+The length of such an episode is $\approx 30$ time steps, well below the time limit of $\left\lfloor\frac{12 \times 13}{2}\right\rceil = 78$ steps.
+
+\subsection{Baseline results}
+\label{sec:results}
+
+\autoref{fig:dqn-vdn-qmix} shows the mean score and exit rate over the course of training on level 6 (\autoref{fig:lvl6-annotated}). VDN performs best on this map. That being said, none of the algorithms ever reaches the highest possible score of $9$ and at most half of the agents ever reach the end exit tiles.
+
+Looking into the results, the best policy learned only completes items i), iii) and v). Agents red and yellow escape the top half of the map, collect gems on that side and reach the exit, while agents green and blue are not waited for. This policy yields a score of 6 and an exit rate of 0.5. We could introduce reward shaping in order to drive the agents towards a better solution more easily. However, reward shaping is notoriously difficult to achieve properly and can drive agents towards unexpected (and likely undesired) behaviours \citep{amodei_2016_reward}.
+
+\subsection{Results with \textit{Q}-learning extensions}
+\label{sec:results-extensions}
+
+\begin{figure}[t]
+    \centering
+    \begin{tikzpicture}
+        \begin{groupplot}[
+            group style={group size= 3 by 1, horizontal sep=1cm},
+            height=4cm,
+            width=6.8cm, 
+            grid=major,
+            legend columns=-1,
+            xtick={0, 200000, 400000, 600000, 800000, 1000000},
+            xticklabels={0, 0.2, 0.4, 0.6, 0.8, 1m},
+            scaled x ticks=false,
+            title style={yshift=-0.25cm},
+            %legend style={yshift=-0.2cm}
+        ]
+            \nextgroupplot[title={Score}, legend to name=link, ymin=-1.5, ymax=5.5, xmin=0, xmax=1000000]
+                \plotMean[VDN]{vdn}{score};
+                \plotMean[VDN+PER]{per}{score};
+                \plotMean[VDN+RND]{rnd}{score};
+                \plotMean[VDN+3Step]{3step}{score};
+            
+                \plotCI{vdn}{score};
+                \plotCI{per}{score};
+                \plotCI{rnd}{score};
+                \plotCI{3step}{score};
+                        
+                \coordinate (top-left) at (rel axis cs:0,1);% coordinate at top left of the first plot
+                \coordinate (bot-left) at (rel axis cs:0,0);
+                
+            \nextgroupplot[title={Exit rate}, ymin=-0.05, ymax=0.5, xmin=0, xmax=1000000, xshift=-0.3cm]
+                \plotMean{vdn}{exit_rate};
+                \plotMean{per}{exit_rate};
+                \plotMean{rnd}{exit_rate};
+                \plotMean{3step}{exit_rate};
+            
+                \plotCI{vdn}{exit_rate};
+                \plotCI{per}{exit_rate};
+                \plotCI{rnd}{exit_rate};
+                \plotCI{3step}{exit_rate};
+                                
+                \coordinate (right) at (rel axis cs:1,1);
+                \coordinate (bot) at (rel axis cs:1,0);% coordinate at bottom of the last plot
+        \end{groupplot}
+        \path (top-left)--(bot) coordinate[midway] (center);
+        \path (top-left)--(bot-left) coordinate[midway] (center-left);
+        \path (top-left)--(right) coordinate[midway] (h-center);
+        \node[above=0.5cm, inner sep=0pt] at (h-center) {\pgfplotslegendfromname{link}};
+    \end{tikzpicture}
+    \caption{Training score and exit rate over training time for VDN, VDN with PER, VDN with RND and VDN with 3-step return on level 6. The maximal score that agents can reach on level 6 of an episode is $9$. Results are averaged on 20 different seeds and shown with 95\% confidence intervals}
+    \label{fig:per-rnd}
+\end{figure}
+
+When a policy is not successful enough, there exists a few common approaches to try and improve the learning of the policy. We take VDN as our baseline since it provides the best results in our experiments and we combine it with Prioritised Experience Replay \citep[PER]{schaul_prioritized_2016_per}, $n$-step return \citep{Watkins_1989_n-step-return} and intrinsic curiosity \citep{jurgen_schmidhuber_possibility_1991_curiosity} on top of it and analyse their impact on the learning process.
+
+\subsubsection{Prioritised Experience Replay} is a technique used in off-policy reinforcement learning to enhance learning efficiency by prioritising experiences and sampling them based on their informativeness. The intuition is to sample past experiences whose $Q$-values are poorly estimated more often and hope that when agents discover a better policy than their current one, this policy would be prioritised. In our setting, we hope that if agents ever complete the level, this experience would be prioritised.
+
+As \citeauthor{schaul_prioritized_2016_per} suggest, we use the temporal difference error as the priority. We have performed a hyperparameter search on $\alpha$ and $\beta$ that respectively control the  exponential scale of priorities and the exponential scale of importance sampling weights with values ranging from 0.3 to 0.8 and have found the best values to be $\alpha=0.6$ and $\beta=0.5$, where $\beta$ is annealed from $0.5$ to $1$ on the course of the training (1m steps).
+
+\autoref{fig:per-rnd} shows that prioritised sampling performs worse than uniform sampling overall. We hypothesise that PER hinders exploration in the early stages of the training because of the zero-incentive dynamics of the game and discuss this further in \autoref{sec:discussion-interdependence} and \autoref{sec:discussion-zid} with regard to interdependence and zero-incentive dynamics respectively. 
+
+\subsubsection{\textit{N}-step return} is a technique that aims at fastening the bootstrapping process \citep{sutton_barto_2018_rlbook} by propagating rewards up to $n$-steps into the past. In the scope of LLE, the idea here is to propagate the reward for collecting gems faster to the step of laser blocking. We have tried values for $n \in \left\{3, 5, 7, 9 \right\}$ and found $n=3$ to give the highest score on average.
+
+\autoref{fig:per-rnd} show that 3-step return yields worse results than any other variant. We relate this poor performance to the high probability of dying from lasers while exploring, resulting in agents learning more conservative policies. We relate this phenomenon to the zero-incentive dynamics of the game and discuss this topic further in \autoref{sec:discussion-zid}. 
+
+\subsubsection{Intrinsic curiosity} aims at introducing bias in the learning process to encourage agents to explore unknown states. During learning, intrinsic curiosity adds an extra reward referred to as the intrinsic reward, thereby altering the updates of the $Q$-function. With this method, we hope that agents would learn faster about laser-blocking and therefore allow them to escape state space bottlenecks.
+
+Intrinsic curiosity with Random Network Distillation \citep[RND]{burda_exploration_2018_rnd} has proven to work well in single-agent environments with zero-incentive dynamics such as Montezuma's Revenge, where the agent must first collect a torch (unrewarded) to be able to light up a dark room (unrewarded) and in the end, collect a treasure (rewarded). Similarly, the objective of using RND is to quicken the discovery of the laser-blocking dynamic and encourage agents to explore the state space.\\
+We linearly anneal the intrinsic reward from a factor 2 down to 0 over the course of the training (1m steps), clip the intrinsic reward to be lower or equal to 5 and warm up the RND for 64 updates before issuing any intrinsic reward different from 0.
+
+\autoref{fig:per-rnd} shows that RND performs very similarly to the baseline and does not enable the agents to escape more state space bottlenecks and therefore to learn significantly better policies.
+

@@ -1,0 +1,30 @@
+
+
+\newcommand{\plotStd}[2]{%
+  \addplot[color=#1, opacity=0.4, name path=f] table [x=time_step, y=#2_minus_std, col sep=comma] {datasets/#1.csv};
+  \addplot[color=#1, opacity=0.4, name path=g] table [x=time_step, y=#2_plus_std, col sep=comma] {datasets/#1.csv};
+  \addplot[color=#1, opacity=0.4] fill between[of=f and g];
+}
+
+\newcommand{\plotCI}[2]{%
+  \addplot[color=#1, opacity=0.4, name path=f] table [x=time_step, y=#2_minus95, col sep=comma] {datasets/#1.csv};
+  \addplot[color=#1, opacity=0.4, name path=g] table [x=time_step, y=#2_plus95, col sep=comma] {datasets/#1.csv};
+  \addplot[color=#1, opacity=0.4] fill between[of=f and g];
+}
+
+\newcommand{\plotMean}[3][]{
+    \addplot[color=#2, mark=none, line width=1pt] table [x=time_step, y=#3_mean, col sep=comma] {datasets/#2.csv};
+    \ifx\relax#1\relax\else\addlegendentry{#1}\fi
+}
+
+
+\newcommand{\plotLevelStd}[2]{%
+  \addplot[color=#1, opacity=0.4, name path=f] table [x=time_step, y=#2_minus_std, col sep=comma] {datasets/levels/#1.csv};
+  \addplot[color=#1, opacity=0.4, name path=g] table [x=time_step, y=#2_plus_std, col sep=comma] {datasets/levels/#1.csv};
+  \addplot[color=#1, opacity=0.4] fill between[of=f and g];
+}
+
+\newcommand{\plotLevelMean}[3][]{
+    \addplot[color=#2, mark=none, line width=1pt] table [x=time_step, y=#3_mean, col sep=comma] {datasets/levels/#2.csv};
+    \ifx\relax#1\relax\else\addlegendentry{#1}\fi
+}
