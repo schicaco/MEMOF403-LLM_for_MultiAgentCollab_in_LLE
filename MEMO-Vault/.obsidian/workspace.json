@@ -1,0 +1,228 @@
+{
+  "main": {
+    "id": "9589a19298d468de",
+    "type": "split",
+    "children": [
+      {
+        "id": "8fa70b381e059202",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "143cc39ad2c685eb",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Theory of Mind for Multi-Agent Collaboration via Large Language Models"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "6a573362bba30ff5",
+    "type": "split",
+    "children": [
+      {
+        "id": "45a5a5900b12b47b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "79989891fa0ae745",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical",
+                "autoReveal": false
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "dabfac180225cd25",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "fb8a4a8c2808ebd1",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "fa217e276f4869e5",
+    "type": "split",
+    "children": [
+      {
+        "id": "a8ad8722e7d264c9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "91dd0443a66e9a58",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for Theory of Mind for Multi-Agent Collaboration via Large Language Models"
+            }
+          },
+          {
+            "id": "c97435c4c4565682",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from Theory of Mind for Multi-Agent Collaboration via Large Language Models"
+            }
+          },
+          {
+            "id": "75d8af6bf68ac5ee",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "fb3a3fa53fa3dca9",
+            "type": "leaf",
+            "state": {
+              "type": "all-properties",
+              "state": {
+                "sortOrder": "frequency",
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-ghost",
+              "title": "all-properties"
+            }
+          },
+          {
+            "id": "e832c61ae3b0f906",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+                "followCursor": false,
+                "showSearch": false,
+                "searchQuery": ""
+              },
+              "icon": "lucide-list",
+              "title": "Outline of Theory of Mind for Multi-Agent Collaboration via Large Language Models"
+            }
+          },
+          {
+            "id": "aef6103a7dd57f9a",
+            "type": "leaf",
+            "state": {
+              "type": "git-view",
+              "state": {},
+              "icon": "git-pull-request",
+              "title": "Source Control"
+            }
+          }
+        ],
+        "currentTab": 5
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false,
+      "bases:Create new base": false,
+      "obsidian-git:Open Git source control": false
+    }
+  },
+  "active": "79989891fa0ae745",
+  "lastOpenFiles": [
+    "Papers Summaries/Theory of Mind for Multi-Agent Collaboration via Large Language Models.md",
+    "Untitled.md",
+    "Papers Summaries/Laser Learning Environment - A new environment for coordination-critical multi-agent tasks.md",
+    "Others multi-agent environments.md",
+    "Welcome.md",
+    "Presentation.md",
+    "Thesis materials/LLM/Which LLM use.md",
+    "Thesis materials/LLM/Prompts used for ToM via LLM paper.md",
+    "Thesis materials/TODO list.md",
+    "Thesis materials/Support.md",
+    "Thesis materials/LLM",
+    "Thesis materials/Hybrid architecture idea.md",
+    "Thesis materials/How to ML Paper – A Brief Guide.md",
+    "Thesis materials",
+    "Theorical Concepts/Definitions.md",
+    "Theorical Concepts/Deep Q-network",
+    "Theorical Concepts",
+    "Papers Summaries/VDN.md",
+    "Papers Summaries",
+    "Papers/LLM-based agents/simclass.pdf",
+    "Papers/LLM-based agents/scaling_LLM_based_multi-agent_collab.pdf",
+    "Papers/LLM-based agents/generativeAgent_humanbehavior.pdf",
+    "Papers/LLM-based agents/ToM_for_multi-agentCollab_via_LLMs.pdf",
+    "Papers/LLM-based agents/LLM-collab.pdf",
+    "Papers/Other Papers.md",
+    "Images/ToM_embodied_agent.png",
+    "Images/LLE.png"
+  ]
+}
