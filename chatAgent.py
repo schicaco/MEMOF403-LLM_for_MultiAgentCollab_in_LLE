@@ -6,6 +6,7 @@ from ollama import Client
 import csv 
 import sys
 import os
+import numpy as np
 
 
 BACKGROUND_PROMPT_NEW = "Welcome to our interactive game. In this game, you’ll assume the role of a specialist on a search and rescue team. Together with three other players, you must make your way through the room with the mission of reaching the exit together.\
@@ -17,12 +18,14 @@ Communications:  In addition to selecting an action to take from the above list,
 Observations: While you can only see what’s in your current position and the environment and read text messages from teammates. You’ll also be informed of the current round number, team score and the current location of your teammates. Your teammates have the same observability as you. They will not be able to know your action and its consequences unless you explicitly communicate.\
 Interaction: To facilitate our interaction, reply your action selection and communication messages in this fixed format: Action selection: 'Your action', Message to Team: 'Your Message'.  For the action, to move to another tile say : move X (you can chose up - NORTH, SOUTH, EAST, WEST, STAY). Remember, your replies must adhere strictly to these rules. Feel free to ask clarifying questions if needed. I’ll supply the necessary information as we progress. Are you ready to take on this challenge?"
 
-INITIAL_BELIEF = "Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates. \n \
-Your role: You are playing as Player {agent_color} at {agent_pos}; Current round : {current_round}; Total team score : {team_score}; \
+INITIAL_BELIEF = "Your role: You are playing as Player {agent_color} at {agent_pos}; Current round : {current_round}; Total team score : {team_score}; \
 Observation: laser beam yellow at (2,0) and projects a beam horizontally across the entire row 2. diamond at (4,0). Exit tile at (4,3) and (4,4);\
-Team roles: {team_name} {team_color}; Teamate location:{team_location}; Teammates messages: {team_messages} available actions: {available_actions}"
+Team roles: {team_name} {team_color}; Teamate location:{team_location}; Your messages: {own_messages}; Teammates messages: {team_messages} available actions: {available_actions}"
+#TODO add possibility to change info of obsevation so it will always match the map given 
 
 INITIAL_PROMPT = "Given the above belief state, what is your next action?"
+
+INTRO_BELIEF = "Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.\n"
 
 ACTION_MAP = {
     "NORTH": 0,
@@ -72,11 +75,15 @@ class ChatAgent():
     self.team_mate_pos = agents_pos[1 - agent_id] #TODO for when there'll be more agents 
     self.team_names = AGENT_NAME_MAP[1 - agent_id] #TODO for when there'll be more agents
     self.team_messages = ""
-
+    self.own_messages = ""  # Track messages this agent has sent
 
     self.background_prompt = BACKGROUND_PROMPT_NEW.format(agent_name=AGENT_NAME_MAP[agent_id], agent_color=self.agent_color)
 
-    self.last_belief = INITIAL_BELIEF.format(
+    # Initialize belief history to store last 3 rounds
+    self.belief_history = []
+    self.own_messages_history = []  # Track this agent's sent messages
+
+    self.last_belief = INTRO_BELIEF + INITIAL_BELIEF.format(
         agent_id=self.agent_id,
         agent_color=self.agent_color,
         agent_pos=self.agent_pos,
@@ -85,6 +92,7 @@ class ChatAgent():
         team_color=self.team_color,
         team_name=self.team_names,
         team_location=self.team_mate_pos,
+        own_messages=self.own_messages,
         team_messages=self.team_messages,
         available_actions=self.available_actions
     )
@@ -145,9 +153,10 @@ class ChatAgent():
     return parsed_message 
   
 
-  def update_history(self, current_round, team_score, agents_pos, team_messages, available_actions): 
+  def update_history(self, current_round, team_score, agents_pos, team_messages, own_message, available_actions): 
     """
     Update parameters of  chatAgent after each round, which will be included in the belief state for the next round.
+    Keeps only the last 3 rounds of belief states.
     """
 
     self.current_round = current_round
@@ -155,11 +164,11 @@ class ChatAgent():
     self.agent_pos = agents_pos[self.agent_id]
     self.team_mate_pos = agents_pos[1 - self.agent_id]
     self.team_messages = team_messages
+    self.own_messages = own_message
     self.available_actions = available_actions
 
-    last_belief = "Below is the belief state of your last round: " + self.last_belief  
-
-    self.last_belief = last_belief + INITIAL_BELIEF.format(
+    # Extract the belief state portion without INTRO_BELIEF and add to history
+    belief_state_only = INITIAL_BELIEF.format(
         agent_id=self.agent_id,
         agent_color=self.agent_color,
         agent_pos=self.agent_pos,
@@ -168,9 +177,44 @@ class ChatAgent():
         team_color=self.team_color,
         team_name=self.team_names,
         team_location=self.team_mate_pos,
+        own_messages=self.own_messages,
         team_messages=self.team_messages,
         available_actions=self.available_actions
     )
+    
+    # Add current belief to history and keep only last 4
+    self.belief_history.append(belief_state_only)
+    if len(self.belief_history) > 4:
+        self.belief_history = self.belief_history[-4:]
+    
+    # Track own messages history
+    self.own_messages_history.append(own_message)
+    if len(self.own_messages_history) > 4:
+        self.own_messages_history = self.own_messages_history[-4:]
+
+    belief_string = ""
+    # Build the new belief state with INTRO_BELIEF for current and run numbers for old ones
+    for idx, old_belief in enumerate(self.belief_history[:-1], start=1):
+        belief_string += f"\nRun {current_round}: {old_belief}"
+    
+    # Add old belief states with run numbers (most recent first)
+    belief_string += INTRO_BELIEF
+    # Add current belief state
+    belief_string += INITIAL_BELIEF.format(
+        agent_id=self.agent_id,
+        agent_color=self.agent_color,
+        agent_pos=self.agent_pos,
+        current_round=self.current_round,
+        team_score=self.team_score,
+        team_color=self.team_color,
+        team_name=self.team_names,
+        team_location=self.team_mate_pos,
+        own_messages=self.own_messages,
+        team_messages=self.team_messages,
+        available_actions=self.available_actions
+    )
+
+    self.last_belief = belief_string
 
 
 
@@ -206,7 +250,7 @@ class Environment():
      file_exists = os.path.exists(data_path)
      
      with open(data_path, 'a', newline='') as csvfile:
-        fieldnames = ['round','agent_id', 'action', 'message']
+        fieldnames = ['round','agent_id','agent position', 'action', 'message']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         
         # Write header only if file is new
@@ -222,10 +266,11 @@ class Environment():
     team_score = None #TODO 
 
     self.set_chat_agents(self.env.world.agents)
+    agents_positions = self.env.world.agents_positions
 
     while not done:
-        time.sleep(0.5)
-        self.env.render() 
+        # time.sleep(0.5)
+        # self.env.render() 
         actions = []
         messages = []
         for i in range(self.env.n_agents):
@@ -235,34 +280,28 @@ class Environment():
           actions.append(response["action"])
           messages.append(response["message"])
 
-          agent.update_history(current_round, team_score, self.env.world.agents_positions, messages[-1], self.str_action(self.env.available_actions(),i)) 
+          agent.update_history(current_round, team_score, agents_positions, messages[-1], response["message"], self.str_action(self.env.available_actions(),i)) 
 
           # Increment round and save the action and message to history
-          current_round += 1
           record = {
               "round": current_round,
               "agent_id": AGENT_NAME_MAP[agent.agent_id],
+              "agent position": agents_positions[i],
               "action": ACTION_MAP_REVERSE[response["action"]],
               "message": response["message"]
           }
-
-          # get key of ACTION_MAP by value of response["action"] example if it is 0, get "NORTH"
-          for key, value in ACTION_MAP.items():
-              if value == response["action"]:
-                  record["action"] = key
-                  break
-
 
 
           self.history.append(record)
           # Save to CSV
           self.save_history("history.csv", record)
 
-        step = self.env.step(actions)
+        current_round += 1
+        step = self.env.step(np.array(actions))
 
         #TODO if got diamond or exit, update the team score 
 
-        self.env.render()            
+        # self.env.render()            
         done = step.is_terminal 
 
       
