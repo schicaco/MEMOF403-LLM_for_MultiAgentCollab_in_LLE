@@ -5,6 +5,7 @@ import re
 from ollama import Client 
 import csv 
 import sys
+import os
 
 
 BACKGROUND_PROMPT_NEW = "Welcome to our interactive game. In this game, you’ll assume the role of a specialist on a search and rescue team. Together with three other players, you must make your way through the room with the mission of reaching the exit together.\
@@ -30,6 +31,15 @@ ACTION_MAP = {
     "WEST": 3,
     "STAY": 4
 }
+
+ACTION_MAP_REVERSE ={
+    0: "NORTH",
+    1: "SOUTH",
+    2: "EAST",
+    3: "WEST",
+    4: "STAY"
+}
+
 
 COLOR_MAP = {
     0: "red",
@@ -120,11 +130,15 @@ class ChatAgent():
       },
     ]
 
+    print("\n WHAT AGENT GETS: \n")
+    print(self.background_prompt + "\n" + self.last_belief)
+
     message = ''
     for part in client.chat('kimi-k2.5:cloud', messages=messages, stream=True):
       message += part['message']['content']
 
-    print("agent", self.agent_id, "response:", message, "\n") #TODO remove this, just for testing
+    print("\n AGENT RAW RESPONSE: \n")
+    print("agent", self.agent_id,"\n", "response:", message, "\n") #TODO remove this, just for testing
 
     parsed_message = self.parse_agent_response(message)
 
@@ -132,14 +146,20 @@ class ChatAgent():
   
 
   def update_history(self, current_round, team_score, agents_pos, team_messages, available_actions): 
-    # TODO code moche 
-    
+    """
+    Update parameters of  chatAgent after each round, which will be included in the belief state for the next round.
+    """
+
     self.current_round = current_round
     self.team_score = team_score
     self.agent_pos = agents_pos[self.agent_id]
     self.team_mate_pos = agents_pos[1 - self.agent_id]
+    self.team_messages = team_messages
+    self.available_actions = available_actions
 
-    self.last_belief = INITIAL_BELIEF.format(
+    last_belief = "Below is the belief state of your last round: " + self.last_belief  
+
+    self.last_belief = last_belief + INITIAL_BELIEF.format(
         agent_id=self.agent_id,
         agent_color=self.agent_color,
         agent_pos=self.agent_pos,
@@ -181,19 +201,19 @@ class Environment():
     action_str += ", ".join(agent_action) 
     return action_str
 
-
-  def save_history(self, data_path, history):
-     """Save the hisory (self.history) to a csv file in the data_path location. 
-     The csv file should have columns: round, agent_id, action, message"""
-
-     with open(data_path, 'w', newline='') as csvfile:
+  def save_history(self, data_path, record):
+     """Append a single record to the history CSV file. Creates file with header if it doesn't exist."""
+     file_exists = os.path.exists(data_path)
+     
+     with open(data_path, 'a', newline='') as csvfile:
         fieldnames = ['round','agent_id', 'action', 'message']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-        writer.writeheader()
-        # for record in self.history:
-        #     writer.writerow(record)
-        writer.writerows(history)
+        
+        # Write header only if file is new
+        if not file_exists:
+            writer.writeheader()
+        
+        writer.writerow(record)
 
   def run_experiment(self): 
       
@@ -202,9 +222,10 @@ class Environment():
     team_score = None #TODO 
 
     self.set_chat_agents(self.env.world.agents)
+
     while not done:
         time.sleep(0.5)
-        self.env.render() # Uncomment to render
+        self.env.render() 
         actions = []
         messages = []
         for i in range(self.env.n_agents):
@@ -216,30 +237,34 @@ class Environment():
 
           agent.update_history(current_round, team_score, self.env.world.agents_positions, messages[-1], self.str_action(self.env.available_actions(),i)) 
 
-          # Save the action and message to history
+          # Increment round and save the action and message to history
           current_round += 1
-          self.history.append({
+          record = {
               "round": current_round,
-              "agent_id": agent.agent_id,
-              "action": response["action"],  
+              "agent_id": AGENT_NAME_MAP[agent.agent_id],
+              "action": ACTION_MAP_REVERSE[response["action"]],
               "message": response["message"]
-          })
+          }
 
-        self.save_history("history.csv", self.history[len(self.history)-self.env.n_agents:])
+          # get key of ACTION_MAP by value of response["action"] example if it is 0, get "NORTH"
+          for key, value in ACTION_MAP.items():
+              if value == response["action"]:
+                  record["action"] = key
+                  break
+
+
+
+          self.history.append(record)
+          # Save to CSV
+          self.save_history("history.csv", record)
 
         step = self.env.step(actions)
 
         #TODO if got diamond or exit, update the team score 
-        
-        # Access the step data with `step.obs`, `step.reward`, ...
-        self.env.render() # Uncomment to render    
-        
-        done = step.is_terminal # Either done or truncated
 
+        self.env.render()            
+        done = step.is_terminal 
 
-        if current_round == 2: done = True #TODO remove this, just for testing
-
-    self.save_history("history.csv", self.history) 
       
     print("\n \n \n")
     print("ended")
