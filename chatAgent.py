@@ -10,9 +10,9 @@ import numpy as np
 
 
 BACKGROUND_PROMPT_NEW = "Welcome to our interactive game. In this game, you’ll assume the role of a specialist on a search and rescue team. Together with three other players, you must make your way through the room with the mission of reaching the exit together.\
-The rules: You are operating in a grid-based environment where your objective is to maximize your team’s score. The grid contains different elements such as lasers, diamonds, and exit tiles. Your main goal is to reach an exit cell, which grants 1 points. If all of you reach the exit tile 1 more point is granted. Diamonds that can be collected are scattered in the map and give 1 point. Across the grid, you may encounter laser beams of different colors. Each agent has its own color. If a laser beam has the same color as your agent, you can safely pass through it or block it. However, if you attempt to pass through a laser of a different color, your agent dies and the episode immediately ends. \
+The rules: You are operating in a grid-based environment where your objective is to maximize your team’s score. The grid contains different elements such as lasers, diamonds, and exit tiles. Your main goal is to reach an exit cell, which grants 1 points. If all of you reach the exit tile 1 more point is granted. Diamonds that can be collected are scattered in the map and give 1 point. Across the grid, you may encounter laser beams of different colors. Each agent has its own color. If a laser beam has the same color as your agent, you can safely pass through it or block it. Blocking can only occur on beam cells (not at the source), and placing yourself on a beam cell stops the laser from extending further beyond that position in its direction. However, if you attempt to pass through a laser of a different color, your agent dies and the episode immediately ends. \
 Role: As {agent_name} player, you are {agent_color}.\
-The map: You are in a 5x5 grid-based environment where positions are given as (row, column), with (0,0) at the bottom-left corner.\
+The map: You are in a 5x5 grid-based environment where positions are given as (row, column), with (0,0) at the top-left corner and (4,4) at the bottom-right corner. \
 Each round you can move to a designate tile :  NORTH, SOUTH, EAST, WEST, STAY.\
 Communications:  In addition to selecting an action to take from the above list, you can also send communication message texts to both of your teammates in each round. The message text you sent will be shared to all of your teamates in their next round.\
 Observations: While you can only see what’s in your current position and the environment and read text messages from teammates. You’ll also be informed of the current round number, team score and the current location of your teammates. Your teammates have the same observability as you. They will not be able to know your action and its consequences unless you explicitly communicate.\
@@ -96,6 +96,8 @@ class ChatAgent():
         team_messages=self.team_messages,
         available_actions=self.available_actions
     )
+
+
 
   def parse_action(self, action_str): 
       """
@@ -266,9 +268,9 @@ class Environment():
     team_score = None #TODO 
 
     self.set_chat_agents(self.env.world.agents)
-    agents_positions = self.env.world.agents_positions
 
     while not done:
+        agents_positions = self.env.world.agents_positions
         # time.sleep(0.5)
         # self.env.render() 
         actions = []
@@ -297,11 +299,10 @@ class Environment():
           self.save_history("history.csv", record)
 
         current_round += 1
-        step = self.env.step(np.array(actions))
+        step = self.env.step(actions)
 
         #TODO if got diamond or exit, update the team score 
 
-        # self.env.render()            
         done = step.is_terminal 
 
       
