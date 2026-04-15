@@ -19,7 +19,8 @@ The authors address a central limitation in current research on cooperative Mult
 # The Laser Learning Environment (LLE)
 
 
-![[LLE.png]]
+![[LLE.png ]]
+
 
 LLE is a purpose-built, fully cooperative MARL benchmark that emphasizes coordination-critical dynamics. It is designed to highlight weaknesses in standard algorithms.
 

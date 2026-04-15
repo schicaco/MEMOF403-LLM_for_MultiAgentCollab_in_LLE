@@ -398,13 +398,12 @@ Explicit belief states mitigated these issues by reinforcing relevant context.
 > > These findings suggest that LLMs, through learning from massive language materials, acquire essential teamwork skills without specific collaborative task training
 > 
 
-<<<<<<< HEAD
+
 > [!PDF|note] [[ToM_for_multi-agentCollab_via_LLMs.pdf#page=2&selection=81,5,90,10&color=note|ToM_for_multi-agentCollab_via_LLMs, p.2]]
 > > LLMs struggle with complex ToM inferences involving communication or second-order beliefs. In our study, ToM evaluations occur in the midst of an interactive team task, where the mental states of agents change dynamically with each interaction. As agents exchange information through communication at every timestamp, the complexity of reasoning increases, since agents’ mental states may be updated through both observations and communication. 
 > 
 
-=======
->>>>>>> origin/obsidian
+
 
 **Code:**
 

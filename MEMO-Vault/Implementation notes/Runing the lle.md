@@ -13,3 +13,7 @@
 Do it on an python environment will be more secure  
 
 # Running 
+
+Experiment note 1 : change prompt so it can understand that it can block the laser properly  
+
+Todo: if illegal movement, do again a api request 
