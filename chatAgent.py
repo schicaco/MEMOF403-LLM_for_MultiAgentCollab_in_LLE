@@ -7,19 +7,20 @@ import csv
 import sys
 import os
 import numpy as np
+import sys
 
 
 # Goal: "Your main goal is to reach an exit cell"
-BACKGROUND_PROMPT_NEW = "Welcome to our interactive game. In this game, you’ll assume the role of a specialist on a search and rescue team. Together with three other players, you must make your way through the room with the mission of reaching the exit together.\
-The rules: You are operating in a grid-based environment where your objective is to maximize your team’s score. The grid contains different elements such as lasers, diamonds, and exit tiles. Your main goal is to reach an exit cell, which grants 1 points. If all of you reach the exit tile 1 more point is granted. Diamonds that can be collected are scattered in the map and give 1 point. Across the grid, you may encounter laser beams of different colors. Each agent has its own color. If a laser beam has the same color as your agent, you can safely pass through it or block it. Blocking can only occur on beam cells (not at the source), and placing yourself on a beam cell stops the laser from extending further beyond that position in its direction. However, if you attempt to pass through a laser of a different color, your agent dies and the episode immediately ends. Two agents cannot occupy the same cell.\
-Role: As {agent_name} player, you are {agent_color}.\
+BACKGROUND_PROMPT_NEW = "Welcome to our interactive game. In this game, you’ll assume the role of a specialist on a search and rescue team. Together with one other players, you must make your way through the room with the mission of reaching the exit together.\
+The rules: You are operating in a grid-based environment where your objective is to reach an exit tile. The grid contains different elements such as lasers, diamonds, and exit tiles.  If all of you reach the exit tile 1 more point is granted. Diamonds that can be collected are scattered in the map and give 1 point. Across the grid, you may encounter laser beams of different colors. Each agent has its own color. If a laser beam has the same color as your agent, you can safely pass through it or block it. Blocking can only occur on beam cells (not at the source), and placing yourself on a beam cell stops the laser from extending further beyond that position in its direction. However, if you attempt to pass through a laser of a different color, your agent dies and the episode immediately ends. Two agents cannot occupy the same cell.\
+Role: As {agent_name} player, you are {agent_color}.  Your teamate name is {team_names} and is {team_color} \
 The map: You are in a 5x5 grid-based environment where positions are given as (row, column), with (0,0) at the top-left corner and (4,4) at the bottom-right corner. \
-Each round you can move to a designate tile :  NORTH, SOUTH, EAST, WEST, STAY.\
-Communications:  In addition to selecting an action to take from the above list, you can also send communication message texts to both of your teammates in each round. The message text you sent will be shared to all of your teamates in their next round.\
+Each round you can move to a designate tile : NORTH, SOUTH, EAST, WEST, STAY.\
+Communications: In addition to selecting an action to take from the above list, you can also send communication message texts to both of your teammates in each round. The message text you sent will be shared to all of your teamates in their next round.\
 Observations: While you can only see what’s in your current position and the environment and read text messages from teammates. You’ll also be informed of the current round number, team score and the current location of your teammates. Your teammates have the same observability as you. They will not be able to know your action and its consequences unless you explicitly communicate.\
-Interaction: To facilitate our interaction, reply your action selection and communication messages in this fixed format: Action selection: 'Your action', Message to Team: 'Your Message'.  For the action, to move to another tile say : move X (you can chose up - NORTH, SOUTH, EAST, WEST, STAY). Remember, your replies must adhere strictly to these rules. Feel free to ask clarifying questions if needed. I’ll supply the necessary information as we progress. Are you ready to take on this challenge?"
+Interaction: To facilitate our interaction, reply your action selection and communication messages in this fixed format: Action selection: 'Your action', Message to Team: 'Your Message'. For the action, to move to another tile say : move X (you can chose up - NORTH, SOUTH, EAST, WEST, STAY). Remember, your replies must adhere strictly to these rules. Feel free to ask clarifying questions if needed. I’ll supply the necessary information as we progress. Are you ready to take on this challenge?"
 
-# Goal: "Maximize your team's score"
+# # Goal: "Maximize your team's score"
 # BACKGROUND_PROMPT_NEW = "Welcome to our interactive game. In this game, you’ll assume the role of a specialist on a search and rescue team. Together with three other players, you must make your way through the room with the mission of reaching the exit together.\
 # The rules: You are operating in a grid-based environment where your objective is to maximize your team’s score. The grid contains different elements such as lasers, diamonds, and exit tiles. Your main goal is to maximize the team's score. If all of you reach the exit tile 1 more point is granted. Diamonds that can be collected are scattered in the map and give 1 point. Across the grid, you may encounter laser beams of different colors. Each agent has its own color. If a laser beam has the same color as your agent, you can safely pass through it or block it. Blocking can only occur on beam cells (not at the source), and placing yourself on a beam cell stops the laser from extending further beyond that position in its direction. However, if you attempt to pass through a laser of a different color, your agent dies and the episode immediately ends. Two agents cannot occupy the same cell.\
 # Role: As {agent_name} player, you are {agent_color}.\
@@ -28,7 +29,17 @@ Interaction: To facilitate our interaction, reply your action selection and comm
 # Communications:  In addition to selecting an action to take from the above list, you can also send communication message texts to both of your teammates in each round. The message text you sent will be shared to all of your teamates in their next round.\
 # Observations: While you can only see what’s in your current position and the environment and read text messages from teammates. You’ll also be informed of the current round number, team score and the current location of your teammates. Your teammates have the same observability as you. They will not be able to know your action and its consequences unless you explicitly communicate.\
 # Interaction: To facilitate our interaction, reply your action selection and communication messages in this fixed format: Action selection: 'Your action', Message to Team: 'Your Message'.  For the action, to move to another tile say : move X (you can chose up - NORTH, SOUTH, EAST, WEST, STAY). Remember, your replies must adhere strictly to these rules. Feel free to ask clarifying questions if needed. I’ll supply the necessary information as we progress. Are you ready to take on this challenge?"
+# # TODO Goal: "Maximize your team's score"
 
+
+FIRST_ROUND_BACKGROUND_PROMPT_NEW = "Welcome to our interactive game. In this game, you’ll assume the role of a specialist on a search and rescue team. Together with one other players, you must make your way through the room with the mission of reaching the exit together.\
+The rules: You are operating in a grid-based environment where your objective is to reach an exit tile. The grid contains different elements such as lasers, diamonds, and exit tiles.  If all of you reach the exit tile 1 more point is granted. Diamonds that can be collected are scattered in the map and give 1 point. Across the grid, you may encounter laser beams of different colors. Each agent has its own color. If a laser beam has the same color as your agent, you can safely pass through it or block it. Blocking can only occur on beam cells (not at the source), and placing yourself on a beam cell stops the laser from extending further beyond that position in its direction. However, if you attempt to pass through a laser of a different color, your agent dies and the episode immediately ends. Two agents cannot occupy the same cell.\
+Role: As {agent_name} player, you are {agent_color}.  Your teamate name is {team_names} and is {team_color} \
+The map: You are in a 5x5 grid-based environment where positions are given as (row, column), with (0,0) at the top-left corner and (4,4) at the bottom-right corner. \
+Each round you can move to a designate tile : NORTH, SOUTH, EAST, WEST, STAY. Since this is the round 0, you must remain in your current position to ensure coordination with your other teammates. \
+Communications: In addition to selecting an action to take from the above list, you can also send communication message texts to both of your teammates in each round. The message text you sent will be shared to all of your teamates in their next round.\
+Observations: While you can only see what’s in your current position and the environment and read text messages from teammates. You’ll also be informed of the current round number, team score and the current location of your teammates. Your teammates have the same observability as you. They will not be able to know your action and its consequences unless you explicitly communicate.\
+Interaction: To facilitate our interaction, reply your action selection and communication messages in this fixed format: Action selection: 'Your action', Message to Team: 'Your Message'. For the action, to move to another tile say : move X (you can chose up - NORTH, SOUTH, EAST, WEST, STAY). Remember, your replies must adhere strictly to these rules. Feel free to ask clarifying questions if needed. I’ll supply the necessary information as we progress. Are you ready to take on this challenge?"
 
 
 INITIAL_BELIEF = "Your role: You are playing as Player {agent_color} at {agent_pos}; Current round : {current_round}; Total team score : {team_score}; \
@@ -90,7 +101,8 @@ class ChatAgent():
         self.team_messages = ""
         self.own_messages = ""  # Track messages this agent has sent
 
-        self.background_prompt = BACKGROUND_PROMPT_NEW.format(agent_name=AGENT_NAME_MAP[agent_id], agent_color=self.agent_color)
+        self.background_prompt = ""
+
 
         # Initialize belief history to store last 3 rounds
         self.belief_history = []
@@ -107,7 +119,7 @@ class ChatAgent():
             team_location=self.team_mate_pos,
             own_messages=self.own_messages,
             team_messages=self.team_messages,
-            available_actions=self.available_actions
+            available_actions="STAY"
         )
 
 
@@ -143,7 +155,13 @@ class ChatAgent():
         return result
 
 
-    def makeApiCall(self):
+    def makeApiCall(self, current_round):
+        # TODO change how to handle param (moche)
+
+        if current_round == 0:
+            self.background_prompt = FIRST_ROUND_BACKGROUND_PROMPT_NEW.format(agent_name=AGENT_NAME_MAP[self.agent_id], agent_color=self.agent_color, team_names = self.team_names, team_color = self.team_color)
+        else: 
+            self.background_prompt = BACKGROUND_PROMPT_NEW.format(agent_name=AGENT_NAME_MAP[self.agent_id], agent_color=self.agent_color, team_names = self.team_names, team_color = self.team_color)
 
         client = Client()
         messages = [
@@ -157,23 +175,43 @@ class ChatAgent():
         print(self.background_prompt + "\n" + self.last_belief)
 
         message = ''
-        for part in client.chat('kimi-k2.5:cloud', messages=messages, stream=True):
+        for part in client.chat('gpt-oss:120b-cloud', messages=messages, stream=True):
              message += part['message']['content']
 
         print("\n AGENT RAW RESPONSE: \n")
         print("agent", self.agent_id,"\n", "response:", message, "\n") #TODO remove this, just for testing
 
+        self.save_prompt_history("prompt_history.csv", current_round, self.agent_pos, self.last_belief, message)
+
         parsed_message = self.parse_agent_response(message)
 
         return parsed_message 
     
+    def save_prompt_history(self, data_path, round_number, agent_pos, last_belief, agent_raw_response):
+
+        file_exists = os.path.exists(data_path)
+
+        with open(data_path, 'a', newline='') as csvfile: 
+            fieldnames = ['round', 'agent_name','agent_pos', 'last_belief', 'agent_raw_response']
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            
+            if not file_exists:
+                writer.writeheader()  # Write header if file doesn't exist
+
+            writer.writerow({
+                 'round': round_number,
+                 'agent_name': AGENT_NAME_MAP[self.agent_id],
+                 'agent_pos': agent_pos,
+                 'last_belief': last_belief,
+                 'agent_raw_response': agent_raw_response
+            })
+
 
     def update_history(self, current_round, team_score, agents_pos, team_messages, own_message, available_actions): 
         """
         Update parameters of  chatAgent after each round, which will be included in the belief state for the next round.
         Keeps only the last 3 rounds of belief states.
         """
-
         self.current_round = current_round
         self.team_score = team_score
         self.agent_pos = agents_pos[self.agent_id]
@@ -267,6 +305,8 @@ class Environment():
         """Append a single record to the history CSV file. Creates file with header if it doesn't exist."""
         file_exists = os.path.exists(data_path)
         
+        print("Record:", record)
+
         with open(data_path, 'a', newline='') as csvfile:
             fieldnames = ['round','agent_name','agent_id','agent position', 'action', 'message']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -313,12 +353,15 @@ class Environment():
         self.env.step([4,4]) #make them stay so we can see the init state 
         self.env.render()
         time.sleep(2)
-        for i in range(len(actions)-1):
-            # -1 bc last line is an invalid round 
+
+
+        for i in range(len(actions)): 
+            # be aware that the last action is probably an invalid action
             time.sleep(1)
             self.env.render() 
             self.env.step(actions[i])
             self.env.render()
+            print("Round ", i, " actions: ", ACTION_MAP_REVERSE[actions[i][0]], ACTION_MAP_REVERSE[actions[i][1]])
 
         self.env.render()
         cv2.waitKey(0)
@@ -328,7 +371,7 @@ class Environment():
     def run_experiment(self): 
       
         done = False
-        current_round = 0
+        current_round = -1
         team_score = None #TODO 
 
         self.set_chat_agents(self.env.world.agents)
@@ -339,9 +382,10 @@ class Environment():
             # self.env.render() 
             actions = []
             messages = []
+            current_round += 1
             for i in range(self.env.n_agents):
                 agent = self.chat_agents[i]
-                response = agent.makeApiCall()
+                response = agent.makeApiCall(current_round)
 
                 actions.append(response["action"])
                 messages.append(response["message"])
@@ -363,7 +407,6 @@ class Environment():
                 # Save to CSV
                 self.save_history("history.csv", record)
 
-            current_round += 1
             step = self.env.step(actions)
 
             #TODO if got diamond or exit, update the team score 
@@ -374,10 +417,19 @@ class Environment():
         print("Ageents positions at the end: ", self.env.world.agents_positions)
 
 
+def main(): 
+    world = LLE.from_file("map.txt").obs_type("layered").build()
+    env = Environment(world)
+    
+    arg = sys.argv[1] if len(sys.argv) > 1 else None
+    if arg == "run":
+        env.run_experiment()
+    elif arg == "play":
+        env.play_history("play.csv")
+    else:
+        print("Please provide a valid argument: 'run' or 'play'.")
+        sys.exit(1)
 
 
 if __name__ == "__main__": 
-  world = LLE.from_file("map.txt").obs_type("layered").build()
-  env = Environment(world)
-#   env.run_experiment()
-  env.play_history("history.csv")
+    main()

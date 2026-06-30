@@ -1,0 +1,10 @@
+# Pycache 
+__pycache__
+
+# Environment variable 
+.venv
+
+# Scratch files 
+scratch.py 
+play.csv 
+
