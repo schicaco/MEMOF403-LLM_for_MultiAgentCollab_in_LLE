@@ -7,6 +7,9 @@ import sys
 
 from configs import COLOR_MAP, AGENT_NAME_MAP, INTRO_BELIEF, INITIAL_BELIEF, ACTION_MAP, FIRST_ROUND_BACKGROUND_PROMPT_NEW, BACKGROUND_PROMPT_NEW
 
+LLM_MODEL = 'gpt-oss:120b-cloud'
+
+
 
 class ChatAgent(): 
 
@@ -123,9 +126,9 @@ class ChatAgent():
         },
         ]
 
-
+        # print(f"In makeApiCall :: Agent {AGENT_NAME_MAP[self.agent_id]} (ID: {self.agent_id}) at position {self.agent_pos} making API call for round {current_round} with belief state:\n{self.last_belief}\n")
         message = ''
-        for part in client.chat('gpt-oss:120b-cloud', messages=messages, stream=True):
+        for part in client.chat(LLM_MODEL, messages=messages, stream=True):
              message += part['message']['content']
 
 
@@ -139,7 +142,7 @@ class ChatAgent():
     def update_history(self, current_round, team_score, agents_pos, team_messages, own_message, available_actions): 
         """
         Update parameters of  chatAgent after each round, which will be included in the belief state for the next round.
-        Keeps only the last 3 rounds of belief states.
+        Keeps only the last 5 rounds of belief states.
         """
         self.current_round = current_round
         self.team_score = team_score
@@ -148,6 +151,9 @@ class ChatAgent():
         self.team_messages = team_messages
         self.own_messages = own_message
         self.available_actions = available_actions
+
+        #print current round agent name and it's position and action taken
+        # print(f"In chatAgent in update history  :: Round {current_round}, Agent {AGENT_NAME_MAP[self.agent_id]} (ID: {self.agent_id}) at position {self.agent_pos} with available actions: {self.available_actions} and team messages: {self.team_messages} and own message: {self.own_messages}\n")
 
         # Extract the belief state portion without INTRO_BELIEF and add to history
         belief_state_only = INITIAL_BELIEF.format(

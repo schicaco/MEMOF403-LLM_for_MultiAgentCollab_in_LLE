@@ -44,7 +44,7 @@ class Environment():
         """Append a single record to the history CSV file. Creates file with header if it doesn't exist."""
         file_exists = os.path.exists(data_path)
         
-        print("Record:", record)
+        # print("Record:", record)
 
         with open(data_path, 'a', newline='') as csvfile:
             fieldnames = ['round','agent_name','agent_id','agent position', 'action', 'message']
@@ -61,8 +61,8 @@ class Environment():
         """Play back the recorded action from the history CSV file with the rendering."""
 
         actions = []
-        with open(history_path, 'r') as file:
-            reader = csv.DictReader(file)
+        with open(history_path, 'r', newline='') as file:
+            reader = csv.DictReader(file, delimiter=';')
 
             # Since there's 2 agents, each two lines correspond to one round of actions
             # create a list of rounds, where each round is a list of the two agents' actions
@@ -116,20 +116,24 @@ class Environment():
         self.set_chat_agents(self.env.world.agents)
 
         while not done:
-
             agents_positions = self.env.world.agents_positions
+
             actions = []
             messages = []
+            response = []
             current_round += 1
 
             for i in range(self.env.n_agents):
+                
                 agent = self.chat_agents[i]
                 response = agent.makeApiCall(current_round)
 
                 actions.append(response["action"])
                 messages.append(response["message"])
 
-                agent.update_history(current_round, team_score, agents_positions, messages[-1], response["message"], self.str_action(self.env.available_actions(),i)) 
+                # print(f"In run_experiments :: Round {current_round}, Agent {AGENT_NAME_MAP[agent.agent_id]} (ID: {agent.agent_id}) at position {agents_positions[i]} took action: {ACTION_MAP_REVERSE[response['action']]} \n")
+
+                # agent.update_history(current_round, team_score, agents_positions, messages[-1], response["message"], self.str_action(self.env.available_actions(),i)) 
 
                 # Increment round and save the action and message to history
                 record = {
@@ -147,6 +151,9 @@ class Environment():
                 self.save_history("history/history.csv", record)
 
             step = self.env.step(actions)
+
+            self.chat_agents[0].update_history(current_round, team_score, self.env.world.agents_positions, messages[1], messages[0], self.str_action(self.env.available_actions(),0))
+            self.chat_agents[1].update_history(current_round, team_score, self.env.world.agents_positions, messages[0], messages[1], self.str_action(self.env.available_actions(),1))
 
             #TODO if got diamond or exit, update the team score 
 
