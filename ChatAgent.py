@@ -126,13 +126,12 @@ class ChatAgent():
         },
         ]
 
-        # print(f"In makeApiCall :: Agent {AGENT_NAME_MAP[self.agent_id]} (ID: {self.agent_id}) at position {self.agent_pos} making API call for round {current_round} with belief state:\n{self.last_belief}\n")
         message = ''
         for part in client.chat(LLM_MODEL, messages=messages, stream=True):
              message += part['message']['content']
 
 
-        self.save_prompt("history/prompt_history.csv", current_round, self.agent_pos, self.last_belief, message)
+        # self.save_prompt("history/prompt_history.csv", current_round, self.agent_pos, self.last_belief, message)
 
         parsed_message = self.parse_agent_response(message)
 
@@ -151,9 +150,6 @@ class ChatAgent():
         self.team_messages = team_messages
         self.own_messages = own_message
         self.available_actions = available_actions
-
-        #print current round agent name and it's position and action taken
-        # print(f"In chatAgent in update history  :: Round {current_round}, Agent {AGENT_NAME_MAP[self.agent_id]} (ID: {self.agent_id}) at position {self.agent_pos} with available actions: {self.available_actions} and team messages: {self.team_messages} and own message: {self.own_messages}\n")
 
         # Extract the belief state portion without INTRO_BELIEF and add to history
         belief_state_only = INITIAL_BELIEF.format(

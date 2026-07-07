@@ -9,7 +9,6 @@ from ChatAgent import ChatAgent
 from configs import ACTION_MAP, ACTION_MAP_REVERSE, AGENT_NAME_MAP
 
 
-
 class Environment():
 
     def __init__(self, env):
@@ -44,7 +43,7 @@ class Environment():
         """Append a single record to the history CSV file. Creates file with header if it doesn't exist."""
         file_exists = os.path.exists(data_path)
         
-        # print("Record:", record)
+        print("Record:", record)
 
         with open(data_path, 'a', newline='') as csvfile:
             fieldnames = ['round','agent_name','agent_id','agent position', 'action', 'message']
@@ -82,7 +81,7 @@ class Environment():
                     round_actions = []
                     current_round = int(row['round'])
                     round_actions.append(ACTION_MAP[row['action']])
-            
+                        
             # Don't forget to append the last round
             if round_actions:
                 actions.append(round_actions)
@@ -131,8 +130,6 @@ class Environment():
                 actions.append(response["action"])
                 messages.append(response["message"])
 
-                # print(f"In run_experiments :: Round {current_round}, Agent {AGENT_NAME_MAP[agent.agent_id]} (ID: {agent.agent_id}) at position {agents_positions[i]} took action: {ACTION_MAP_REVERSE[response['action']]} \n")
-
                 # agent.update_history(current_round, team_score, agents_positions, messages[-1], response["message"], self.str_action(self.env.available_actions(),i)) 
 
                 # Increment round and save the action and message to history
@@ -151,13 +148,18 @@ class Environment():
                 self.save_history("history/history.csv", record)
 
             step = self.env.step(actions)
+            
+            team_score = self.env.world.gems_collected
 
             self.chat_agents[0].update_history(current_round, team_score, self.env.world.agents_positions, messages[1], messages[0], self.str_action(self.env.available_actions(),0))
             self.chat_agents[1].update_history(current_round, team_score, self.env.world.agents_positions, messages[0], messages[1], self.str_action(self.env.available_actions(),1))
 
-            #TODO if got diamond or exit, update the team score 
 
             done = step.is_terminal 
+
+        team_score += 1
+
+        print("Team's score :", team_score)
 
 
 
