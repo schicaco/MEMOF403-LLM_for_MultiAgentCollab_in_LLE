@@ -6,7 +6,7 @@ import os
 import csv 
 
 from ChatAgent import ChatAgent
-from configs import ACTION_MAP, ACTION_MAP_REVERSE, AGENT_NAME_MAP
+from configs import ACTION_MAP, ACTION_MAP_REVERSE, AGENT_NAME_MAP, COLOR_MAP, BACKGROUND_PROMPT, INITIAL_BELIEF
 
 
 class Environment():
@@ -21,9 +21,123 @@ class Environment():
         self.history = [] # list of dict, each dict contains: agent_id, action, message
 
 
-    def  set_chat_agents(self, agents): 
+    def build_background_prompt(self, agent_id, first = False):
+        agent_name = AGENT_NAME_MAP[agent_id]
+        agent_color = COLOR_MAP[agent_id]
+
+        teammate_ids = [i for i in range(self.env.world.n_agents) if i != agent_id]
+        teammates_info = ", ".join(
+            f"{AGENT_NAME_MAP[i]}  as {COLOR_MAP[i]}" for i in teammate_ids
+        )
+
+        first_background_prompt = ""
+        if first: 
+            first_background_prompt = "Since this is the round 0, you must remain in your current position to ensure coordination with your other teammates."
+
+        # Build grid size dynamically (in case it's not always 5x5)
+        width = self.env.world.width
+        height = self.env.world.height
+
+    
+        background_prompt = BACKGROUND_PROMPT.format(
+            agent_name=agent_name,
+            agent_color=agent_color,
+            teammates_info=teammates_info,
+            width=width,
+            height=height,
+            width_minus_1 = width - 1,      
+            height_minus_1 = height -1,
+            first_background_prompt=first_background_prompt
+        )
+
+        return background_prompt
+
+
+    def build_initial_belief(self, agent_id, current_round, team_score,own_messages, team_messages, available_actions):
+        
+        agent_name = AGENT_NAME_MAP[agent_id]
+        agent_color = COLOR_MAP[agent_id]
+        agent_pos = self.env.world.agents_positions[agent_id]
+        
+        
+        teammate_ids = [i for i in range(self.env.world.n_agents) if i != agent_id]
+
+        # Teammates info: name, color, and position combined
+        teammates_info = ", ".join(
+            f"{AGENT_NAME_MAP[i]} is {COLOR_MAP[i]} at {self.env.world.agents_positions[i]}"
+            for i in teammate_ids
+        )
+
+        # Build team messages string: "from Alpha : 'message'"
+        if current_round == "0": 
+            team_messages_str = ""
+        else: 
+            team_messages_str = "; ".join(
+                f"from {AGENT_NAME_MAP[i]} : '{team_messages[i]}'"
+                for i in teammate_ids
+            )
+    
+        # Build laser info string
+        laser_lines = []
+        for i in range(self.env.world.n_laser_colours):
+            laser_source = self.env.world.laser_sources[i]
+            laser_color = COLOR_MAP[laser_source.agent_id]
+            laser_tile_pos = [
+                laser.pos for laser in self.env.world.lasers 
+                if laser.agent_id == laser_source.agent_id
+            ]
+            laser_lines.append(
+                f"laser beam {laser_color} at {laser_source.pos} projecting at {laser_tile_pos}"
+            )
+        laser_info = "; ".join(laser_lines) if laser_lines else "no lasers visible"
+
+        # Build gems info string
+        state = self.env.world.get_state()  # returns a WorldState
+        gems_collected = state.gems_collected  # list[bool], indexed by gem id
+
+        gems_positions = ", ".join(
+            str(self.env.world.gems[i].pos) 
+            for i in range(self.env.world.n_gems) 
+            if not gems_collected[i]
+        )
+        gems_info = f"diamond at {gems_positions}" if gems_positions else "no diamonds visible"
+
+        # Build wall info string
+        wall_positions = self.env.world.wall_pos if hasattr(self.env.world, "wall_pos") else []
+        walls_info = "; ".join(str(pos) for pos in wall_positions) if wall_positions else "no walls visible"
+
+        # Exit tiles info
+        exits_str = " and ".join(str(pos) for pos in self.env.world.exit_pos)
+
+        # Combine full observation string
+        observation_str = (
+            f"{laser_info}; {gems_info}; Exit tile at {exits_str}; Walls at {walls_info}"
+        )
+
+        initial_belief = INITIAL_BELIEF.format(
+            agent_name=agent_name,
+            agent_color=agent_color,
+            agent_pos=agent_pos,
+            current_round=current_round, 
+            team_score= team_score, 
+            observation_str = observation_str, 
+            teammates_info = teammates_info, 
+            own_messages = own_messages, 
+            team_messages= team_messages_str, 
+            available_actions = available_actions
+        )
+
+        return initial_belief
+
+
+    def  set_chat_agents(self, agents):
+        messages = ["" for i in range(self.env.n_agents)]
+
         for i in range(self.env.n_agents):
-            chat_agent = ChatAgent(agents[i].num, self.agents_pos, self.str_action(self.env.available_actions(), i))
+            chat_agent = ChatAgent(agents[i].num)
+            chat_agent.set_background_prompt(self.build_background_prompt(i,False))
+            chat_agent.set_background_prompt_first(self.build_background_prompt(i,True))
+            chat_agent.set_initial_belief(self.build_initial_belief(i, 0, 0, "", messages, ["STAY"]))
             self.chat_agents.append(chat_agent)
 
 
@@ -110,7 +224,7 @@ class Environment():
       
         done = False
         current_round = -1
-        team_score = None #TODO 
+        team_score = None 
 
         self.set_chat_agents(self.env.world.agents)
 
@@ -125,7 +239,8 @@ class Environment():
             for i in range(self.env.n_agents):
                 
                 agent = self.chat_agents[i]
-                response = agent.makeApiCall(current_round)
+
+                response = agent.makeApiCall(current_round, agents_positions[i])
 
                 actions.append(response["action"])
                 messages.append(response["message"])
@@ -151,8 +266,10 @@ class Environment():
             
             team_score = self.env.world.gems_collected
 
-            self.chat_agents[0].update_history(current_round, team_score, self.env.world.agents_positions, messages[1], messages[0], self.str_action(self.env.available_actions(),0))
-            self.chat_agents[1].update_history(current_round, team_score, self.env.world.agents_positions, messages[0], messages[1], self.str_action(self.env.available_actions(),1))
+            for i in range(self.env.n_agents): 
+                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages,self.str_action(self.env.available_actions(),i)), messages[i])
+                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages, self.str_action(self.env.available_actions(),i)), messages[i])
+
 
 
             done = step.is_terminal 

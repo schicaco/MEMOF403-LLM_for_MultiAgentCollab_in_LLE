@@ -5,7 +5,7 @@ import sys
 import os
 import sys
 
-from configs import COLOR_MAP, AGENT_NAME_MAP, INTRO_BELIEF, INITIAL_BELIEF, ACTION_MAP, FIRST_ROUND_BACKGROUND_PROMPT_NEW, BACKGROUND_PROMPT_NEW
+from configs import AGENT_NAME_MAP, INTRO_BELIEF, ACTION_MAP
 
 LLM_MODEL = 'gpt-oss:120b-cloud'
 
@@ -13,47 +13,29 @@ LLM_MODEL = 'gpt-oss:120b-cloud'
 
 class ChatAgent(): 
 
-    def __init__(self, agent_id, agents_pos, available_actions):
+    def __init__(self, agent_id):
 
         self.agent_id = agent_id
-        self.agent_color = COLOR_MAP[agent_id]
-        
-        self.agent_pos = agents_pos[agent_id]
-        
 
-        self.available_actions = available_actions
-        #Team mate pos is the other index in angents_pos (for the moment the len will only be of 2)
         self.current_round = 0
-        self.team_score = 0
 
-        self.team_color = COLOR_MAP[1 - agent_id]  #TODO for when there'll be more agents
-        self.team_mate_pos = agents_pos[1 - agent_id] #TODO for when there'll be more agents 
-        self.team_names = AGENT_NAME_MAP[1 - agent_id] #TODO for when there'll be more agents
-        self.team_messages = ""
         self.own_messages = ""  # Track messages this agent has sent
-
         self.background_prompt = ""
-
+        self.background_prompt_first = ""
+        self.last_belief = ""
 
         # Initialize belief history to store last 3 rounds
         self.belief_history = []
         self.own_messages_history = []  # Track this agent's sent messages
 
-        self.last_belief = INTRO_BELIEF + INITIAL_BELIEF.format(
-            agent_id=self.agent_id,
-            agent_color=self.agent_color,
-            agent_pos=self.agent_pos,
-            current_round=self.current_round,
-            team_score=self.team_score,
-            team_color=self.team_color,
-            team_name=self.team_names,
-            team_location=self.team_mate_pos,
-            own_messages=self.own_messages,
-            team_messages=self.team_messages,
-            available_actions="STAY"
-        )
+    def set_background_prompt(self, background_prompt): 
+        self.background_prompt = background_prompt
 
+    def set_background_prompt_first(self, background_prompt_first): 
+        self.background_prompt_first = background_prompt_first
 
+    def set_initial_belief(self, initial_belief): 
+        self.last_belief = INTRO_BELIEF + initial_belief
 
     def parse_action(self, action_str): 
         """
@@ -110,19 +92,21 @@ class ChatAgent():
             })
 
 
-    def makeApiCall(self, current_round):
-        # TODO change how to handle param (moche)
+    def makeApiCall(self, current_round, agent_pos):
+
+        self.current_round = current_round
 
         if current_round == 0:
-            self.background_prompt = FIRST_ROUND_BACKGROUND_PROMPT_NEW.format(agent_name=AGENT_NAME_MAP[self.agent_id], agent_color=self.agent_color, team_names = self.team_names, team_color = self.team_color)
+            # background_prompt = self.background_prompt + "Since this is the round 0, you must remain in your current position to ensure coordination with your other teammates."
+            background_prompt = self.background_prompt_first
         else: 
-            self.background_prompt = BACKGROUND_PROMPT_NEW.format(agent_name=AGENT_NAME_MAP[self.agent_id], agent_color=self.agent_color, team_names = self.team_names, team_color = self.team_color)
+            background_prompt = self.background_prompt
 
         client = Client()
         messages = [
         {
             'role': 'user',
-            'content': self.background_prompt + "\n" + self.last_belief,
+            'content': background_prompt + "\n" + self.last_belief,
         },
         ]
 
@@ -130,44 +114,21 @@ class ChatAgent():
         for part in client.chat(LLM_MODEL, messages=messages, stream=True):
              message += part['message']['content']
 
-
-        # self.save_prompt("history/prompt_history.csv", current_round, self.agent_pos, self.last_belief, message)
+        self.save_prompt("history/prompt_history.csv", self.current_round, agent_pos, self.last_belief, message)
 
         parsed_message = self.parse_agent_response(message)
 
         return parsed_message 
     
 
-    def update_history(self, current_round, team_score, agents_pos, team_messages, own_message, available_actions): 
+    def update_history(self, initial_belief, own_message): 
         """
         Update parameters of  chatAgent after each round, which will be included in the belief state for the next round.
         Keeps only the last 5 rounds of belief states.
         """
-        self.current_round = current_round
-        self.team_score = team_score
-        self.agent_pos = agents_pos[self.agent_id]
-        self.team_mate_pos = agents_pos[1 - self.agent_id]
-        self.team_messages = team_messages
-        self.own_messages = own_message
-        self.available_actions = available_actions
 
-        # Extract the belief state portion without INTRO_BELIEF and add to history
-        belief_state_only = INITIAL_BELIEF.format(
-            agent_id=self.agent_id,
-            agent_color=self.agent_color,
-            agent_pos=self.agent_pos,
-            current_round=self.current_round,
-            team_score=self.team_score,
-            team_color=self.team_color,
-            team_name=self.team_names,
-            team_location=self.team_mate_pos,
-            own_messages=self.own_messages,
-            team_messages=self.team_messages,
-            available_actions=self.available_actions
-        )
-        
         # Add current belief to history and keep only last 4
-        self.belief_history.append(belief_state_only)
+        self.belief_history.append(initial_belief)
         if len(self.belief_history) > 5:
             self.belief_history = self.belief_history[-5:]
         
@@ -179,23 +140,11 @@ class ChatAgent():
         belief_string = ""
         # Build the new belief state with INTRO_BELIEF for current and run numbers for old ones
         for idx, old_belief in enumerate(self.belief_history[:-1], start=1):
-            belief_string += f"\nRun {idx+1}: {old_belief}"
+            belief_string += f"\nRun {self.current_round+idx}: {old_belief}"
         
         # Add old belief states with run numbers (most recent first)
         belief_string += "\n" + INTRO_BELIEF
         # Add current belief state
-        belief_string += INITIAL_BELIEF.format(
-            agent_id=self.agent_id,
-            agent_color=self.agent_color,
-            agent_pos=self.agent_pos,
-            current_round=self.current_round,
-            team_score=self.team_score,
-            team_color=self.team_color,
-            team_name=self.team_names,
-            team_location=self.team_mate_pos,
-            own_messages=self.own_messages,
-            team_messages=self.team_messages,
-            available_actions=self.available_actions
-        )
+        belief_string += initial_belief
 
         self.last_belief = belief_string
