@@ -5,7 +5,7 @@ import sys
 import os
 import sys
 
-from configs import AGENT_NAME_MAP, INTRO_BELIEF, ACTION_MAP
+from configs import AGENT_NAME_MAP, INTRO_BELIEF, ACTION_MAP, UPDATE_PROMPT
 
 LLM_MODEL = 'gpt-oss:120b-cloud'
 
@@ -66,7 +66,29 @@ class ChatAgent():
             sys.exit(1)
             
         return result
-    
+        
+    # def parse_agent_response(self, text):
+    #     result = {"action": None, "message": None, "belief": None}
+
+    #     # Extract action, message, and belief state
+    #     belief_match = re.search(
+    #         r"(Below is your current belief.*?)(?=Action selection:|Message to Team:|$)",
+    #         text,
+    #         re.DOTALL
+    #     )
+    #     action_match = re.search(r"Action selection:\s*([^,]+)", text)
+    #     message_match = re.search(r"Message to Team:\s*(.+)", text)
+
+    #     if action_match and message_match and belief_match:
+    #         result["action"] = self.parse_action(action_match.group(1))
+    #         result["message"] = message_match.group(1)
+    #         result["belief"] = belief_match.group(1).strip()
+    #     else:
+    #         print("Error: Response format is incorrect. Expected format: Action selection: 'Your action', Message to Team: 'Your Message', and a belief state starting with 'Below is your current belief'.")
+    #         sys.exit(1)
+
+    #     return result
+
 
     def save_prompt(self, data_path, round_number, agent_pos, last_belief, agent_raw_response):
         """
@@ -97,45 +119,41 @@ class ChatAgent():
         self.current_round = current_round
 
         if current_round == 0:
-            # background_prompt = self.background_prompt + "Since this is the round 0, you must remain in your current position to ensure coordination with your other teammates."
             background_prompt = self.background_prompt_first
         else: 
             background_prompt = self.background_prompt
 
+        # text = background_prompt + "\n" + self.last_belief + "\n" +  UPDATE_PROMPT
+        text = background_prompt + "\n" + self.last_belief + "\n" 
+        # print(text)
         client = Client()
         messages = [
         {
             'role': 'user',
-            'content': background_prompt + "\n" + self.last_belief,
+            'content': text,
         },
         ]
-
         message = ''
         for part in client.chat(LLM_MODEL, messages=messages, stream=True):
              message += part['message']['content']
 
-        self.save_prompt("history/prompt_history.csv", self.current_round, agent_pos, self.last_belief, message)
+        self.save_prompt("history/prompt_history_new_belief_handling.csv", self.current_round, agent_pos, self.last_belief, message)
 
         parsed_message = self.parse_agent_response(message)
 
         return parsed_message 
     
 
-    def update_history(self, initial_belief, own_message): 
+    def update_history(self, new_belief): 
         """
         Update parameters of  chatAgent after each round, which will be included in the belief state for the next round.
         Keeps only the last 5 rounds of belief states.
         """
 
         # Add current belief to history and keep only last 4
-        self.belief_history.append(initial_belief)
+        self.belief_history.append(new_belief)
         if len(self.belief_history) > 5:
             self.belief_history = self.belief_history[-5:]
-        
-        # Track own messages history
-        self.own_messages_history.append(own_message)
-        if len(self.own_messages_history) > 5:
-            self.own_messages_history = self.own_messages_history[-5:]
 
         belief_string = ""
         # Build the new belief state with INTRO_BELIEF for current and run numbers for old ones
@@ -145,6 +163,6 @@ class ChatAgent():
         # Add old belief states with run numbers (most recent first)
         belief_string += "\n" + INTRO_BELIEF
         # Add current belief state
-        belief_string += initial_belief
+        belief_string += new_belief
 
         self.last_belief = belief_string

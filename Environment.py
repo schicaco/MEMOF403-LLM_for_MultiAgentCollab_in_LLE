@@ -73,7 +73,7 @@ class Environment():
             team_messages_str = ""
         else: 
             team_messages_str = "; ".join(
-                f"from {AGENT_NAME_MAP[i]} : '{team_messages[i]}'"
+                f"from {AGENT_NAME_MAP[i]} : {team_messages[i]}"
                 for i in teammate_ids
             )
     
@@ -173,54 +173,52 @@ class Environment():
     def play_history(self, history_path):
         """Play back the recorded action from the history CSV file with the rendering."""
 
+        n_agents = self.env.n_agents  # adjust to self.env.world.n_agents if needed
+
         actions = []
         with open(history_path, 'r', newline='') as file:
             reader = csv.DictReader(file, delimiter=';')
 
-            # Since there's 2 agents, each two lines correspond to one round of actions
-            # create a list of rounds, where each round is a list of the two agents' actions
-            current_round = None  
-            round_actions = []    
+            current_round = None
+            round_actions = []
             for row in reader:
                 if current_round is None:
-                    #first row starts a new round list
                     current_round = int(row['round'])
                     round_actions.append(ACTION_MAP[row['action']])
                 elif int(row['round']) == current_round:
-                    #same round, add to current round list
                     round_actions.append(ACTION_MAP[row['action']])
                 else:
-                    #new round, save current and start a new round list
                     actions.append(round_actions)
                     round_actions = []
                     current_round = int(row['round'])
                     round_actions.append(ACTION_MAP[row['action']])
-                        
-            # Don't forget to append the last round
+
             if round_actions:
                 actions.append(round_actions)
 
         time.sleep(1)
         self.env.render()
-        self.env.step([4,4]) #make them stay so we can see the init state 
+        self.env.step([4] * n_agents)  # make everyone stay so we can see the init state
         self.env.render()
         time.sleep(2)
 
-
-        for i in range(len(actions)): 
-            # be aware that the last action is probably an invalid action
+        for i in range(len(actions)):
             time.sleep(1)
-            self.env.render() 
+            self.env.render()
             self.env.step(actions[i])
             self.env.render()
-            print("Round ", i, " actions: ", ACTION_MAP_REVERSE[actions[i][0]], ACTION_MAP_REVERSE[actions[i][1]])
+
+            round_str = ", ".join(
+                ACTION_MAP_REVERSE[actions[i][j]] for j in range(n_agents)
+            )
+            print("Round ", i, " actions: ", round_str)
 
         self.env.render()
         cv2.waitKey(0)
         cv2.destroyAllWindows()
 
 
-    def run_experiment(self): 
+    def run_experiment(self, history_path): 
       
         done = False
         current_round = -1
@@ -260,16 +258,19 @@ class Environment():
 
                 self.history.append(record)
                 # Save to CSV
-                self.save_history("history/history.csv", record)
+                self.save_history(history_path, record)
 
             step = self.env.step(actions)
             
             team_score = self.env.world.gems_collected
 
+            # TODO maybe change to ChatAgent 
+            # for i in range(self.env.n_agents): 
+            #     self.chat_agents[i].update_history(response["belief"])
+            #     self.chat_agents[i].update_history(response["belief"])
             for i in range(self.env.n_agents): 
-                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages,self.str_action(self.env.available_actions(),i)), messages[i])
-                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages, self.str_action(self.env.available_actions(),i)), messages[i])
-
+                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages,self.str_action(self.env.available_actions(),i)))
+                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages, self.str_action(self.env.available_actions(),i)))
 
 
             done = step.is_terminal 
@@ -282,11 +283,12 @@ class Environment():
 
 def main(): 
     world = LLE.from_file("maps/map.txt").obs_type("layered").build()
+    # world = LLE.level(2).obs_type("layered").build()
     env = Environment(world)
     
     arg = sys.argv[1] if len(sys.argv) > 1 else None
     if arg == "run":
-        env.run_experiment()
+        env.run_experiment("history/history_new_belief_handling.csv")
     elif arg == "play":
         env.play_history("play.csv")
     else:

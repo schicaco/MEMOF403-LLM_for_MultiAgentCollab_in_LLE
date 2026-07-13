@@ -1,0 +1,127 @@
+round;agent_name;agent_id;agent position;action;message
+"----- Now there is 3 agent : map_3_agents_2_gems.txt -----------"
+"failed: good round but took an action that he couln't take since moved even tough he reached the exit and didn't went to take the gem  at the beginning"
+0;Alpha;0;(0, 2);STAY;'All set. Staying this round while we coordinate our next moves.'
+0;Omega;1;(0, 3);STAY;'I am staying this round. I see a red laser source at (2,0) with beams covering (2,3),(2,4),(2,2),(2,1),(2,5). Diamonds are at (0,0) and (4,1). Exits are at (5,3),(5,4),(5,5). Let's coordinate our moves next round.'
+0;Sigma;2;(0, 4);STAY;'Staying this round. I see diamonds at (0,0) and (4,1). Watch out for the red laser on row 2. We'll coordinate moves next round.'
+1;Alpha;0;(0, 2);WEST;"'I’m moving west to grab the diamond at (0,0) then will head south toward the exit row. Omega, you could head east toward the right side; Sigma, consider moving south down column 4 so we all can reach the exits safely.'"
+1;Omega;1;(0, 3);SOUTH;"""Alpha, if you can reach and occupy the red beam cell at (2,1) this round, it will block the laser and open a safe path for us. Once the laser is blocked, Sigma and I will head down through column 3 toward the exit tiles. The diamond at (4,1) is on your way; you can grab it on the way down. Let me know your plan!"""
+1;Sigma;2;(0, 4);SOUTH;'I’m moving south to start heading toward the diamond at (4,1). Remember the red laser rows at y=2 – I’ll stay clear of those cells. Let’s keep coordinating our routes.'
+2;Alpha;0;(0, 1);SOUTH;'I’m moving south to (1,1) to get to the red beam cell (2,1). I’ll block the laser on my next move and then head down column 1 to grab the diamond at (4,1) before we all head to the exit tiles.'
+2;Omega;1;(1, 3);STAY;"""Alpha, please move down to (2,1) and stay there to block the red laser—this will clear the path in column 3 for us. Once you’re on (2,1), I’ll move south into (2,3) and then continue down column 3 toward the exits. Sigma, keep heading south in column 4 as planned; you’ll be fine staying clear of row 2. Let me know if this works for you."""
+2;Sigma;2;(1, 4);STAY;"""Alpha, could you move to (2,1) this round to block the red laser? That will open a safe path down column 4 for me to reach the diamond at (4,1) and later the exits. I’ll stay here this turn and move south next round. Omega, once the laser is blocked I’ll head south down column 4 toward the exits."""
+3;Alpha;0;(1, 1);SOUTH;"'Moving to (2,1) to block the red laser; I’ll stay there next round and then head down column 1 to collect the diamond at (4,1).'"
+3;Omega;1;(1, 3);STAY;"""Alpha, after you block at (2,1) the red laser will be safe – I’ll move south into (2,3) next round and continue down column 3 toward the exits. Sigma, stay put this turn; once the laser is blocked I’ll follow your column 4 path toward the exits. Let’s finish together."""
+3;Sigma;2;(1, 4);STAY;'I’ll stay this turn and head south down column 4 next round once the red laser is blocked at (2,1). Alpha, please move to (2,1) and stay to block. Omega, be ready to move into (2,3) after the block.'
+4;Alpha;0;(2, 1);STAY;'I’m staying at (2,1) to block the red laser. Next round I’ll move south toward (4,1) to grab the diamond and then head to the exit. Omega, you can move into (2,3) after I block. Sigma, continue your plan down column 4.'
+4;Omega;1;(1, 3);SOUTH;'Alpha, thanks for blocking at (2,1). I’m moving south to (2,3) now. Sigma, after I’m at (2,3) you can move south to (2,4) and then continue down column 4 toward the exits. Let’s finish together!'
+4;Sigma;2;(1, 4);SOUTH;'Alpha, thanks for blocking the laser. I’ll move SOUTH to (2,4) this turn and continue down column 4 toward the exit at (5,4). Omega, after you reach (2,3) keep moving south toward the exits. Let’s finish together.'
+5;Alpha;0;(2, 1);SOUTH;'I’m moving south to (3,1). I’ll head to (4,1) next turn for the diamond and then to the exits. You both are clear to continue moving south now.'
+5;Omega;1;(2, 3);SOUTH;"'Alpha, thanks for blocking. I’ll move SOUTH to (3,3) this turn and continue down column 3 toward the exit. Sigma, keep moving south; we’ll all finish together.'"
+5;Sigma;2;(2, 4);SOUTH;'Alpha, thanks for holding the block. I’m moving south to (3,4) and will continue down column 4 toward the exit. Omega, keep moving south along column 3. Let’s finish together.'
+6;Alpha;0;(3, 1);SOUTH;'I’m moving SOUTH to (4,1) to grab the diamond. Next turn I’ll head east toward the exit column. Keep moving south as planned, Omega and Sigma. Let’s finish together.'
+6;Omega;1;(3, 3);SOUTH;"'Alpha, I’m moving south to (4,3) this turn and will head to the exit at (5,3) next. Sigma, keep moving south; we’ll all finish together at the exits.'"
+6;Sigma;2;(3, 4);SOUTH;"'Moving south to (4,4); will reach exit at (5,4) next turn. Keep moving south. Good luck.'"
+7;Alpha;0;(4, 1);SOUTH;'I’m moving SOUTH to (5,1). Next turn I’ll head EAST toward the exit tiles. Keep moving south, Omega and Sigma – we’ll finish together!'
+7;Omega;1;(4, 3);SOUTH;'Alpha, I’m moving SOUTH to (5,3) and will stay on the exit. Sigma, you can move SOUTH to (5,4) this turn and we’ll all finish together on the exits. Good luck!'
+7;Sigma;2;(4, 4);SOUTH;'I’m moving SOUTH to (5,4) exit now. Good luck everyone.'
+8;Alpha;0;(5, 1);EAST;'Moving EAST to (5,2) and will head to the remaining exit at (5,5). Omega and Sigma, stay on your exits – we’ll finish together!'
+8;Omega;1;(5, 3);STAY;"'I’m staying on the exit at (5,3). Alpha, head east to an exit; Sigma, you’re already on an exit. Let’s finish together!'"
+8;Sigma;2;(5, 4);STAY;'I’m on the exit at (5,4) and staying. Let’s all finish together – good job!'
+9;Alpha;0;(5, 2);STAY;"""Omega, could you move east to (5,5) so I can step onto (5,3) next turn? Sigma, please stay on (5,4). Let's finish together!"""
+9;Omega;1;(5, 3);STAY;"""I’m staying on the exit at (5,3). Alpha, please move NORTH to (4,2) and then head toward the remaining exit at (5,5) while avoiding our occupied exits. Sigma, stay on your exit (5,4). Let's finish together!"""
+9;Sigma;2;(5, 4);STAY;'Staying on my exit (5,4). Alpha, keep moving east toward (5,5) when the path clears. Good job everyone!'
+10;Alpha;0;(5, 2);NORTH;'Moving NORTH to (4,2). After that I’ll head east and down to reach the exit at (5,5) once the path is clear. Omega and Sigma, please remain on your exits. Let’s finish together!'
+10;Omega;1;(5, 3);NORTH;'Alpha, I’m moving NORTH to (4,3) and will then head east toward the free exit at (5,5). Please move EAST to (5,3) when it becomes available. Sigma, stay on your exit (5,4). Let’s finish together!'
+10;Sigma;2;(5, 4);STAY;'I’ll stay on my exit (5,4). Omega, please move EAST to (5,5) next turn so Alpha can later step onto (5,3). Alpha, move NORTH to (4,2) now and then head EAST and SOUTH to reach the remaining exit after it’s free. Let’s finish together!'
+
+"Failed: Alpha didn't wait them all and omega died"
+0;Alpha;0;(0, 2);STAY;'Ready to coordinate next moves. I will stay this round.'
+0;Omega;1;(0, 3);STAY;'Staying this round. Let’s plan our next moves to collect diamonds and head to the exits while avoiding lasers.'
+0;Sigma;2;(0, 4);STAY;'I am staying this turn at (0,4). Ready for our coordinated plan next round.'
+1;Alpha;0;(0, 2);WEST;"'I’m moving west to (0,1) to get the diamond at (0,0). After that I’ll head south toward the exits. Omega, you can move east or stay; Sigma, consider moving east to (0,5) so we don’t block each other.'"
+1;Omega;1;(0, 3);STAY;"""Alpha, please move SOUTH twice to (2,2) to block the red laser; then I can move SOUTH to (1,3) and later safely cross row 2. Sigma, stay put for now. After the laser is blocked we’ll head west to grab the diamond at (0,0) and then move down to the exits."""
+1;Sigma;2;(0, 4);SOUTH;"I’m moving SOUTH to (1,4). Let’s all head downwards now—Alpha, please move SOUTH; Omega, please move SOUTH too. Then we can swing west together to grab the diamonds and head to the exit."
+2;Alpha;0;(0, 1);WEST;'Collected the diamond at (0,0). I’ll head east then south to block the red laser at (2,2). Omega and Sigma, please continue moving south as planned.'
+2;Omega;1;(0, 3);EAST;'I’ll move EAST to (0,4) as Alpha suggested, then we can all head south together after I’m clear. Sigma, your move to (1,4) works fine.'
+2;Sigma;2;(1, 4);STAY;'Staying at (1,4) as Omega suggested. Once Alpha blocks the red laser we can all move southward and head for the diamonds and exits.'
+3;Alpha;0;(0, 0);SOUTH;'Moving south to (1,0). I’ll head east next turn and then move onto row 2 to block the red laser, after which we can all continue south toward the diamonds and exits.'
+3;Omega;1;(0, 4);WEST;'Moving WEST to (0,3). After Alpha blocks the red laser at (2,2) I’ll head SOUTH toward the exits. Sigma, please stay or shift to avoid blocking my path.'
+3;Sigma;2;(1, 4);STAY;'Staying at (1,4) this turn. Once Alpha blocks the red laser at (2,2) we can safely move south together toward the diamond and exits.'
+4;Alpha;0;(1, 0);EAST;"'Moving east to (1,1). I’ll continue east and then south to block the red laser at (2,2). Omega, keep moving west as planned; Sigma, stay at (1,4) so we don’t block each other.'"
+4;Omega;1;(0, 3);SOUTH;"'Moving SOUTH to (1,3). Alpha, please head EAST then SOUTH onto a row‑2 cell (e.g., (2,1) or (2,2)) to block the red laser. Sigma, stay where you are until the laser is blocked; then we’ll all head south together toward the diamond at (4,1) and the exit tiles.'"
+4;Sigma;2;(1, 4);STAY;'Staying at (1,4) this turn. Once Alpha blocks the red laser I’ll move south down column 4 toward the exit. Omega, I’ll keep clear of your path.'
+5;Alpha;0;(1, 1);SOUTH;"'Moving SOUTH to (2,1) to block the red laser. After blocking I’ll head SOUTH toward the diamond. Omega, keep moving south; Sigma, stay put until the laser is blocked, then move south as well.'"
+5;Omega;1;(1, 3);STAY;"""I’ll stay at (1,3) this turn, keeping the column clear. Once Alpha blocks the red laser at (2,2), we can all move south toward the diamond (4,1) and the exit tiles. Sigma, remain where you are until the laser is blocked."""
+5;Sigma;2;(1, 4);STAY;'Staying at (1,4) as planned. Once Alpha blocks the red laser on row 2, I’ll head south down column 4 toward the exits. Omega, let me know when you’re clear to move south.'
+6;Alpha;0;(2, 1);STAY;'I’m staying at (2,1) to block the red laser. Omega, you can move SOUTH into (2,3) and continue down. Sigma, move SOUTH into (2,4) and keep heading south. Once you’re past row 2 I’ll follow down toward the diamond and exits.'
+6;Omega;1;(1, 3);STAY;'Staying at (1,3) while Alpha blocks the red laser at (2,1). Once the beam is stopped, I’ll move south to (2,3) next turn. Sigma, you can also move south when the path is clear.'
+6;Sigma;2;(1, 4);SOUTH;'Moving south to (2,4). Laser is blocked, path is clear for us to head toward the diamond and exits.'
+7;Alpha;0;(2, 1);SOUTH;"'Moving SOUTH to (3,1). Omega, proceed SOUTH to (2,3) this turn and keep heading down; Sigma, move SOUTH to (3,4). Once we’re aligned, we’ll all continue south toward the diamond at (4,1) and then head for the exit tiles.'"
+7;Omega;1;(1, 3);SOUTH;'Moving SOUTH to (2,3). I’ll keep heading south to the exit at (5,3). Alpha, after you grab the diamond at (4,1) move east toward the exit row. Sigma, continue moving south down column 4 to reach the exit at (5,4). Let’s all aim to be on exit tiles by round 9.'
+7;Sigma;2;(2, 4);SOUTH;'Moving south to (3,4). Path is clear. Omega, after you move into (2,3) we can all continue south toward the diamond (4,1) and the exit tiles.'
+
+
+"Failed: again Alpha didnt wait and Omega died"
+0;Alpha;0;(0, 2);STAY;'Stay for now'
+0;Omega;1;(0, 3);STAY;'Ready to coordinate. I am at (0,3). Alpha at (0,2), Sigma at (0,4). No immediate threats. Let's plan our moves.'
+0;Sigma;2;(0, 4);STAY;'Staying this turn. Let’s coordinate next moves to collect diamonds while avoiding lasers.'
+1;Alpha;0;(0, 2);WEST;"'I’ll move WEST to (0,1) to head for the diamond at (0,0). Omega, you could move WEST to (0,2); Sigma, perhaps stay or also move WEST to (0,3). Let’s avoid collisions and keep moving toward the diamonds.'"
+1;Omega;1;(0, 3);SOUTH;'Moving south to (1,3). Alpha, can you head toward (2,3) to block the red laser so we can descend column 3 later? Sigma, aim for the diamond at (4,1) by moving east then south. Let’s sync next turn.'
+1;Sigma;2;(0, 4);STAY;'Alpha, could you move WEST to (0,1) this turn? Omega, please stay for now. I’ll stay this turn as well and then move WEST next round to keep us shifting left toward the diamond at (0,0) while staying clear of the red laser row.'
+2;Alpha;0;(0, 1);WEST;'Moving WEST to collect the diamond at (0,0). After that I’ll head down toward (2,3) to block the red laser, Omega. Sigma, keep following your plan.'
+2;Omega;1;(1, 3);STAY;"'Alpha, please move SOUTH to (1,1) to begin positioning for blocking the red laser row; Sigma, move WEST to (0,3) to shift left toward the diamond. I will stay this turn.'"
+2;Sigma;2;(0, 4);WEST;'I’m moving WEST to (0,3) this turn. Alpha, please keep heading left toward (0,0) and then move down to (2,1) to block the red laser so we can descend later. Omega, stay at (1,3) for now until Alpha has blocked the beam.'
+3;Alpha;0;(0, 0);SOUTH;"'Moving SOUTH to (1,0). My next steps will be EAST to (1,1) and then SOUTH to (2,1) to block the red laser, allowing us to safely move down column 3. Omega, you can stay where you are; Sigma, keep following your plan.'"
+3;Omega;1;(1, 3);STAY;'Staying at (1,3). Alpha, please move toward (2,1) to block the red laser row so we can descend column 3. Sigma, after the block you can head south toward the diamond at (4,1).'
+3;Sigma;2;(0, 3);STAY;"'Alpha, please move east toward (0,1) and continue toward (2,3) to block the red laser; I’ll stay here at (0,3) until the beam is blocked. Omega, remain at (1,3) for now; once the laser is stopped we can all move down column 3 toward the exit.'"
+4;Alpha;0;(1, 0);EAST;"'Moving EAST to (1,1); will go SOUTH next turn to block the red laser at (2,1).'"
+4;Omega;1;(1, 3);STAY;"""I'll stay at (1,3) this turn. After Alpha reaches (2,1) and blocks the red laser, we can all move south down column 3 toward the exit. Sigma, please remain at (0,3) until the beam is blocked."""
+4;Sigma;2;(0, 3);STAY;"""I’ll stay at (0,3) until the red laser is blocked. Alpha, please let us know when you reach (2,1) so we can descend column 3. Omega, stay at (1,3) and be ready to move down together toward the exit."""
+5;Alpha;0;(1, 1);SOUTH;"'Laser blocked at (2,1). I’m safe here; ready to move east toward column 3 when you’re ready.'"
+5;Omega;1;(1, 3);STAY;'Staying at (1,3) this turn. Alpha, please let us know once you reach (2,1) and block the red laser. After the block, I’ll move south down column 3 toward the exit. Sigma, remain at (0,3) until the laser is stopped.'
+5;Sigma;2;(0, 3);STAY;'I’m staying at (0,3) until Alpha blocks the red laser at (2,1). Once the beam is stopped, I’ll move south down column 3 toward the exit.'
+6;Alpha;0;(2, 1);SOUTH;'Laser is blocked at (2,1). I’m heading SOUTH to (3,1) to collect the diamond at (4,1), then I’ll move EAST toward column 3 to join you for the exit.'
+6;Omega;1;(1, 3);SOUTH;"""I’m moving SOUTH to (2,3). Alpha, please move EAST to (2,2) this turn so we don’t collide. Sigma, stay at (0,3) until the column is clear, then you can move south with us toward the exit."""
+6;Sigma;2;(0, 3);STAY;'Staying at (0,3) as planned. Once Alpha has blocked the red laser and Omega moves south, I’ll follow down column 3 toward the exit.'
+
+"----- Invalid action 'STAY'. Valid actions are: NORTH, SOUTH, EAST, WEST, STAY. BUUUUUT STAY was a valid action so why ?? I think it was more like  a bug.. "
+0;Alpha;0;(0, 2);STAY;'All agents stay this round as required. After round 0 we should coordinate paths toward diamonds at (0,0) and (5,1) while avoiding opposing lasers, then head to exit tiles (6,3)-(6,5).'
+0;Omega;1;(0, 3);STAY;'All set. Staying in place this round to coordinate.'
+0;Sigma;2;(0, 4);STAY;'Waiting at (0,4). Ready for next instructions.'
+1;Alpha;0;(0, 2);WEST;'I’m moving west toward (0,0) to collect the top‑left diamond. Omega, you might head south toward (5,1). Sigma, you can stay or follow behind me to keep spacing.'
+1;Omega;1;(0, 3);SOUTH;'Plan: Alpha go west to (0,0) to grab diamond. Sigma shift west to (0,3) then head south. I’ll move south toward column 6 to stay clear of the red laser row. After diamonds, we converge on exit tiles (6,3‑5).'
+1;Sigma;2;(0, 4);EAST;'Moving east to column 5 to later shift to column 6 and avoid the red laser row before heading to the exit.'
+2;Alpha;0;(0, 1);WEST;'Moving west to (0,0) to collect the top‑left diamond. After that I’ll go south along column 0 toward the exit zone. Omega, keep heading south toward column 6 as discussed. Sigma, you can stay or shift west to keep spacing before heading south.'
+2;Omega;1;(1, 3);EAST;'I’m heading east toward column 6 to avoid the red laser row, then will go south and swing west to collect the diamond at (5,1). Alpha, continue toward (0,0). Sigma, once you’re at column 6 we’ll keep spacing while heading down.'
+2;Sigma;2;(0, 5);WEST;"'Moving west to (0,4); will continue west to (0,3) then head south toward the (5,1) diamond while staying clear of the red laser row.'"
+3;Alpha;0;(0, 0);EAST;"'Moving east to (0,1); will then go south to collect the diamond at (5,1) and head to the exit zone. Keep to your planned routes.'"
+3;Omega;1;(1, 4);EAST;'I’m moving east to (1,5) now, then will head to column 6 and go south straight to the exit tiles, staying clear of the red laser row 3. Alpha, keep heading down column 0. Sigma, stay on your westward path to the (5,1) diamond and avoid column 6 until I’m past row 3.'
+3;Sigma;2;(0, 4);EAST;"Moving east to (0,5); will head to column 6 next turn to stay clear of the red laser row before proceeding south toward the diamond."
+4;Alpha;0;(0, 1);SOUTH;'Moving SOUTH to (1,1). Continuing down column 1 toward the diamond at (5,1). Stay on your planned routes.'
+4;Omega;1;(1, 5);SOUTH;'I’m moving south to (2,5) now. Next turn I’ll head east to column 6 and then go straight down to the exit row, staying clear of the red laser row.'
+4;Sigma;2;(0, 5);STAY;"'Staying put this turn; will move east to column 6 next turn and then head south behind Omega, keeping clear of the red laser row and spacing from Alpha.'"
+5;Alpha;0;(1, 1);SOUTH;'Moving south to (2,1). I’ll continue down column 1 to collect the diamond at (5,1) and then head east toward the exit row. I plan to step onto (3,1) next turn to block the red laser, which should keep the rest of row 3 safe for you.'
+5;Omega;1;(2, 5);STAY;'I’ll stay at (2,5) this turn. Next turn I plan to move east to column 6 and then head straight south to the exit row, staying clear of the red laser row. Alpha, keep going down column 1 toward the diamond. Sigma, once you’re at column 6, stay ahead so I can follow safely.'
+5;Sigma;2;(0, 5);SOUTH;"'Moving SOUTH to (1,5); will go EAST to column 6 next turn then continue SOUTH behind Omega, staying clear of the red laser row.'"
+6;Alpha;0;(2, 1);SOUTH;"'Moving SOUTH onto (3,1) to block the red laser; will continue down to the diamond at (5,1) afterward.'"
+6;Omega;1;(2, 5);STAY;"'Got it, Alpha – I’ll wait here at (2,5) and move SOUTH to (3,5) next turn once you block the red laser at (3,1). Sigma – please continue east to column 6 as planned; I’ll follow behind you down the safe column 6 once I’m past row 3. Let’s keep to the coordinated routes.'"
+6;Sigma;2;(1, 5);NORTH;Moving north to (0,5) then east to column 6 next turn, staying ahead for you, Omega. Alpha, keep proceeding as planned.
+7;Alpha;0;(3, 1);STAY;'Staying on (3,1) to keep the red laser blocked. I’ll move SOUTH to (4,1) next turn and then continue toward the diamond at (5,1).'
+7;Omega;1;(2, 5);SOUTH;'Moving south to (3,5) now. After Alpha blocks the red laser, I’ll keep heading south toward the exit tiles. Sigma, stay ahead on column 6 as planned.'
+7;Sigma;2;(0, 5);SOUTH;"Moving SOUTH to (1,5); will go EAST to column 6 next turn and then head SOUTH behind Omega, staying clear of the red laser row."
+
+
+
+0;Alpha;0;(0, 2);STAY;"'Team, we are at (0,2). Diamond at (0,0) is two steps west; diamond at (5,1) is far south. The red laser runs along row 3 (cells (3,1)‑(3,5)). Stay put this round and let Omega and Sigma move to position us for safe collection next turns.'"
+0;Omega;1;(0, 3);STAY;'Staying at (0,3). Ready for next round.'
+0;Sigma;2;(0, 4);STAY;'Staying this round, awaiting teammates.'
+1;Alpha;0;(0, 2);WEST;"Moving west toward diamond at (0,0); please coordinate."
+1;Omega;1;(0, 3);SOUTH;'Moving south to (1,3). Planning to head west for the diamond in upcoming rounds.'
+1;Sigma;2;(0, 4);SOUTH;'Moving south to begin heading toward the lower diamond and exit area. Alpha stay, Omega stay.'
+2;Alpha;0;(0, 1);WEST;I am moving west to collect the diamond at (0,0). After that, we should head south together toward the lower diamond (5,1) and then the exit row. Let me know your next positions.
+2;Omega;1;(1, 3);WEST;"'Moving west to (1,2). Alpha, keep heading to (0,0); Sigma, continue south toward the lower diamond and exit. Stay clear of each other's cells.'"
+2;Sigma;2;(1, 4);EAST;"""Moving east to (1,5). After Alpha grabs the diamond at (0,0), let's all head east toward column 6, then go south to bypass the red laser and reach the exit tiles."""
+3;Alpha;0;(0, 0);EAST;"""I’m moving east to (0,1) so we can all head toward column 6 and then go south past the red laser. Omega, can you also move east toward the right side? Sigma, keep heading east as planned. Once we’re all near column 6 we’ll go south and reach the exit tiles together."""
+3;Omega;1;(1, 2);EAST;'Moving east to (1,3). I will continue east toward column 6, then head south to bypass the red laser and assist in collecting the diamond at (5,1) and reaching the exit.'
+3;Sigma;2;(1, 5);EAST;"""Moving east to (1,6). From there I'll go south down column 6 to bypass the red laser row, then head west to collect the diamond at (5,1) and proceed toward the exit tiles. staying clear of Omega's path."""
