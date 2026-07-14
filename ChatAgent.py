@@ -51,43 +51,45 @@ class ChatAgent():
         sys.exit(1)  
 
 
-    def parse_agent_response(self, text):
-        result = {"action": None, "message": None}
-        
-        # Extract action and message 
-        action_match = re.search(r"Action selection:\s*([^,]+)", text)
-        message_match = re.search(r"Message to Team:\s*(.+)", text)
-
-        if action_match and message_match:
-            result["action"] = self.parse_action(action_match.group(1))
-            result["message"] = message_match.group(1)
-        else :
-            print("Error: Response format is incorrect. Expected format: Action selection: 'Your action', Message to Team: 'Your Message'.")
-            sys.exit(1)
-            
-        return result
-        
     # def parse_agent_response(self, text):
-    #     result = {"action": None, "message": None, "belief": None}
-
-    #     # Extract action, message, and belief state
-    #     belief_match = re.search(
-    #         r"(Below is your current belief.*?)(?=Action selection:|Message to Team:|$)",
-    #         text,
-    #         re.DOTALL
-    #     )
+    #     result = {"action": None, "message": None}
+        
+    #     # Extract action and message 
     #     action_match = re.search(r"Action selection:\s*([^,]+)", text)
     #     message_match = re.search(r"Message to Team:\s*(.+)", text)
 
-    #     if action_match and message_match and belief_match:
+    #     if action_match and message_match:
     #         result["action"] = self.parse_action(action_match.group(1))
     #         result["message"] = message_match.group(1)
-    #         result["belief"] = belief_match.group(1).strip()
-    #     else:
-    #         print("Error: Response format is incorrect. Expected format: Action selection: 'Your action', Message to Team: 'Your Message', and a belief state starting with 'Below is your current belief'.")
+    #     else :
+    #         print("Error: Response format is incorrect. Expected format: Action selection: 'Your action', Message to Team: 'Your Message'.")
     #         sys.exit(1)
-
+            
     #     return result
+        
+    def parse_agent_response(self, text, zero_shot = False):
+        result = {"action": None, "message": None, "belief": None}
+
+
+        if zero_shot: 
+            belief_match = re.search(
+                r"(Below is your current belief.*?)(?=Action selection:|Message to Team:|$)",
+                text,
+                re.DOTALL
+            )
+        action_match = re.search(r"Action selection:\s*([^,]+)", text)
+        message_match = re.search(r"Message to Team:\s*(.+)", text)
+
+        if action_match and message_match and belief_match:
+            result["action"] = self.parse_action(action_match.group(1))
+            result["message"] = message_match.group(1)
+            if zero_shot: 
+                result["belief"] = belief_match.group(1).strip()
+        else:
+            print("Error: Response format is incorrect. Expected format: Action selection: 'Your action', Message to Team: 'Your Message', and a belief state starting with 'Below is your current belief'.")
+            sys.exit(1)
+
+        return result
 
 
     def save_prompt(self, data_path, round_number, agent_pos, last_belief, agent_raw_response):
@@ -114,17 +116,16 @@ class ChatAgent():
             })
 
 
-    def makeApiCall(self, current_round, agent_pos):
+    def makeApiCall(self, current_round, agent_pos, zero_shot = False):
 
         self.current_round = current_round
 
-        if current_round == 0:
-            background_prompt = self.background_prompt_first
-        else: 
-            background_prompt = self.background_prompt
+        background_prompt = self.background_prompt
 
-        # text = background_prompt + "\n" + self.last_belief + "\n" +  UPDATE_PROMPT
-        text = background_prompt + "\n" + self.last_belief + "\n" 
+        if zero_shot: 
+            text = background_prompt + "\n" + self.last_belief + "\n" +  UPDATE_PROMPT
+        else: 
+            text = background_prompt + "\n" + self.last_belief + "\n" 
         # print(text)
         client = Client()
         messages = [
@@ -139,7 +140,7 @@ class ChatAgent():
 
         self.save_prompt("history/prompt_history_new_belief_handling.csv", self.current_round, agent_pos, self.last_belief, message)
 
-        parsed_message = self.parse_agent_response(message)
+        parsed_message = self.parse_agent_response(message, zero_shot)
 
         return parsed_message 
     

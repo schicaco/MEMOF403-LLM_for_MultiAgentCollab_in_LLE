@@ -1,1 +1,76 @@
 round;agent_name;agent_pos;last_belief;agent_raw_response
+0;Alpha;(0, 2);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Alpha red at (0, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 2), (2, 4), (2, 1), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (0, 3); Your message from last round: ; Teammates messages: from Omega :  available actions: ['STAY']";"Action selection: move SOUTH  
+Message to Team: I will move down toward the diamond at (4,0) and then head for the exit. Stay put for now; let me know if you can move later."
+0;Alpha;(0, 2);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Alpha red at (0, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 4), (2, 2), (2, 3), (2, 1)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (0, 3); Your message from last round: ; Teammates messages: from Omega :  available actions: ['STAY']";"Below is your current belief
+Role: Alpha (red)
+Position: (0, 2)
+Current round: 0
+Team score: 0
+Observations:
+- Red laser source at (2, 0) (wall) projecting beam cells at (2, 4), (2, 2), (2, 3), (2, 1)
+- Diamond at (4, 0)
+- Exit tiles at (4, 3) and (4, 4)
+- Walls at (2, 0)
+Teammate Omega (blue) position: (0, 3)
+Teammate Omega available actions: ['STAY']
+
+Action selection: 'move SOUTH', Message to Team: 'Moving south toward the diamond; stay put for now.'"
+0;Omega;(0, 3);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Omega blue at (0, 3); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 4), (2, 2), (2, 3), (2, 1)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (0, 2); Your message from last round: ; Teammates messages: from Alpha :  available actions: ['STAY']";"Below is your current belief
+Your role: Omega (blue) at (0, 3)
+Current round: 0
+Total team score: 0
+Observed elements:
+- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
+- Diamond at (4, 0)
+- Exit tiles at (4, 3) and (4, 4)
+- Walls at (2, 0)
+Teammate:
+- Alpha (red) at (0, 2); last reported available actions: ['STAY']
+Teammate messages:
+- None from previous round
+Action selection: 'move STAY', Message to Team: 'Alpha, please block the red laser at (2,1) to open a safe corridor for me to reach the exit.'"
+1;Alpha;(1, 2);"
+Run 1: Below is your current belief
+Your role: Omega (blue) at (0, 3)
+Current round: 0
+Total team score: 0
+Observed elements:
+- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
+- Diamond at (4, 0)
+- Exit tiles at (4, 3) and (4, 4)
+- Walls at (2, 0)
+Teammate:
+- Alpha (red) at (0, 2); last reported available actions: ['STAY']
+Teammate messages:
+- None from previous round
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Below is your current belief
+Your role: Omega (blue) at (0, 3)
+Current round: 0
+Total team score: 0
+Observed elements:
+- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
+- Diamond at (4, 0)
+- Exit tiles at (4, 3) and (4, 4)
+- Walls at (2, 0)
+Teammate:
+- Alpha (red) at (0, 2); last reported available actions: ['STAY']
+Teammate messages:
+- None from previous round";"Below is your current belief
+Your role: Omega (blue) at (0, 3)
+Current round: 0
+Total team score: 0
+Observed elements:
+- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
+- Diamond at (4, 0)
+- Exit tiles at (4, 3) and (4, 4)
+- Walls at (2, 0)
+Teammate:
+- Alpha (red) at (0, 2); last reported available actions: ['STAY']
+Teammate messages:
+- None from previous round"
+
+

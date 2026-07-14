@@ -218,11 +218,12 @@ class Environment():
         cv2.destroyAllWindows()
 
 
-    def run_experiment(self, history_path): 
+    def run_experiment(self, history_path, zero_shot=False): 
       
         done = False
         current_round = -1
         team_score = None 
+        new_belief = ''
 
         self.set_chat_agents(self.env.world.agents)
 
@@ -238,12 +239,10 @@ class Environment():
                 
                 agent = self.chat_agents[i]
 
-                response = agent.makeApiCall(current_round, agents_positions[i])
+                response = agent.makeApiCall(current_round, agents_positions[i], zero_shot)
 
                 actions.append(response["action"])
                 messages.append(response["message"])
-
-                # agent.update_history(current_round, team_score, agents_positions, messages[-1], response["message"], self.str_action(self.env.available_actions(),i)) 
 
                 # Increment round and save the action and message to history
                 record = {
@@ -254,24 +253,19 @@ class Environment():
                     "action": ACTION_MAP_REVERSE[response["action"]],
                     "message": response["message"]
                 }
-
-
                 self.history.append(record)
                 # Save to CSV
-                self.save_history(history_path, record)
+                self.save_history(history_path, record) # Save to CSV
 
             step = self.env.step(actions)
             
             team_score = self.env.world.gems_collected
 
-            # TODO maybe change to ChatAgent 
-            # for i in range(self.env.n_agents): 
-            #     self.chat_agents[i].update_history(response["belief"])
-            #     self.chat_agents[i].update_history(response["belief"])
             for i in range(self.env.n_agents): 
-                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages,self.str_action(self.env.available_actions(),i)))
-                self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages, self.str_action(self.env.available_actions(),i)))
-
+                if zero_shot: 
+                    self.chat_agents[i].update_history(response["belief"])
+                else : 
+                    self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages,self.str_action(self.env.available_actions(),i)))
 
             done = step.is_terminal 
 
@@ -287,8 +281,18 @@ def main():
     env = Environment(world)
     
     arg = sys.argv[1] if len(sys.argv) > 1 else None
+    mode_arg = sys.argv[2] if len(sys.argv) > 2 else None
+
     if arg == "run":
-        env.run_experiment("history/history_new_belief_handling.csv")
+        if mode_arg in ("-z", "--zero_shot"):
+            zero_shot = True
+        elif mode_arg in ("-f", "--few_shot") or mode_arg is None:
+            zero_shot = False
+        else:
+            print("Please provide a valid mode argument: '-z'/'--zero_shot' or '-f'/'--few_shot'.")
+            sys.exit(1)
+
+        env.run_experiment("history/history.csv", zero_shot)
     elif arg == "play":
         env.play_history("play.csv")
     else:

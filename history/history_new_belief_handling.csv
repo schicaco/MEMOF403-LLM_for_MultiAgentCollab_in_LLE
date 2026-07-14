@@ -1,0 +1,3 @@
+round;agent_name;agent_id;agent position;action;message
+0;Alpha;0;(0, 2);SOUTH;"'Moving south toward the diamond; stay put for now.'"
+0;Omega;1;(0, 3);STAY;'Alpha, please block the red laser at (2,1) to open a safe corridor for me to reach the exit.'
