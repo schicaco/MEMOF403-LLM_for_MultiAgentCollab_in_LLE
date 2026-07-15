@@ -51,43 +51,32 @@ class ChatAgent():
         sys.exit(1)  
 
 
-    # def parse_agent_response(self, text):
-    #     result = {"action": None, "message": None}
-        
-    #     # Extract action and message 
-    #     action_match = re.search(r"Action selection:\s*([^,]+)", text)
-    #     message_match = re.search(r"Message to Team:\s*(.+)", text)
-
-    #     if action_match and message_match:
-    #         result["action"] = self.parse_action(action_match.group(1))
-    #         result["message"] = message_match.group(1)
-    #     else :
-    #         print("Error: Response format is incorrect. Expected format: Action selection: 'Your action', Message to Team: 'Your Message'.")
-    #         sys.exit(1)
-            
-    #     return result
-        
-    def parse_agent_response(self, text, zero_shot = False):
+    def parse_agent_response(self, text, zero_shot=False):
         result = {"action": None, "message": None, "belief": None}
 
-
-        if zero_shot: 
+        belief_match = None
+        if zero_shot:
             belief_match = re.search(
-                r"(Below is your current belief.*?)(?=Action selection:|Message to Team:|$)",
+                r"Below is your current belief.*?(?=\n\s*Action selection:|\Z)",
                 text,
                 re.DOTALL
             )
-        action_match = re.search(r"Action selection:\s*([^,]+)", text)
-        message_match = re.search(r"Message to Team:\s*(.+)", text)
+            if not belief_match:
+                print("Error: Response format is incorrect. Expected a belief state "
+                    "starting with 'Below is your current belief'.")
+                sys.exit(1)
+            result["belief"] = belief_match.group(0).strip()
 
-        if action_match and message_match and belief_match:
-            result["action"] = self.parse_action(action_match.group(1))
-            result["message"] = message_match.group(1)
-            if zero_shot: 
-                result["belief"] = belief_match.group(1).strip()
-        else:
-            print("Error: Response format is incorrect. Expected format: Action selection: 'Your action', Message to Team: 'Your Message', and a belief state starting with 'Below is your current belief'.")
+        action_match = re.search(r"Action selection:\s*(.+?)(?=\n\s*Message to Team:|\Z)", text, re.DOTALL)
+        message_match = re.search(r"Message to Team:\s*(.+)", text, re.DOTALL)
+
+        if not (action_match and message_match):
+            print("Error: Response format is incorrect. Expected format: "
+                "Action selection: 'Your action', Message to Team: 'Your Message'.")
             sys.exit(1)
+
+        result["action"] = self.parse_action(action_match.group(1).strip())
+        result["message"] = message_match.group(1).strip()
 
         return result
 
@@ -116,7 +105,7 @@ class ChatAgent():
             })
 
 
-    def makeApiCall(self, current_round, agent_pos, zero_shot = False):
+    def makeApiCall(self, current_round, agent_pos, zero_shot, prompt_history):
 
         self.current_round = current_round
 
@@ -126,44 +115,55 @@ class ChatAgent():
             text = background_prompt + "\n" + self.last_belief + "\n" +  UPDATE_PROMPT
         else: 
             text = background_prompt + "\n" + self.last_belief + "\n" 
-        # print(text)
-        client = Client()
-        messages = [
-        {
-            'role': 'user',
-            'content': text,
-        },
-        ]
-        message = ''
-        for part in client.chat(LLM_MODEL, messages=messages, stream=True):
-             message += part['message']['content']
 
-        self.save_prompt("history/prompt_history_new_belief_handling.csv", self.current_round, agent_pos, self.last_belief, message)
+        # print(text)
+
+
+        # client = Client()
+        # messages = [
+        # {
+        #     'role': 'user',
+        #     'content': text,
+        # },
+        # ]
+        # message = ''
+        # for part in client.chat(LLM_MODEL, messages=messages, stream=True):
+        #      message += part['message']['content']
+
+
+        message = "Action selection: 'STAY', Message to Team: current round - " + str(current_round) 
+        self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, message)
 
         parsed_message = self.parse_agent_response(message, zero_shot)
 
         return parsed_message 
     
 
-    def update_history(self, new_belief): 
+    def update_history(self, new_belief, round_number=None): 
         """
-        Update parameters of  chatAgent after each round, which will be included in the belief state for the next round.
-        Keeps only the last 5 rounds of belief states.
+        Update parameters of chatAgent after each round, which will be included in the belief state for the next round.
+        Keeps only the last 5 rounds of belief states and labels them with their actual round numbers.
         """
 
-        # Add current belief to history and keep only last 4
-        self.belief_history.append(new_belief)
+        if round_number is None:
+            round_number = self.current_round
+
+        # Store each belief with its real round number and keep only the last 5
+        self.belief_history.append((round_number, new_belief))
         if len(self.belief_history) > 5:
             self.belief_history = self.belief_history[-5:]
 
         belief_string = ""
-        # Build the new belief state with INTRO_BELIEF for current and run numbers for old ones
-        for idx, old_belief in enumerate(self.belief_history[:-1], start=1):
-            belief_string += f"\nRun {self.current_round+idx}: {old_belief}"
+        # Build the new belief state with actual run numbers for historical entries
+        for history_round, old_belief in self.belief_history[:-1]:
+            belief_string += f"\nRun {history_round+1}: {old_belief}"
         
-        # Add old belief states with run numbers (most recent first)
+        print("\n agent_id : ", self.agent_id, "self.belief.history: ", self.belief_history)
+
+        # Add the current belief with its actual run number
         belief_string += "\n" + INTRO_BELIEF
-        # Add current belief state
         belief_string += new_belief
+
+        print("Belief string: ", belief_string, "\n")
 
         self.last_belief = belief_string

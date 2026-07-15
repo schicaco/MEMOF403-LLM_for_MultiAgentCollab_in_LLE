@@ -1,0 +1,133 @@
+round;agent_name;agent_pos;last_belief;agent_raw_response
+0;Alpha;(0, 2);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Alpha red at (0, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (0, 3); Your message from last round: ; Teammates messages: from Omega :  available actions: ['STAY']";Action selection: move SOUTH, Message to Team: 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.'
+0;Omega;(0, 3);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Omega blue at (0, 3); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (0, 2); Your message from last round: ; Teammates messages: from Alpha :  available actions: ['STAY']";"Action selection: move SOUTH  
+Message to Team: 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).'"
+
+1;Alpha;(1, 2);"
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Alpha red at (1, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (1, 3); Your message from last round: 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.'; Teammates messages: from Omega : 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).' available actions: NORTH, SOUTH, WEST, STAY";Action selection: 'move SOUTH', Message to Team: 'Moving south to (2,2) to block the red laser as requested.'
+1;Omega;(1, 3);"
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Omega blue at (1, 3); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (1, 2); Your message from last round: 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).'; Teammates messages: from Alpha : 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.' available actions: NORTH, SOUTH, EAST, STAY";Action selection: 'move EAST', Message to Team: 'Alpha, I’m moving east to (1,4) and will head south toward the exit at (4,4). Let me know your exact route to the diamond so we avoid any cell conflicts.'
+
+2;Alpha;(2, 2);"
+Run 2: Your role: You are playing as Player Alpha red at (1, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (1, 3); Your message from last round: 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.'; Teammates messages: from Omega : 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).' available actions: NORTH, SOUTH, WEST, STAY
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Alpha red at (2, 2); Current round : 1; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (1, 4); Your message from last round: 'Moving south to (2,2) to block the red laser as requested.'; Teammates messages: from Omega : 'Alpha, I’m moving east to (1,4) and will head south toward the exit at (4,4). Let me know your exact route to the diamond so we avoid any cell conflicts.' available actions: NORTH, SOUTH, EAST, WEST, STAY";"Action selection: move WEST  
+Message to Team: Alpha: I'll head west to (2,1) this turn, then move south to (4,1) and west to grab the diamond at (4,0). After that I'll go east toward the exit tiles (4,3)/(4,4). No conflict with your path on column 4."
+2;Omega;(1, 4);"
+Run 2: Your role: You are playing as Player Omega blue at (1, 3); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (1, 2); Your message from last round: 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).'; Teammates messages: from Alpha : 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.' available actions: NORTH, SOUTH, EAST, STAY
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Omega blue at (1, 4); Current round : 1; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (2, 2); Your message from last round: 'Alpha, I’m moving east to (1,4) and will head south toward the exit at (4,4). Let me know your exact route to the diamond so we avoid any cell conflicts.'; Teammates messages: from Alpha : 'Moving south to (2,2) to block the red laser as requested.' available actions: NORTH, SOUTH, WEST, STAY";Action selection: 'move SOUTH', Message to Team: 'Alpha, I’m moving south to (2,4) and will head straight to the exit at (4,4). Let me know if you need to change your blocking position.'
+
+3;Alpha;(2, 1);"
+Run 3: Your role: You are playing as Player Alpha red at (1, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (1, 3); Your message from last round: 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.'; Teammates messages: from Omega : 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).' available actions: NORTH, SOUTH, WEST, STAY
+Run 4: Your role: You are playing as Player Alpha red at (2, 2); Current round : 1; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (1, 4); Your message from last round: 'Moving south to (2,2) to block the red laser as requested.'; Teammates messages: from Omega : 'Alpha, I’m moving east to (1,4) and will head south toward the exit at (4,4). Let me know your exact route to the diamond so we avoid any cell conflicts.' available actions: NORTH, SOUTH, EAST, WEST, STAY
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Alpha red at (2, 1); Current round : 2; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (2, 4); Your message from last round: Alpha: I'll head west to (2,1) this turn, then move south to (4,1) and west to grab the diamond at (4,0). After that I'll go east toward the exit tiles (4,3)/(4,4). No conflict with your path on column 4.; Teammates messages: from Omega : 'Alpha, I’m moving south to (2,4) and will head straight to the exit at (4,4). Let me know if you need to change your blocking position.' available actions: NORTH, SOUTH, EAST, STAY";Action selection: move STAY, Message to Team: 'I’ll stay at (2,1) this turn to keep the red laser blocked for you. Once you’re safely headed to the exit, I’ll head south to (4,1), then west to collect the diamond at (4,0) and proceed east toward the exits. No conflict with your path.'
+3;Omega;(2, 4);"
+Run 3: Your role: You are playing as Player Omega blue at (1, 3); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (1, 2); Your message from last round: 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).'; Teammates messages: from Alpha : 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.' available actions: NORTH, SOUTH, EAST, STAY
+Run 4: Your role: You are playing as Player Omega blue at (1, 4); Current round : 1; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (2, 2); Your message from last round: 'Alpha, I’m moving east to (1,4) and will head south toward the exit at (4,4). Let me know your exact route to the diamond so we avoid any cell conflicts.'; Teammates messages: from Alpha : 'Moving south to (2,2) to block the red laser as requested.' available actions: NORTH, SOUTH, WEST, STAY
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Omega blue at (2, 4); Current round : 2; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (2, 1); Your message from last round: 'Alpha, I’m moving south to (2,4) and will head straight to the exit at (4,4). Let me know if you need to change your blocking position.'; Teammates messages: from Alpha : Alpha: I'll head west to (2,1) this turn, then move south to (4,1) and west to grab the diamond at (4,0). After that I'll go east toward the exit tiles (4,3)/(4,4). No conflict with your path on column 4. available actions: NORTH, SOUTH, WEST, STAY";Action selection: 'move SOUTH', Message to Team: 'Got it, Alpha. I’ll move south to (3,4) then continue to (4,4) for the exit. Let me know if anything changes.'
+
+4;Alpha;(2, 1);"
+Run 4: Your role: You are playing as Player Alpha red at (1, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (1, 3); Your message from last round: 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.'; Teammates messages: from Omega : 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).' available actions: NORTH, SOUTH, WEST, STAY
+Run 5: Your role: You are playing as Player Alpha red at (2, 2); Current round : 1; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (1, 4); Your message from last round: 'Moving south to (2,2) to block the red laser as requested.'; Teammates messages: from Omega : 'Alpha, I’m moving east to (1,4) and will head south toward the exit at (4,4). Let me know your exact route to the diamond so we avoid any cell conflicts.' available actions: NORTH, SOUTH, EAST, WEST, STAY
+Run 6: Your role: You are playing as Player Alpha red at (2, 1); Current round : 2; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (2, 4); Your message from last round: Alpha: I'll head west to (2,1) this turn, then move south to (4,1) and west to grab the diamond at (4,0). After that I'll go east toward the exit tiles (4,3)/(4,4). No conflict with your path on column 4.; Teammates messages: from Omega : 'Alpha, I’m moving south to (2,4) and will head straight to the exit at (4,4). Let me know if you need to change your blocking position.' available actions: NORTH, SOUTH, EAST, STAY
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Alpha red at (2, 1); Current round : 3; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (3, 4); Your message from last round: 'I’ll stay at (2,1) this turn to keep the red laser blocked for you. Once you’re safely headed to the exit, I’ll head south to (4,1), then west to collect the diamond at (4,0) and proceed east toward the exits. No conflict with your path.'; Teammates messages: from Omega : 'Got it, Alpha. I’ll move south to (3,4) then continue to (4,4) for the exit. Let me know if anything changes.' available actions: NORTH, SOUTH, EAST, STAY";"Action selection: move SOUTH  
+Message to Team: ""Moving south to (3,1) this turn. My plan: then go to (4,1), west to (4,0) to grab the diamond, and finally head east to the exit at (4,3). This avoids any conflict with your route to (4,4)."""
+4;Omega;(3, 4);"
+Run 4: Your role: You are playing as Player Omega blue at (1, 3); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (1, 2); Your message from last round: 'Alpha, please move SOUTH this turn to start blocking the red laser (head towards (1,2), then continue to (2,2) and (2,1) to stop the beam).'; Teammates messages: from Alpha : 'Moving south to start heading towards the diamond at (4,0) and then the exit. I’ll go for the diamond while you head down when you can.' available actions: NORTH, SOUTH, EAST, STAY
+Run 5: Your role: You are playing as Player Omega blue at (1, 4); Current round : 1; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (2, 2); Your message from last round: 'Alpha, I’m moving east to (1,4) and will head south toward the exit at (4,4). Let me know your exact route to the diamond so we avoid any cell conflicts.'; Teammates messages: from Alpha : 'Moving south to (2,2) to block the red laser as requested.' available actions: NORTH, SOUTH, WEST, STAY
+Run 6: Your role: You are playing as Player Omega blue at (2, 4); Current round : 2; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (2, 1); Your message from last round: 'Alpha, I’m moving south to (2,4) and will head straight to the exit at (4,4). Let me know if you need to change your blocking position.'; Teammates messages: from Alpha : Alpha: I'll head west to (2,1) this turn, then move south to (4,1) and west to grab the diamond at (4,0). After that I'll go east toward the exit tiles (4,3)/(4,4). No conflict with your path on column 4. available actions: NORTH, SOUTH, WEST, STAY
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Your role: You are playing as Player Omega blue at (3, 4); Current round : 3; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 1), (2, 2), (2, 4), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (2, 1); Your message from last round: 'Got it, Alpha. I’ll move south to (3,4) then continue to (4,4) for the exit. Let me know if anything changes.'; Teammates messages: from Alpha : 'I’ll stay at (2,1) this turn to keep the red laser blocked for you. Once you’re safely headed to the exit, I’ll head south to (4,1), then west to collect the diamond at (4,0) and proceed east toward the exits. No conflict with your path.' available actions: NORTH, SOUTH, WEST, STAY";Action selection: 'move SOUTH', Message to Team: 'Moving south to (4,4) to exit. Let me know when you’re ready to head for the diamond, and if any adjustments are needed.'
+
+"==========================================================================================================="
+
+0;Alpha;(0, 2);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message:  Teammates messages: from Omega : ";Action selection: 'STAY', Message to Team: current round - 0
+0;Omega;(0, 3);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message:  Teammates messages: from Alpha : ";Action selection: 'STAY', Message to Team: current round - 0
+1;Alpha;(0, 2);"
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 0 Teammates messages: from Omega : current round - 0";Action selection: 'STAY', Message to Team: current round - 1
+1;Omega;(0, 3);"
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 0 Teammates messages: from Alpha : current round - 0";Action selection: 'STAY', Message to Team: current round - 1
+2;Alpha;(0, 2);"
+Run 1: Own message: current round - 0 Teammates messages: from Omega : current round - 0
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 1 Teammates messages: from Omega : current round - 1";Action selection: 'STAY', Message to Team: current round - 2
+2;Omega;(0, 3);"
+Run 1: Own message: current round - 0 Teammates messages: from Alpha : current round - 0
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 1 Teammates messages: from Alpha : current round - 1";Action selection: 'STAY', Message to Team: current round - 2
+3;Alpha;(0, 2);"
+Run 1: Own message: current round - 0 Teammates messages: from Omega : current round - 0
+Run 2: Own message: current round - 1 Teammates messages: from Omega : current round - 1
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 2 Teammates messages: from Omega : current round - 2";Action selection: 'STAY', Message to Team: current round - 3
+3;Omega;(0, 3);"
+Run 1: Own message: current round - 0 Teammates messages: from Alpha : current round - 0
+Run 2: Own message: current round - 1 Teammates messages: from Alpha : current round - 1
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 2 Teammates messages: from Alpha : current round - 2";Action selection: 'STAY', Message to Team: current round - 3
+4;Alpha;(0, 2);"
+Run 1: Own message: current round - 0 Teammates messages: from Omega : current round - 0
+Run 2: Own message: current round - 1 Teammates messages: from Omega : current round - 1
+Run 3: Own message: current round - 2 Teammates messages: from Omega : current round - 2
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 3 Teammates messages: from Omega : current round - 3";Action selection: 'STAY', Message to Team: current round - 4
+4;Omega;(0, 3);"
+Run 1: Own message: current round - 0 Teammates messages: from Alpha : current round - 0
+Run 2: Own message: current round - 1 Teammates messages: from Alpha : current round - 1
+Run 3: Own message: current round - 2 Teammates messages: from Alpha : current round - 2
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 3 Teammates messages: from Alpha : current round - 3";Action selection: 'STAY', Message to Team: current round - 4
+5;Alpha;(0, 2);"
+Run 1: Own message: current round - 0 Teammates messages: from Omega : current round - 0
+Run 2: Own message: current round - 1 Teammates messages: from Omega : current round - 1
+Run 3: Own message: current round - 2 Teammates messages: from Omega : current round - 2
+Run 4: Own message: current round - 3 Teammates messages: from Omega : current round - 3
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 4 Teammates messages: from Omega : current round - 4";Action selection: 'STAY', Message to Team: current round - 5
+5;Omega;(0, 3);"
+Run 1: Own message: current round - 0 Teammates messages: from Alpha : current round - 0
+Run 2: Own message: current round - 1 Teammates messages: from Alpha : current round - 1
+Run 3: Own message: current round - 2 Teammates messages: from Alpha : current round - 2
+Run 4: Own message: current round - 3 Teammates messages: from Alpha : current round - 3
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 4 Teammates messages: from Alpha : current round - 4";Action selection: 'STAY', Message to Team: current round - 5
+6;Alpha;(0, 2);"
+Run 2: Own message: current round - 1 Teammates messages: from Omega : current round - 1
+Run 3: Own message: current round - 2 Teammates messages: from Omega : current round - 2
+Run 4: Own message: current round - 3 Teammates messages: from Omega : current round - 3
+Run 5: Own message: current round - 4 Teammates messages: from Omega : current round - 4
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 5 Teammates messages: from Omega : current round - 5";Action selection: 'STAY', Message to Team: current round - 6
+6;Omega;(0, 3);"
+Run 2: Own message: current round - 1 Teammates messages: from Alpha : current round - 1
+Run 3: Own message: current round - 2 Teammates messages: from Alpha : current round - 2
+Run 4: Own message: current round - 3 Teammates messages: from Alpha : current round - 3
+Run 5: Own message: current round - 4 Teammates messages: from Alpha : current round - 4
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 5 Teammates messages: from Alpha : current round - 5";Action selection: 'STAY', Message to Team: current round - 6
+7;Alpha;(0, 2);"
+Run 3: Own message: current round - 2 Teammates messages: from Omega : current round - 2
+Run 4: Own message: current round - 3 Teammates messages: from Omega : current round - 3
+Run 5: Own message: current round - 4 Teammates messages: from Omega : current round - 4
+Run 6: Own message: current round - 5 Teammates messages: from Omega : current round - 5
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 6 Teammates messages: from Omega : current round - 6";Action selection: 'STAY', Message to Team: current round - 7
+7;Omega;(0, 3);"
+Run 3: Own message: current round - 2 Teammates messages: from Alpha : current round - 2
+Run 4: Own message: current round - 3 Teammates messages: from Alpha : current round - 3
+Run 5: Own message: current round - 4 Teammates messages: from Alpha : current round - 4
+Run 6: Own message: current round - 5 Teammates messages: from Alpha : current round - 5
+Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
+Own message: current round - 6 Teammates messages: from Alpha : current round - 6";Action selection: 'STAY', Message to Team: current round - 7

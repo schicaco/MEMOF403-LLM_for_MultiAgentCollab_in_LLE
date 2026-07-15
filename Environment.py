@@ -127,6 +127,8 @@ class Environment():
             available_actions = available_actions
         )
 
+        initial_belief = "Own message: " + own_messages + " Teammates messages: " + team_messages_str
+
         return initial_belief
 
 
@@ -218,7 +220,7 @@ class Environment():
         cv2.destroyAllWindows()
 
 
-    def run_experiment(self, history_path, zero_shot=False): 
+    def run_experiment(self, history_path, zero_shot=False, prompt_history = "prompt_history.csv"): 
       
         done = False
         current_round = -1
@@ -239,7 +241,7 @@ class Environment():
                 
                 agent = self.chat_agents[i]
 
-                response = agent.makeApiCall(current_round, agents_positions[i], zero_shot)
+                response = agent.makeApiCall(current_round, agents_positions[i], zero_shot, prompt_history)
 
                 actions.append(response["action"])
                 messages.append(response["message"])
@@ -263,11 +265,17 @@ class Environment():
 
             for i in range(self.env.n_agents): 
                 if zero_shot: 
-                    self.chat_agents[i].update_history(response["belief"])
+                    self.chat_agents[i].update_history(response["belief"], current_round)
                 else : 
-                    self.chat_agents[i].update_history(self.build_initial_belief(i, current_round, team_score, messages[i], messages,self.str_action(self.env.available_actions(),i)))
+                    self.chat_agents[i].update_history(
+                        self.build_initial_belief(i, current_round, team_score, messages[i], messages, self.str_action(self.env.available_actions(), i)),
+                        current_round,
+                    )
 
             done = step.is_terminal 
+
+            # if current_round == 7: 
+            #     done = True 
 
         team_score += 1
 
@@ -276,6 +284,7 @@ class Environment():
 
 
 def main(): 
+    # world = LLE.from_file("maps/map_3_agents.txt").obs_type("layered").build()
     world = LLE.from_file("maps/map.txt").obs_type("layered").build()
     # world = LLE.level(2).obs_type("layered").build()
     env = Environment(world)
@@ -292,7 +301,8 @@ def main():
             print("Please provide a valid mode argument: '-z'/'--zero_shot' or '-f'/'--few_shot'.")
             sys.exit(1)
 
-        env.run_experiment("history/history.csv", zero_shot)
+        # env.run_experiment("history/history_3_agents.csv", zero_shot, "history/prompt_history_3_agents.csv")
+        env.run_experiment("history/2agents_1gem/history_2agents_1gem.csv", zero_shot, "history/2agents_1gem/prompt_history_2agents_1gem.csv")
     elif arg == "play":
         env.play_history("play.csv")
     else:

@@ -1,5 +1,4 @@
 round;agent_name;agent_id;agent position;action;message
-
 0;Alpha;0;(0, 2);SOUTH;Yellow, please block the laser at (2,3) so I can cross at (2,4) safely. I am heading south and will navigate to the right side to reach the exit.
 0;Omega;1;(0, 3);SOUTH;Next round I will block the yellow laser at (2,3). Alpha, cross row 2 at column 4.
 1;Alpha;0;(1, 2);SOUTH;'Moving to (1,2). Yellow, please confirm you are blocking the laser at (2,3) so I can safely cross to (2,4) in the next round. I will proceed toward the right side to reach the exit at (4,3) or (4,4).'
@@ -685,4 +684,5 @@ round;agent_name;agent_id;agent position;action;message
 15;Omega;1;(4, 3);STAY;'Staying at (4,3). Let me know when you’re on (4,4) so we can claim the exit bonus together.'
 16;Alpha;0;(3, 4);SOUTH;'Moving to (4,4) now, we will both be on exits next turn for the bonus.'
 16;Omega;1;(4, 3);STAY;'Staying at (4,3). Ready for us both on exits next turn.'
-0;Alpha;0;(0, 2);SOUTH;'Moving South'
+
+

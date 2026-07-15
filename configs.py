@@ -11,7 +11,9 @@ Interaction: To facilitate our interaction, reply your action selection and comm
 Remember, your replies must adhere strictly to these rules. Feel free to ask clarifying questions if needed. I’ll supply the necessary information as we progress. Are you ready to take on this challenge?"
 """
 
-INTRO_BELIEF = "Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.\n"
+# INTRO_BELIEF = "Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.\n"
+INTRO_BELIEF = "Below is your current belief about the game: positions and environment observations reflect THIS round, while teammate messages reflect what they sent LAST round.\n"
+
 
 INITIAL_BELIEF = "Your role: You are playing as Player {agent_name} {agent_color} at {agent_pos}; Current round : {current_round}; Total team score : {team_score}; \
 Observation: {observation_str};\
