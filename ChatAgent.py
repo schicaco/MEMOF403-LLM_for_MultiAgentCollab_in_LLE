@@ -118,20 +118,20 @@ class ChatAgent():
 
         # print(text)
 
+        client = Client()
+        messages = [
+        {
+            'role': 'user',
+            'content': text,
+        },
+        ]
+        message = ''
+        for part in client.chat(LLM_MODEL, messages=messages, stream=True):
+             message += part['message']['content']
 
-        # client = Client()
-        # messages = [
-        # {
-        #     'role': 'user',
-        #     'content': text,
-        # },
-        # ]
-        # message = ''
-        # for part in client.chat(LLM_MODEL, messages=messages, stream=True):
-        #      message += part['message']['content']
 
-
-        message = "Action selection: 'STAY', Message to Team: current round - " + str(current_round) 
+        # message = "Action selection: 'STAY', Message to Team: current round - " + str(current_round) 
+        
         self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, message)
 
         parsed_message = self.parse_agent_response(message, zero_shot)
@@ -158,12 +158,9 @@ class ChatAgent():
         for history_round, old_belief in self.belief_history[:-1]:
             belief_string += f"\nRun {history_round+1}: {old_belief}"
         
-        print("\n agent_id : ", self.agent_id, "self.belief.history: ", self.belief_history)
-
         # Add the current belief with its actual run number
         belief_string += "\n" + INTRO_BELIEF
         belief_string += new_belief
 
-        print("Belief string: ", belief_string, "\n")
 
         self.last_belief = belief_string

@@ -685,4 +685,244 @@ round;agent_name;agent_id;agent position;action;message
 16;Alpha;0;(3, 4);SOUTH;'Moving to (4,4) now, we will both be on exits next turn for the bonus.'
 16;Omega;1;(4, 3);STAY;'Staying at (4,3). Ready for us both on exits next turn.'
 
+"==========================================================================================================="
+
+"Run number corrected and belief state prompt changed to : Below is your current belief about the game: positions and environment observations reflect THIS round, while teammate messages reflect what they sent LAST round.\n"
+
+"------ failed:  looks less effective than the old prompt "
+0;Alpha;0;(0, 2);SOUTH;'Moving south towards the exit. I’ll stay clear of the red laser and head for the diamond at (4,0). Let me know what you plan to do next.'
+0;Omega;1;(0, 3);SOUTH;'Alpha, please try to move onto a red laser beam cell on row 2 (such as (2,2) or (2,3)). Stepping onto a red beam will block the laser beyond that point and open a safe path for me to reach the exit tiles. Let me know when you’ve blocked it.'
+1;Alpha;0;(1, 2);SOUTH;'I have moved onto (2,2) and blocked the red laser. The path down column 3 should now be safe for you to reach the exits.'
+1;Omega;1;(1, 3);NORTH;'Alpha, please step onto (2,2) or (2,3) to block the red laser. Once you block it I can safely move south toward the exit tiles. I’ll move north for now.'
+2;Alpha;0;(2, 2);STAY;'I’m staying on (2,2) to keep the red laser blocked. Once you’re past row 2, I’ll move south toward the diamond at (4,0).'
+2;Omega;1;(0, 3);SOUTH;'I’m moving south to (1,3). After you grab the diamond, please head toward an exit tile (4,3 or 4,4) so we can both finish and earn the bonus.'
+3;Alpha;0;(2, 2);SOUTH;"'Moving south toward the diamond at (4,0). After I collect it I’ll head to an exit tile; let me know when you’re set to head to the exits.'"
+3;Omega;1;(1, 3);SOUTH;'Moving south to (2,3). I’ll continue down column 3 to reach an exit (4,3 or 4,4) after you’ve cleared the diamond. Keep blocking until I’m past row 2.'
+
+
+"------ failed: Is like they are lacking reasoning "
+0;Alpha;0;(0, 2);SOUTH;"'Moving SOUTH towards the diamond at (4,0). I’ll head down the middle; please stay put if you can’t move safely.'"
+0;Omega;1;(0, 3);STAY;Alpha, please move to the red laser beam cell at (2,1) and stay there to block the laser. This will open a safe path for me to descend toward the exits.
+1;Alpha;0;(1, 2);SOUTH;"'Moving SOUTH to (2,2) to block the red laser; I’ll stay here to keep the path safe for you.'"
+1;Omega;1;(0, 3);SOUTH;Alpha, please move onto the red beam cell at (2,2) and stay there to block the laser. Once you’re blocking, I’ll continue moving down column 3 toward the exit tiles. If you can’t reach (2,2) safely, just stay put.
+2;Alpha;0;(2, 2);STAY;"'I’m staying at (2,2) to block the red laser; you can continue down column 3 toward the exits.'"
+2;Omega;1;(1, 3);SOUTH;Moving SOUTH to (2,3). Path looks clear with you blocking at (2,2). I’ll continue down column 3 toward the exits.
+3;Alpha;0;(2, 2);STAY;"'I’m staying at (2,2) to keep the red laser blocked. You’re safe to continue down column 3 toward the exits; once you’re at an exit I’ll move toward an exit tile myself.'"
+3;Omega;1;(2, 3);SOUTH;'Moving SOUTH to (3,3). Continuing toward the exit tiles.'
+4;Alpha;0;(2, 2);SOUTH;I’m moving SOUTH to (3,2). After you reach the exit at (4,3), I’ll head east along row 3 and then down to (4,4). This keeps us safe from the red laser.
+4;Omega;1;(3, 3);SOUTH;"'Moving SOUTH to (4,3) exit tile. I’ll stay there after exiting; you can head to an exit when you’re ready.'"
+5;Alpha;0;(3, 2);EAST;'Moving EAST to (3,3). I’ll continue east to (3,4) then south to exit (4,4), staying clear of your exit tile at (4,3).'
+5;Omega;1;(4, 3);STAY;"'I’m on exit (4,3) and will stay; you can head east then down to (4,4) when you’re ready.'"
+6;Alpha;0;(3, 3);WEST;'I’m moving west to get the diamond at (4,0) and then will head to exit (4,4), staying clear of your exit tile.'
+6;Omega;1;(4, 3);STAY;'Alpha, proceed to (4,4) as planned. Once you’re there we’ll both be on exit tiles and earn the point. Stay safe.'
+7;Alpha;0;(3, 2);SOUTH;'Moving SOUTH to (4,2). Next I’ll go west to collect the diamond at (4,0) and then navigate around your exit at (4,3) to reach exit (4,4).'
+7;Omega;1;(4, 3);STAY;'Alpha, if we both reach exits now we’ll score the point. Consider heading straight to (4,4) instead of detouring for the diamond so we can both be on exit tiles safely.'
+8;Alpha;0;(4, 2);NORTH;'Heading north to (3,2) and will route around you to reach exit (4,4) as you suggested, skipping the diamond.'
+8;Omega;1;(4, 3);STAY;'Alpha, please head north to (3,2), then east to (3,3), east to (3,4), and south to (4,4) so we can both be on exit tiles and score. Skipping the diamond will let us finish sooner.'
+9;Alpha;0;(3, 2);NORTH;'Moving NORTH to (2,2). I’ll continue east and then south to reach exit (4,4) as planned, skipping the diamond.'
+9;Omega;1;(4, 3);STAY;'I’m staying on exit (4,3). Once you reach (4,4) we’ll both be on exits and score the point. Let me know if you need to adjust your route.'
+10;Alpha;0;(2, 2);SOUTH;'Heading south to (3,2). I’ll then go east across row 3 to (3,4) and south to exit (4,4) as discussed.'
+10;Omega;1;(4, 3);STAY;'I’m staying on exit (4,3). Let me know when you reach (4,4) so we can claim the point.'
+11;Alpha;0;(3, 2);SOUTH;"'Moving EAST to (3,3); then will go EAST to (3,4) and SOUTH to (4,4) to finish.'"
+11;Omega;1;(4, 3);STAY;'Staying on exit (4,3). Let me know when you’re on (4,4) and we’ll claim the point.'
+12;Alpha;0;(4, 2);NORTH;'Moving NORTH to (3,2). I’ll then go EAST to (3,3), EAST to (3,4), and SOUTH to (4,4) to finish.'
+12;Omega;1;(4, 3);STAY;'I’m still on exit (4,3). Let me know once you’re on (4,4) so we can claim the point.'
+13;Alpha;0;(3, 2);EAST;Alpha moving EAST to (3,3). Next I’ll go EAST to (3,4) and then SOUTH to (4,4) to finish.
+13;Omega;1;(4, 3);STAY;'I’ll stay on (4,3). Let me know when you’re on (4,4) and we’ll claim the point together.'
+14;Alpha;0;(3, 3);SOUTH;"'Moving EAST to (3,4); will go SOUTH next turn to reach (4,4) and claim the point with you.'"
+14;Omega;1;(4, 3);STAY;'Staying at (4,3). Let me know when you reach (4,4) and we’ll claim the point together.'
+
+"failed"
+0;Alpha;0;(0, 2);SOUTH;'I’m moving down the middle to handle the red laser cells. This will keep us safe and let us collect the diamond and reach the exits.'
+0;Omega;1;(0, 3);SOUTH;'Alpha, please move SOUTH this turn to start blocking the red laser so we can safely reach the exit tiles.'
+1;Alpha;0;(1, 2);SOUTH;'Moving SOUTH onto (2,2) to block the red laser as requested.'
+1;Omega;1;(1, 3);SOUTH;'Alpha, please move to (2,2) to block the red laser cells. I’ll wait here and move SOUTH once the beam is blocked so we can safely head to the exits and collect the diamond.'
+2;Alpha;0;(2, 2);SOUTH;'Moving SOUTH to (3,2). After the red laser is blocked, I’ll head down to collect the diamond and meet you at the exits.'
+2;Omega;1;(2, 3);SOUTH;'Alpha, the laser is now blocked. I’m moving SOUTH to (3,3) and will head for exit (4,3). Please move SOUTH to (3,2) and then continue toward exit (4,4) so we can both exit safely.'
+3;Alpha;0;(3, 2);SOUTH;Alpha moving SOUTH to (4,2). After I collect the diamond at (4,0), I’ll head east toward exit (4,4) while you head to (4,3). Let's finish safely!
+3;Omega;1;(3, 3);SOUTH;'Alpha, I’m moving SOUTH onto exit (4,3) and will stay there. Please head to the diamond at (4,0), collect it, and then proceed to exit (4,4) so we can both finish.'
+4;Alpha;0;(4, 2);WEST;'Moving WEST to (4,1) toward the diamond at (4,0). I’ll collect it next turn and then circle around to exit (4,4) while you stay at (4,3).'
+4;Omega;1;(4, 3);STAY;'Staying on exit (4,3). I’ll wait here while you get the diamond and head to (4,4).'
+5;Alpha;0;(4, 1);WEST;'Moving WEST to (4,0) to collect the diamond. After that I’ll go north and around to reach exit (4,4) while you stay on (4,3).'
+5;Omega;1;(4, 3);STAY;'Staying on exit (4,3). Good luck collecting the diamond and heading to (4,4).'
+6;Alpha;0;(4, 0);EAST;'Moving EAST to (4,1) towards exit (4,4).'
+6;Omega;1;(4, 3);STAY;'I’ll remain on exit (4,3). Collect the diamond and head east toward (4,4) when you can. Let me know when you’re at an exit so we can finish together.'
+7;Alpha;0;(4, 1);NORTH;'Moving NORTH to (3,1). I’ll head east along row 3, then up to column 4 and down to exit (4,4). Let me know when you’re ready at your exit so we can finish together.'
+7;Omega;1;(4, 3);NORTH;'Alpha, I’m moving NORTH to (3,3) to clear the path. After that I’ll head east and then south to reach exit (4,4) while you head to exit (4,3). Let’s finish together.'
+
+=============================================================================
+
+"Belief state prompt changed to : Below is your current belief about the game based on the observations about the environment and interactions with your teammates from last round"
+
+"failed"
+0;Alpha;0;(0, 2);SOUTH;'Moving south to block the red laser at row 2 and head for the diamond and exit.'
+0;Omega;1;(0, 3);STAY;I am staying at (0,3). The red laser blocks row 2 columns 1‑4, so I cannot move down that way. Let’s coordinate our next moves.
+1;Alpha;0;(1, 2);SOUTH;I am moving SOUTH to (2,2) to block the red laser. After blocking I will head toward the diamond at (4,0) and then to the exit. Stay safe.
+1;Omega;1;(0, 3);WEST;'I’m moving west to (0,2). Once Alpha blocks the red laser at (2,2), I’ll head south down column 2 toward the diamond and then the exit tiles. Keep blocking as planned.'
+2;Alpha;0;(2, 2);SOUTH;'Moving WEST to (2,1) to block the red laser before column 2. You can now move SOUTH through (2,2) safely. After you pass I’ll head to the diamond and then the exit.'
+2;Omega;1;(0, 2);EAST;'Alpha, please move WEST to (2,1) to block the red laser at its earliest point. Once you’re blocking there, I’ll head east and then south toward the exit tiles.'
+3;Alpha;0;(3, 2);NORTH;Blocking at (2,2) now. Red laser is stopped beyond this cell. You can head east then south toward the exit tiles. After I finish, I’ll move toward the diamond and then to the exit.
+3;Omega;1;(0, 3);SOUTH;'Moving SOUTH to (1,2). Once you’re blocking the laser at (2,1), I’ll continue down column 2 toward the exit tiles. Let me know when you’ve reached (2,1) so I can proceed safely.'
+4;Alpha;0;(2, 2);WEST;I’m moving WEST to (2,1) to block the red laser at its earliest point. The laser will now stop at (2,1), making the rest of row 2 safe. You can now move SOUTH through column 2 (via (2,2)) without danger. Let me know when you’ve reached (2,2) so I can head toward the diamond.
+4;Omega;1;(1, 3);SOUTH;'Moving SOUTH to (2,3). The red laser is now blocked, so I’ll continue down column 3 toward the exit tiles. Keep me posted on your progress toward the diamond.'
+5;Alpha;0;(2, 1);SOUTH;'I moved SOUTH to (3,1). Heading toward the diamond at (4,0). Let me know when you reach (4,3) so we can coordinate exit.'
+5;Omega;1;(2, 3);WEST;"'Reached (2,2). Laser blocked; I’ll proceed south toward the exit tile. Let me know when you’re heading to the diamond.'"
+
+"succeeded"
+0;Alpha;0;(0, 2);SOUTH;"'I’m moving south to block the red laser at (2,2); this will clear the path for you down column 3.'"
+0;Omega;1;(0, 3);STAY;'Alpha, the red laser at row 2 blocks my path. Please move onto one of its beam cells (e.g., (2,1) or (2,2)) to block the beam so I can safely cross to the exit and diamond.'
+1;Alpha;0;(1, 2);SOUTH;'I have moved onto (2,2) and blocked the red laser, column 3 is now safe for you.'
+1;Omega;1;(0, 3);SOUTH;'Got it, moving south. Once the red laser is blocked I’ll keep heading down column 3 toward the exit.'
+2;Alpha;0;(2, 2);STAY;'I’ll stay on (2,2) to keep the red laser blocked until you safely reach the exit.'
+2;Omega;1;(1, 3);SOUTH;'Alpha, I’m moving south to (2,3). Column 3 is now clear, I’ll continue down to the exit.'
+3;Alpha;0;(2, 2);STAY;'I’m staying at (2,2) to keep the red laser blocked. Once you’re safely at the exit, I’ll move south‑west to grab the diamond and head to exit (4,4).'
+3;Omega;1;(2, 3);SOUTH;'Moving south to (3,3). I’ll continue down column 3 to reach the exit tile.'
+4;Alpha;0;(2, 2);EAST;"'Moving east to (2,3); will continue toward the diamond and exit after you reach the exit.'"
+4;Omega;1;(3, 3);SOUTH;Alpha, I've moved onto the exit tile at (4,3) and am now locked there. You can proceed to the diamond at (4,0) and then head to the remaining exit tile (4,4). Good luck!
+5;Alpha;0;(2, 3);SOUTH;'Moving south to (3,3). I’ll head west to collect the diamond at (4,0) and then proceed to the remaining exit tile (4,4). Let me know if you need any assistance.'
+5;Omega;1;(4, 3);STAY;'Alpha, I’m locked on exit (4,3). Please go get the diamond at (4,0) and then head to the remaining exit (4,4). Avoid my tile. Good luck!'
+6;Alpha;0;(3, 3);WEST;"'Moving west to (3,2); heading for the diamond at (4,0) then exit (4,4).'"
+6;Omega;1;(4, 3);STAY;'Alpha, I’m locked on exit (4,3). Once you collect the diamond at (4,0) and reach exit (4,4), we’ll earn the bonus point. Good luck!'
+7;Alpha;0;(3, 2);WEST;Moving west to (3,1). I’ll head south to (4,0) for the diamond, then route around (4,3) to reach the exit at (4,4).
+7;Omega;1;(4, 3);STAY;'Alpha, I’m locked on exit (4,3). Continue to the diamond at (4,0) and then to exit (4,4). Let me know when you’re done.'
+8;Alpha;0;(3, 1);SOUTH;"'Moving to (4,1) en route to the diamond at (4,0); will collect it next turn and then navigate around (4,3) to reach exit (4,4).'"
+8;Omega;1;(4, 3);STAY;'Alpha, I’m locked on exit (4,3). Continue to the diamond at (4,0) and then head to exit (4,4). Let me know when you’ve collected the diamond and reached the exit so we can secure the points. Good luck!'
+9;Alpha;0;(4, 1);WEST;"'Collected diamond at (4,0); now heading east to exit (4,4) avoiding (4,3).'"
+9;Omega;1;(4, 3);STAY;'Alpha, I’m still locked on exit (4,3). Please let me know when you’ve collected the diamond at (4,0) and reached the exit (4,4) so we can secure the points.'
+10;Alpha;0;(4, 0);EAST;'Moved east to (4,1). Heading toward exit (4,4) while avoiding your tile at (4,3). I’ll let you know when I reach the exit.'
+10;Omega;1;(4, 3);STAY;'Alpha, great job getting the diamond. Once you step onto (4,4) we’ll both be on exits and earn the bonus point. Let me know when you’ve arrived.'
+11;Alpha;0;(4, 1);NORTH;'Moving north to (3,1) on the way to exit (4,4) via the top route to avoid your tile at (4,3). I’ll update you when I reach the exit.'
+11;Omega;1;(4, 3);STAY;'Alpha, I’m staying on exit (4,3). Let me know when you reach (4,4) so we can claim the bonus point.'
+12;Alpha;0;(3, 1);NORTH;'I’m moving north onto the red laser beam at (2,1) and will continue around the top to reach exit (4,4) while avoiding your tile at (4,3). I’ll update you when I’re on the exit.'
+12;Omega;1;(4, 3);STAY;'I’m staying on exit (4,3). Let me know as soon as you reach (4,4) so we can claim the bonus point together.'
+13;Alpha;0;(2, 1);EAST;"""Moving east onto red laser at (2,2); will continue east and then south to reach exit (4,4) while you stay at (4,3). I’ll notify when I’m on (4,4)."""
+13;Omega;1;(4, 3);STAY;'Alpha, please let me know as soon as you reach (4,4) so we can secure the bonus point together.'
+14;Alpha;0;(2, 2);EAST;'I’ve moved east onto the red laser at (2,3). Next I’ll go east to (2,4) and then head south to the exit at (4,4). I’ll let you know as soon as I’m on (4,4).'
+14;Omega;1;(4, 3);STAY;'Waiting at (4,3). Please inform me as soon as you arrive at (4,4) so we can secure the bonus point together.'
+15;Alpha;0;(2, 3);EAST;'Moving to (2,4) and then heading south to (4,4). I’ll let you know as soon as I’m on the exit.'
+15;Omega;1;(4, 3);STAY;'Waiting at (4,3). Please let me know when you arrive at (4,4) so we can claim the bonus point.'
+16;Alpha;0;(2, 4);SOUTH;'Moving south to (3,4), will reach (4,4) next turn.'
+16;Omega;1;(4, 3);STAY;'I’m staying on exit (4,3). Please inform me as soon as you reach (4,4) so we can claim the bonus point together.'
+17;Alpha;0;(3, 4);SOUTH;'I have arrived at exit (4,4). Both of us are now on exit tiles, bonus point secured.'
+17;Omega;1;(4, 3);STAY;'I’ll remain on (4,3). Once you arrive at (4,4), we’ll secure the bonus point together.'
+
+==========================================================================
+
+"Going back to old belief state "
+
+"failed"
+0;Alpha;0;(0, 2);SOUTH;I’m heading down to block the red laser at (2,2) on my next move. Once it’s blocked, you should be able to move south toward the exit.
+0;Omega;1;(0, 3);STAY;"""Alpha, please move onto a red laser beam cell (e.g., (2,2) or any cell along row 2) to block the laser. Once the beam is blocked, I will move south to cross row 2 and head toward the exit."""
+1;Alpha;0;(1, 2);SOUTH;'I’m moving to (2,2) to block the red laser now.'
+1;Omega;1;(0, 3);SOUTH;'Moving south to (1,3). After you block the red laser at (2,2), I’ll continue moving south toward the exit.'
+2;Alpha;0;(2, 2);STAY;'I am staying at (2,2) to keep the red laser blocked. You can safely move onto (2,3) and continue heading south toward the exit.'
+2;Omega;1;(1, 3);SOUTH;'Alpha, laser blocked at (2,2). I’m moving south to (2,3) towards the exit.'
+3;Alpha;0;(2, 2);STAY;I’m staying at (2,2) to keep the red laser blocked. You can safely move south to (3,3) and keep heading toward the exit. Once you’re off row 2, I’ll move down as well.
+3;Omega;1;(2, 3);SOUTH;Alpha, thanks for holding the laser at (2,2). I’m moving south to (3,3) and will continue toward the exit at (4,3). Let’s aim to finish together.
+4;Alpha;0;(2, 2);EAST;Moving east to (2,3) to keep the red laser blocked. Once you reach the exit at (4,3), I’ll move south to (3,3) and head toward the exit.
+4;Omega;1;(3, 3);SOUTH;'Moving to exit at (4,3). Alpha, please head down to (4,4) to claim the other exit so we can finish together.'
+5;Alpha;0;(2, 3);EAST;"'Moving east to (2,4); then I’ll head south to (4,4) to claim the other exit so we can finish together.'"
+5;Omega;1;(4, 3);STAY;'Alpha, please proceed to the other exit at (4,4) so we can both finish. I will stay on (4,3) as my exit is secured.'
+6;Alpha;0;(2, 4);SOUTH;'Moving south to (3,4) on my way to the exit at (4,4).'
+6;Omega;1;(4, 3);STAY;"'Staying at (4,3) on the exit. Alpha, please head down to (4,4) when you can; once you’re there we’ll both finish and claim the final point.'"
+7;Alpha;0;(3, 4);SOUTH;'Moving to exit (4,4). We’re both on exits now, point secured.'
+7;Omega;1;(4, 3);STAY;"'Staying at (4,3) on the exit. Alpha, please move to (4,4) when you can; once you’re there we’ll both be on exits and finish together.'"
+
+"succeeded"
+0;Alpha;0;(0, 2);SOUTH;Moving south to reach row 2 and block the red laser, then I'll go for the diamond at (4,0).
+0;Omega;1;(0, 3);STAY;'Alpha, could you move onto the red laser cell at (2,1) to block the beam? That would open a safe path for me to reach the exit tiles.'
+1;Alpha;0;(1, 2);SOUTH;'Moving onto (2,2) to block the red laser, clearing the path for you.'
+1;Omega;1;(0, 3);SOUTH;'Moving south to (1,3). Good luck blocking the red laser at (2,1).'
+2;Alpha;0;(2, 2);EAST;'I moved to (2,3) and am blocking the red laser there. The path down column 3 should now be safe for you to head toward the exits.'
+2;Omega;1;(1, 3);SOUTH;"'Red laser is now blocked at (2,2); cells (2,3) and (2,4) are safe. You can head down column 0 to the diamond without needing to step on (2,1).'"
+3;Alpha;0;(2, 2);STAY;'I’m staying at (2,2) to keep the red laser blocked. The column 3 path is now safe for you to head to the exits. Once you’re out, I’ll move toward the diamond at (4,0).'
+3;Omega;1;(1, 3);EAST;'Moving east to (1,4). I’ll continue down column 4 to reach the exit at (4,4). Let me know your plan for getting the diamond and heading to an exit.'
+4;Alpha;0;(2, 2);EAST;I've moved to (2,3) blocking the red laser, so column 4 is now safe for you to reach the exit. After you exit, I'll head down to the diamond at (4,0) and then to an exit.
+4;Omega;1;(1, 4);SOUTH;'Moving south to (2,4). I’ll continue down column 4 to exit at (4,4). Let me know when you’re ready to head for the diamond.'
+5;Alpha;0;(2, 3);WEST;I've moved west to (2,2) to keep the red laser blocked while you continue down column 4. Once you reach the exit at (4,4), I'll head south toward the diamond at (4,0) and then to an exit.
+5;Omega;1;(2, 4);SOUTH;'Moving south to (3,4). I’ll reach the exit at (4,4) next turn. Let me know when you’re heading toward the diamond.'
+6;Alpha;0;(2, 2);SOUTH;"""Moving south to (3,2) to start heading for the diamond at (4,0). I'll continue down to row 4, collect the diamond, then head east to exit (4,3). Let me know when you’ve exited at (4,4)."""
+6;Omega;1;(3, 4);SOUTH;'I have reached the exit at (4,4). You can now head toward the diamond at (4,0) and then to an exit. Good luck!'
+7;Alpha;0;(3, 2);WEST;'Moving west to (3,1). I’ll continue to (3,0), then down to the diamond at (4,0) and head east to exit (4,3).'
+7;Omega;1;(4, 4);STAY;'I have reached and am staying on exit (4,4). I’m safe here. Let me know when you reach an exit so we can claim the extra point. Good luck on the diamond path!'
+8;Alpha;0;(3, 1);WEST;'Moving west to (3,0) en route to the diamond at (4,0). After collecting it I’ll head east to exit (4,3) so we can claim the extra point.'
+8;Omega;1;(4, 4);STAY;'Staying on exit (4,4). Let me know when you reach exit (4,3) so we can claim the extra point. Good luck!'
+9;Alpha;0;(3, 0);SOUTH;"'Moving south to (4,0) to collect the diamond; then I’ll proceed east to exit (4,3) for the extra point.'"
+9;Omega;1;(4, 4);STAY;'Good luck collecting the diamond and heading to exit (4,3). Let me know when you reach the exit so we can claim the extra point.'
+10;Alpha;0;(4, 0);EAST;Moving east to (4,1) on my way to the exit at (4,3). Once I reach it we'll claim the extra point.
+10;Omega;1;(4, 4);STAY;'I am staying on exit (4,4). Good luck collecting the diamond and heading to exit (4,3).'
+11;Alpha;0;(4, 1);EAST;'Heading east to (4,2) and then to exit (4,3). I’ll let you know when I reach the exit so we can claim the extra point.'
+11;Omega;1;(4, 4);STAY;'I am staying at exit (4,4). Let me know when you reach (4,3) so we can claim the extra point.'
+12;Alpha;0;(4, 2);EAST;"'Reached exit (4,3); both exits now occupied, extra point claimed.'"
+12;Omega;1;(4, 4);STAY;'Staying on exit (4,4). Let me know when you arrive at (4,3) so we can claim the extra point.'
+
+
+===================================================================================================== 
+
+"there was an errooooooooor, in belief state for first round: all of them only have ["STAY"] as available actions"
+
+"failed"
+0;Alpha;0;(0, 2);SOUTH;Moving south to (1,2). Let's both head south toward the exit.
+0;Omega;1;(0, 3);SOUTH;Alpha, please move SOUTH this turn (to (1,2)) and then again SOUTH next turn to step onto the red beam at (2,2) to block it. Once the beam is blocked I will move down toward the exit. Let's coordinate our moves to clear a safe path.
+1;Alpha;0;(1, 2);SOUTH;'Moving SOUTH to block red beam at (2,2). Ready for next steps.'
+1;Omega;1;(1, 3);SOUTH;'Alpha, I will stay this turn while you block the red beam at (2,2). After it’s blocked, I’ll move SOUTH next turn.'
+2;Alpha;0;(2, 2);STAY;Red beam blocked at (2,2). You can move SOUTH next turn safely.
+2;Omega;1;(2, 3);SOUTH;'Alpha, staying this turn while you block the red beam at (2,2). I will move SOUTH next round.'
+3;Alpha;0;(2, 2);SOUTH;'I’m moving SOUTH to (3,2). After you reach the exit tile, I’ll head west toward the diamond at (4,0) and then make my way to an exit. Let’s keep the path clear.'
+3;Omega;1;(3, 3);EAST;'Alpha, I’m moving EAST to (3,4) now. Then I’ll move SOUTH to the exit at (4,4). Please go SOUTH to (3,2), then SOUTH to (4,2), and finally EAST to the exit at (4,3). This will get both of us onto exits safely.'
+4;Alpha;0;(3, 2);SOUTH;Moving SOUTH to (4,2). Then I’ll head EAST to exit (4,3) as planned.
+4;Omega;1;(3, 4);SOUTH;Alpha, I am moving SOUTH to the exit at (4,4). Please move EAST to (3,3) and then SOUTH to the exit at (4,3) so we can both finish.
+5;Alpha;0;(4, 2);EAST;'I’m moving WEST to (4,1) to get the diamond at (4,0) before heading to an exit. After collecting it I’ll move EAST back to (4,3) so we both finish on exits. Stay on your exit tile.'
+5;Omega;1;(4, 4);STAY;'I have reached the exit at (4,4) and cannot move further. Proceed to the exit when safe.'
+
+"failed"
+0;Alpha;0;(0, 2);SOUTH;'I will go down to (2,2) to block the red laser. After I block, you can safely move south through column 3 or 4.'
+0;Omega;1;(0, 3);SOUTH;'Alpha, please move SOUTH each turn until you reach (2,2) to block the red laser. Then I will move EAST and head SOUTH down column 4 to the exit.'
+1;Alpha;0;(1, 2);SOUTH;'Moving south to (2,2) to block the red laser as planned.'
+1;Omega;1;(1, 3);SOUTH;'Waiting for you to block at (2,2). Once you’re there, I’ll move EAST to (1,4) and then head SOUTH down column 4 toward the exit.'
+2;Alpha;0;(2, 2);SOUTH;'Laser blocked at (2,2). I’ll head south to collect the diamond and then move east to the exit. You can proceed east to column 4 as planned.'
+2;Omega;1;(2, 3);EAST;'Alpha, thanks for blocking the red laser at (2,2). I’m moving EAST to (2,4) now and will head SOUTH toward the exit tiles.'
+
+
+"FAILED"
+0;Alpha;0;(0, 2);SOUTH;'I’m moving south toward the diamond. You should also move south to stay together.'
+0;Omega;1;(0, 3);SOUTH;"'Alpha, please head SOUTH (twice) to reach (2,3) and block the red laser; I’ll move SOUTH to (1,3) and then follow down to the exit.'"
+1;Alpha;0;(1, 2);SOUTH;Moving SOUTH to (2,2) to block the red laser. You can continue heading south toward the exit.
+1;Omega;1;(1, 3);STAY;'Alpha, please move onto (2,2) to block the red laser. I’ll stay put and head south toward the exit once the beam is safe.'
+2;Alpha;0;(2, 2);SOUTH;'I’ll stay on (2,2) to keep the red laser blocked. You can now move SOUTH to (2,3) and continue toward the exit.'
+2;Omega;1;(1, 3);SOUTH;Moving SOUTH to (2,3). Please stay on (2,2) until I clear the beam, then head south toward the exit.
+
+==========================================================================
+
+"Totally new prompt from perplexity"
+
+"Succeeded ! "
+0;Alpha;0;(0, 2);SOUTH;'I see a red laser source at (2,0) with its beam covering (2,1), (2,2), (2,3), (2,4) – safe for me. There is a diamond at (4,0) and exit tiles at (4,3) and (4,4). I am at (0,2) and will move SOUTH this turn, heading toward the diamond and then an exit. Omega, what are your plans? Let me know if you need any help blocking beams or avoiding any cells.'
+0;Omega;1;(0, 3);EAST;'I am at (0,3). I see a red laser source at (2,0) with its beam covering (2,1)-(2,4). I plan to move east to (0,4) and head down toward the exit at (4,4) while staying clear of the red beams. No assistance needed right now.'
+1;Alpha;0;(1, 2);SOUTH;'I am at (1,2) and will move SOUTH onto the red beam cell (2,2). My plan is to follow the beam down, then head west to collect the diamond at (4,0) and exit via (4,3). Omega, let me know if you’ll be using the same exit or need any help with beam blocking.'
+1;Omega;1;(0, 4);STAY;'I am at (0,4). The red laser from (2,0) covers the entire row 2 (cols 1‑4), which blocks my path to the exits. If Alpha can stand on a red beam cell (e.g., (2,2)) this will block the beam beyond that point and make (2,3) and (2,4) safe for me. I will stay put this turn while Alpha moves south, then I can head down the column toward the exit at (4,4). No other assistance needed right now.'
+2;Alpha;0;(2, 2);STAY;'I am staying at (2,2) this turn to block the red laser, keeping (2,3) and (2,4) safe for you. After the beam is still blocked, you can start moving down the column toward the exit at (4,4). I plan to move SOUTH to (3,2) on the next turn once you have passed row 2, then continue toward the diamond at (4,0). Let me know when you’re ready for me to leave the beam.'
+2;Omega;1;(0, 4);STAY;'I am staying at (0,4) this turn. Alpha, please remain on (2,2) for now so the red beam stays blocked. That will let me move south next round onto (1,4) and then onto (2,4) safely before the beam re‑activates. Thanks.'
+3;Alpha;0;(2, 2);STAY;'I am staying at (2,2) this turn to keep the red beam blocked as you requested, Omega. That will keep (2,3) and (2,4) safe for you to move down. Let me know when you move onto (1,4) next round so I can shift to (2,3) to continue blocking (2,4) before you step onto it.'
+3;Omega;1;(0, 4);SOUTH;'I am moving south to (1,4) this turn. With you staying on (2,2), the red beam at (2,4) is safe, so I plan to move to (2,4) next round and continue down to the exit at (4,4). Thanks for blocking the beam!'
+4;Alpha;0;(2, 2);EAST;'I am moving east to (2,3) this turn, keeping the red beam blocked so (2,4) stays safe for you. Let me know when you are ready to move onto (2,4) next round.'
+4;Omega;1;(1, 4);SOUTH;'I am now at (1,4) and will move SOUTH to (2,4) this turn. Thanks for staying on (2,2) and blocking the red beam, making (2,4) safe. After this I will keep heading down the column toward the exit at (4,4). No further help needed right now.'
+5;Alpha;0;(2, 3);SOUTH;'I’m moving south to (3,3). This frees (2,3) and the red beam will reactivate, but Omega is moving to (3,4) this turn, so (2,4) stays safe. After this I’ll head west toward the diamond at (4,0) and then to the exit (4,3). Let me know your next move.'
+5;Omega;1;(2, 4);SOUTH;'I am at (2,4) and will move SOUTH to (3,4) this turn, continuing toward the exit at (4,4). Please stay on (2,3) for now to keep the red beam blocked until I leave row 2. Let me know where you’ll move after I’m off the beam.'
+6;Alpha;0;(3, 3);STAY;'I am staying at (2,3) this turn, keeping the red beam blocked while you move to (3,4). After you head to the exit at (4,4), I’ll move south to (3,3) and then go west to collect the diamond at (4,0) before exiting at (4,3). Let me know when you’ve reached the exit so I can proceed.'
+6;Omega;1;(3, 4);SOUTH;"'I am moving south onto the exit tile at (4,4). I will stay here now. No further assistance needed; please proceed toward the exit at (4,3) when you can.'"
+7;Alpha;0;(3, 3);WEST;'Omega, I see you’re safely on the exit at (4,4). I’m moving west to (3,2) now to head for the diamond at (4,0) before I go to the exit (4,3). I’ll keep clear of the red beam on row 2. Let me know if anything changes.'
+7;Omega;1;(4, 4);STAY;'I have reached the exit tile at (4,4) and will stay here. I am now locked on the exit. Please let me know when you are ready to move toward the exit at (4,3) after collecting the diamond.'
+8;Alpha;0;(3, 2);WEST;'I am moving west to (3,1) as the next step toward the diamond at (4,0). After I collect the diamond I’ll head to the exit at (4,3). All clear on my side.'
+8;Omega;1;(4, 4);STAY;'I am now on the exit at (4,4) and will remain here (cannot move). Good luck heading to the diamond at (4,0) and then to the exit (4,3). Let me know when you reach (4,3) so we can claim the team bonus. Stay safe away from the red beam.'
+9;Alpha;0;(3, 1);SOUTH;"'I am at (3,1) and moving south to (4,1) on my way to the diamond at (4,0). After I pick up the diamond I’ll head east to the exit at (4,3) so we can claim the team bonus. All clear on my side; let me know if anything changes.'"
+9;Omega;1;(4, 4);STAY;'I am now on exit tile (4,4) and will stay here. Please let me know when you have collected the diamond at (4,0) and reached the other exit (4,3) so we can claim the team bonus. Stay safe away from the red beam.'
+10;Alpha;0;(4, 1);WEST;'I moved west to (4,0) and collected the diamond (+1 point). I’ll head east next turn to the exit at (4,3) so we can claim the team bonus. Let me know if anything changes on your side.'
+10;Omega;1;(4, 4);STAY;'I am still on the exit tile at (4,4) and will remain here. No changes on my side. Let me know when you pick up the diamond at (4,0) and reach the other exit (4,3) so we can claim the team bonus. Stay safe away from the red beam.'
+11;Alpha;0;(4, 0);EAST;'Diamond collected (+1). I’m moving east to (4,1) on my way to the exit at (4,3). I’ll keep clear of the red beam on row 2. Let me know if anything changes on your side.'
+11;Omega;1;(4, 4);STAY;"'I am staying on exit tile (4,4) as required. Let me know when you arrive at exit (4,3); once both of us are on exits we will claim the +1 team bonus. No further help needed from me.'"
+12;Alpha;0;(4, 1);EAST;'I’ve moved onto (4,1) after collecting the diamond. I’m heading east to (4,2) now and will go to the exit at (4,3) next turn. No new hazards observed. Let me know if anything changes on your side.'
+12;Omega;1;(4, 4);STAY;'I am staying on exit (4,4). I will remain here until you reach exit (4,3). Let me know when you arrive so we can claim the team bonus. No changes on my side.'
+13;Alpha;0;(4, 2);EAST;'I am moving east to (4,3), the exit tile. I will be on the exit next round so we can claim the team bonus. Stay safe on your side.'
+13;Omega;1;(4, 4);STAY;'I am staying on exit tile (4,4) as required. No changes on my side. Please let me know when you reach exit (4,3) so we can claim the team bonus. Stay safe away from the red beam.'
 
