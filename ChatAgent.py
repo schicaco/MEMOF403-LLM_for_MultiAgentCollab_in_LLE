@@ -13,7 +13,7 @@ LLM_MODEL = 'gpt-oss:120b-cloud'
 
 class ChatAgent(): 
 
-    def __init__(self, agent_id):
+    def __init__(self, agent_id, zero_shot):
 
         self.agent_id = agent_id
 
@@ -23,6 +23,8 @@ class ChatAgent():
         self.background_prompt = ""
         self.background_prompt_first = ""
         self.last_belief = ""
+        self.update_prompt = ""
+        self.zero_shot = zero_shot
 
         # Initialize belief history to store last 3 rounds
         self.belief_history = []
@@ -33,6 +35,9 @@ class ChatAgent():
 
     def set_background_prompt_first(self, background_prompt_first): 
         self.background_prompt_first = background_prompt_first
+
+    def set_update_prompt(self, update_prompt):
+        self.update_prompt = update_prompt
 
     def set_initial_belief(self, initial_belief): 
         self.last_belief = INTRO_BELIEF + initial_belief
@@ -51,11 +56,12 @@ class ChatAgent():
         sys.exit(1)  
 
 
-    def parse_agent_response(self, text, zero_shot=False):
+
+    def parse_agent_response(self, text):
         result = {"action": None, "message": None, "belief": None}
 
         belief_match = None
-        if zero_shot:
+        if self.zero_shot:
             belief_match = re.search(
                 r"Below is your current belief.*?(?=\n\s*Action selection:|\Z)",
                 text,
@@ -65,7 +71,8 @@ class ChatAgent():
                 print("Error: Response format is incorrect. Expected a belief state "
                     "starting with 'Below is your current belief'.")
                 sys.exit(1)
-            result["belief"] = belief_match.group(0).strip()
+            raw_belief = belief_match.group(0).strip()
+            result["belief"] = raw_belief.replace("Below is your current belief", INTRO_BELIEF, 1)
 
         action_match = re.search(r"Action selection:\s*(.+?)(?=\n\s*Message to Team:|\Z)", text, re.DOTALL)
         message_match = re.search(r"Message to Team:\s*(.+)", text, re.DOTALL)
@@ -79,7 +86,6 @@ class ChatAgent():
         result["message"] = message_match.group(1).strip()
 
         return result
-
 
     def save_prompt(self, data_path, round_number, agent_pos, last_belief, agent_raw_response):
         """
@@ -105,36 +111,37 @@ class ChatAgent():
             })
 
 
-    def makeApiCall(self, current_round, agent_pos, zero_shot, prompt_history):
+    def makeApiCall(self, current_round, agent_pos, prompt_history):
 
         self.current_round = current_round
 
         background_prompt = self.background_prompt
 
-        if zero_shot: 
-            text = background_prompt + "\n" + self.last_belief + "\n" +  UPDATE_PROMPT
+        if self.zero_shot: 
+            text = background_prompt + "\n" + self.last_belief + "\n" +  self.update_prompt
         else: 
             text = background_prompt + "\n" + self.last_belief + "\n" 
 
         # print(text)
+        print("----------------------------------------------------")
+        print(self.update_prompt)
+        # client = Client()
+        # messages = [
+        # {
+        #     'role': 'user',
+        #     'content': text,
+        # },
+        # ]
+        # message = ''
+        # for part in client.chat(LLM_MODEL, messages=messages, stream=True):
+        #      message += part['message']['content']
 
-        client = Client()
-        messages = [
-        {
-            'role': 'user',
-            'content': text,
-        },
-        ]
-        message = ''
-        for part in client.chat(LLM_MODEL, messages=messages, stream=True):
-             message += part['message']['content']
 
-
-        # message = "Action selection: 'STAY', Message to Team: current round - " + str(current_round) 
+        message ="- Below is your current belief  : '[from agent id ="  + str(self.agent_id) +"] , Action selection: 'STAY', Message to Team: my message to the team from me with id " + str(self.agent_id)+ " in the current round - " + str(current_round) 
         
         self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, message)
 
-        parsed_message = self.parse_agent_response(message, zero_shot)
+        parsed_message = self.parse_agent_response(message)
 
         return parsed_message 
     
@@ -159,7 +166,10 @@ class ChatAgent():
             belief_string += f"\nRun {history_round+1}: {old_belief}"
         
         # Add the current belief with its actual run number
-        belief_string += "\n" + INTRO_BELIEF
+
+
+        if not self.zero_shot: 
+            belief_string += "\n" + INTRO_BELIEF
         belief_string += new_belief
 
 

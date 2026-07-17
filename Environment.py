@@ -21,6 +21,18 @@ class Environment():
         self.history = [] # list of dict, each dict contains: agent_id, action, message
 
 
+    def  set_chat_agents(self, agents, zero_shot):
+        messages = ["" for i in range(self.env.n_agents)]
+
+        for i in range(self.env.n_agents):
+            chat_agent = ChatAgent(agents[i].num, zero_shot)
+            chat_agent.set_background_prompt(self.build_background_prompt(i,False))
+            # chat_agent.set_background_prompt_first(self.build_background_prompt(i,True))
+            chat_agent.set_initial_belief(self.build_initial_belief(i, 0, 0, "", messages, self.str_action(self.env.available_actions(), i)))
+            chat_agent.set_update_prompt(self.build_update_prompt(i, 0,"",messages))
+            self.chat_agents.append(chat_agent)
+
+
     def build_background_prompt(self, agent_id, first = False):
         agent_name = AGENT_NAME_MAP[agent_id]
         agent_color = COLOR_MAP[agent_id]
@@ -154,17 +166,6 @@ class Environment():
 
         return update_prompt
 
-    def  set_chat_agents(self, agents):
-        messages = ["" for i in range(self.env.n_agents)]
-
-        for i in range(self.env.n_agents):
-            chat_agent = ChatAgent(agents[i].num)
-            chat_agent.set_background_prompt(self.build_background_prompt(i,False))
-            # chat_agent.set_background_prompt_first(self.build_background_prompt(i,True))
-            chat_agent.set_initial_belief(self.build_initial_belief(i, 0, 0, "", messages, self.str_action(self.env.available_actions(), i)))
-            chat_agent.set_update_prompt(self.build_update_prompt(i, 0,"",messages))
-            self.chat_agents.append(chat_agent)
-
 
     def str_action(self, actions, agent_id):
         """Convert the list of available actions for an agent into a string format to be included in the belief state."""
@@ -250,7 +251,7 @@ class Environment():
         team_score = None 
         new_belief = ''
 
-        self.set_chat_agents(self.env.world.agents)
+        self.set_chat_agents(self.env.world.agents, zero_shot)
 
         while not done:
             agents_positions = self.env.world.agents_positions
@@ -265,8 +266,8 @@ class Environment():
                 
                 agent = self.chat_agents[i]
 
-                response = agent.makeApiCall(current_round, agents_positions[i], zero_shot, prompt_history)
-                
+                response = agent.makeApiCall(current_round, agents_positions[i], prompt_history)
+
                 responses.append(response)
 
                 actions.append(response["action"])
