@@ -6,7 +6,7 @@ import os
 import csv 
 
 from ChatAgent import ChatAgent
-from configs import ACTION_MAP, ACTION_MAP_REVERSE, AGENT_NAME_MAP, COLOR_MAP, BACKGROUND_PROMPT, INITIAL_BELIEF
+from configs import ACTION_MAP, ACTION_MAP_REVERSE, AGENT_NAME_MAP, COLOR_MAP, BACKGROUND_PROMPT, INITIAL_BELIEF, UPDATE_PROMPT
 
 
 class Environment():
@@ -132,6 +132,27 @@ class Environment():
 
         return initial_belief
 
+    def build_update_prompt(self,agent_id, current_round, own_message, team_messages): 
+
+        teammate_ids = [i for i in range(self.env.world.n_agents) if i != agent_id]
+
+      # Build team messages string: "from Alpha : 'message'"
+        if current_round == "0": 
+            team_messages_str = "no message sent yet (this is the first round)"
+            own_messages_str = "no message sent yet (this is the first round)"
+        else: 
+            team_messages_str = "; ".join(
+                f"from {AGENT_NAME_MAP[i]} : {team_messages[i]}"
+                for i in teammate_ids
+            )
+            own_messages_str = own_message
+
+        update_prompt = UPDATE_PROMPT.format(
+            own_messages = own_messages_str,
+            team_messages=team_messages_str
+        )
+
+        return update_prompt
 
     def  set_chat_agents(self, agents):
         messages = ["" for i in range(self.env.n_agents)]
@@ -139,8 +160,9 @@ class Environment():
         for i in range(self.env.n_agents):
             chat_agent = ChatAgent(agents[i].num)
             chat_agent.set_background_prompt(self.build_background_prompt(i,False))
-            chat_agent.set_background_prompt_first(self.build_background_prompt(i,True))
+            # chat_agent.set_background_prompt_first(self.build_background_prompt(i,True))
             chat_agent.set_initial_belief(self.build_initial_belief(i, 0, 0, "", messages, self.str_action(self.env.available_actions(), i)))
+            chat_agent.set_update_prompt(self.build_update_prompt(i, 0,"",messages))
             self.chat_agents.append(chat_agent)
 
 
@@ -238,11 +260,14 @@ class Environment():
             response = []
             current_round += 1
 
+            responses = []
             for i in range(self.env.n_agents):
                 
                 agent = self.chat_agents[i]
 
                 response = agent.makeApiCall(current_round, agents_positions[i], zero_shot, prompt_history)
+                
+                responses.append(response)
 
                 actions.append(response["action"])
                 messages.append(response["message"])
@@ -266,14 +291,19 @@ class Environment():
 
             for i in range(self.env.n_agents): 
                 if zero_shot: 
-                    self.chat_agents[i].update_history(response["belief"], current_round)
+                    self.chat_agents[i].set_update_prompt(self.build_update_prompt(i, current_round, messages[i], messages))
+                    self.chat_agents[i].update_history(responses[i]["belief"], current_round)
                 else : 
                     self.chat_agents[i].update_history(
                         self.build_initial_belief(i, current_round, team_score, messages[i], messages, self.str_action(self.env.available_actions(), i)),
                         current_round,
                     )
 
-            done = step.is_terminal 
+            # done = step.is_terminal 
+
+            # done == True if current_round >= 7 else False  # For testing
+            if current_round == 7:
+                done = True
 
         if done == True:
             team_score += 1
@@ -283,9 +313,8 @@ class Environment():
 
 
 def main(): 
-    world = LLE.from_file("maps/map_3_agents_2_gems.txt").obs_type("layered").build()
-    # world = LLE.from_file("maps/map.txt").obs_type("layered").build()
-    # world = LLE.level(2).obs_type("layered").build()
+    world = LLE.from_file("maps/map_2A1G1L.txt").obs_type("layered").build()
+
     env = Environment(world)
     
     arg = sys.argv[1] if len(sys.argv) > 1 else None
@@ -300,9 +329,8 @@ def main():
             print("Please provide a valid mode argument: '-z'/'--zero_shot' or '-f'/'--few_shot'.")
             sys.exit(1)
 
-        env.run_experiment("history/3agents_2gems/history_3agents_2gems.csv", zero_shot, "history/3agents_2gems/prompt_history_3agents_2gems.csv")
-        # env.run_experiment("history/3_agents/history_3_agents.csv", zero_shot, "history/3_agents/prompt_history_3_agents.csv")
-        # env.run_experiment("history/2agents_1gem/history_2agents_1gem.csv", zero_shot, "history/2agents_1gem/prompt_history_2agents_1gem.csv")
+        env.run_experiment("history/new_belief_handling/history_new_belief_handling.csv", zero_shot, "history/new_belief_handling/prompt_history_new_belief_handling.csv")
+
     elif arg == "play":
         env.play_history("play.csv")
     else:
