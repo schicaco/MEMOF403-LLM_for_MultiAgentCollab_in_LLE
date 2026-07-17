@@ -94,13 +94,17 @@ INITIAL_BELIEF = ("Your role: You are Player {agent_name}, color {agent_color}, 
                   "Available actions: {available_actions}.")
 
 UPDATE_PROMPT = (
+"Below are the interactions from last round: "
+"Your own message from last round: {own_messages}. "
+"Teammate messages received from last round: {team_messages}. "
 "Please update your belief state based on the information above. "
 "Represent your belief concisely, covering at least:\n"
-"- Your own position and tile type.\n"
+"- Your role, color and position "
+# "- Your own position and tile type.\n"
 "- Known positions of diamonds, exits, walls, and lasers.\n"
 "- Known or inferred positions and roles of teammates.\n"
 "- Any important plans or intentions (yours and teammates') for the next few rounds.\n"
-"Begin your answer EXACTLY with: 'Below is your current belief'. "
+"Begin your answer EXACTLY with: 'Below is your current belief' followed by Action selection: 'your action' Message to Team: 'your message'  "
 "Do NOT add extra explanations outside the belief description."
 )
 

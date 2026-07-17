@@ -10,7 +10,6 @@ from configs import AGENT_NAME_MAP, INTRO_BELIEF, ACTION_MAP, UPDATE_PROMPT
 LLM_MODEL = 'gpt-oss:120b-cloud'
 
 
-
 class ChatAgent(): 
 
     def __init__(self, agent_id, zero_shot):
@@ -122,22 +121,18 @@ class ChatAgent():
         else: 
             text = background_prompt + "\n" + self.last_belief + "\n" 
 
-        # print(text)
-        print("----------------------------------------------------")
-        print(self.update_prompt)
-        # client = Client()
-        # messages = [
-        # {
-        #     'role': 'user',
-        #     'content': text,
-        # },
-        # ]
-        # message = ''
-        # for part in client.chat(LLM_MODEL, messages=messages, stream=True):
-        #      message += part['message']['content']
+        client = Client()
+        messages = [
+        {
+            'role': 'user',
+            'content': text,
+        },
+        ]
+        message = ''
+        for part in client.chat(LLM_MODEL, messages=messages, stream=True):
+             message += part['message']['content']
 
-
-        message ="- Below is your current belief  : '[from agent id ="  + str(self.agent_id) +"] , Action selection: 'STAY', Message to Team: my message to the team from me with id " + str(self.agent_id)+ " in the current round - " + str(current_round) 
+        # message ="- Below is your current belief  : '[from agent id ="  + str(self.agent_id) +"] , Action selection: 'STAY', Message to Team: my message to the team from me with id " + str(self.agent_id)+ " in the current round - " + str(current_round) 
         
         self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, message)
 
@@ -165,12 +160,9 @@ class ChatAgent():
         for history_round, old_belief in self.belief_history[:-1]:
             belief_string += f"\nRun {history_round+1}: {old_belief}"
         
-        # Add the current belief with its actual run number
-
 
         if not self.zero_shot: 
             belief_string += "\n" + INTRO_BELIEF
         belief_string += new_belief
-
 
         self.last_belief = belief_string

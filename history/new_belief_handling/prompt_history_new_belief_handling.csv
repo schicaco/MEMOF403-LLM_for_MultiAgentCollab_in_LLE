@@ -1,76 +1,169 @@
 round;agent_name;agent_pos;last_belief;agent_raw_response
-0;Alpha;(0, 2);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
-Your role: You are playing as Player Alpha red at (0, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 2), (2, 4), (2, 1), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (0, 3); Your message from last round: ; Teammates messages: from Omega :  available actions: ['STAY']";"Action selection: move SOUTH  
-Message to Team: I will move down toward the diamond at (4,0) and then head for the exit. Stay put for now; let me know if you can move later."
-0;Alpha;(0, 2);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
-Your role: You are playing as Player Alpha red at (0, 2); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 4), (2, 2), (2, 3), (2, 1)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Omega is blue at (0, 3); Your message from last round: ; Teammates messages: from Omega :  available actions: ['STAY']";"Below is your current belief
-Role: Alpha (red)
-Position: (0, 2)
-Current round: 0
-Team score: 0
-Observations:
-- Red laser source at (2, 0) (wall) projecting beam cells at (2, 4), (2, 2), (2, 3), (2, 1)
-- Diamond at (4, 0)
-- Exit tiles at (4, 3) and (4, 4)
-- Walls at (2, 0)
-Teammate Omega (blue) position: (0, 3)
-Teammate Omega available actions: ['STAY']
+0;Alpha;(0, 2);"Below is your current belief about the game based on the observations and teammate interactions from the LAST round.
+Your role: You are Player Alpha, color red, currently at position (0, 2). Current round: 0. Total team score: 0. Your current observation (this round): laser beam red at (2, 0) projecting at [(2, 2), (2, 4), (2, 1), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0). Teammates: Omega is blue at (0, 3). Your own message from last round: . Teammate messages received from last round: from Omega : . Available actions: SOUTH, WEST, STAY.";"Below is your current belief
+- Role: Player Alpha, color red, currently at position (0,2)
+- Observed red laser source at (2,0) (wall also at (2,0)); its beam occupies cells (2,2), (2,4), (2,1), (2,3) – safe for red agents and blocks further propagation
+- Wall at (2,0)
+- Diamond located at (4,0)
+- Exit tiles located at (4,3) and (4,4)
+- Teammate Omega (blue) is at position (0,3)
+- No other diamonds, exits, walls, or lasers have been observed yet
+- Immediate plan: move WEST to (0,1) then proceed south toward the diamond at (4,0); later aim for an exit after collecting the diamond
+- Request: Omega, be aware of any blue laser beams you may encounter and avoid them
 
-Action selection: 'move SOUTH', Message to Team: 'Moving south toward the diamond; stay put for now.'"
-0;Omega;(0, 3);"Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
-Your role: You are playing as Player Omega blue at (0, 3); Current round : 0; Total team score : 0; Observation: laser beam red at (2, 0) projecting at [(2, 4), (2, 2), (2, 3), (2, 1)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0);Teammates roles: Alpha is red at (0, 2); Your message from last round: ; Teammates messages: from Alpha :  available actions: ['STAY']";"Below is your current belief
-Your role: Omega (blue) at (0, 3)
-Current round: 0
-Total team score: 0
-Observed elements:
-- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
-- Diamond at (4, 0)
-- Exit tiles at (4, 3) and (4, 4)
-- Walls at (2, 0)
-Teammate:
-- Alpha (red) at (0, 2); last reported available actions: ['STAY']
-Teammate messages:
-- None from previous round
-Action selection: 'move STAY', Message to Team: 'Alpha, please block the red laser at (2,1) to open a safe corridor for me to reach the exit.'"
-1;Alpha;(1, 2);"
-Run 1: Below is your current belief
-Your role: Omega (blue) at (0, 3)
-Current round: 0
-Total team score: 0
-Observed elements:
-- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
-- Diamond at (4, 0)
-- Exit tiles at (4, 3) and (4, 4)
-- Walls at (2, 0)
-Teammate:
-- Alpha (red) at (0, 2); last reported available actions: ['STAY']
-Teammate messages:
-- None from previous round
-Below is your current belief about game state based on your previous observations about the environment and interactions with your teammates.
-Below is your current belief
-Your role: Omega (blue) at (0, 3)
-Current round: 0
-Total team score: 0
-Observed elements:
-- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
-- Diamond at (4, 0)
-- Exit tiles at (4, 3) and (4, 4)
-- Walls at (2, 0)
-Teammate:
-- Alpha (red) at (0, 2); last reported available actions: ['STAY']
-Teammate messages:
-- None from previous round";"Below is your current belief
-Your role: Omega (blue) at (0, 3)
-Current round: 0
-Total team score: 0
-Observed elements:
-- Red laser source at (2, 0) (wall) projecting red beam cells at (2, 1), (2, 2), (2, 3), (2, 4)
-- Diamond at (4, 0)
-- Exit tiles at (4, 3) and (4, 4)
-- Walls at (2, 0)
-Teammate:
-- Alpha (red) at (0, 2); last reported available actions: ['STAY']
-Teammate messages:
-- None from previous round"
+Action selection: 'move WEST'
+Message to Team: 'I see a red laser source at (2,0) with its beam covering row 2 columns 1‑4, which is safe for me. I am moving WEST to (0,1) and will head south toward the diamond at (4,0). Omega, please stay clear of any blue beams you encounter.'"
+0;Omega;(0, 3);"Below is your current belief about the game based on the observations and teammate interactions from the LAST round.
+Your role: You are Player Omega, color blue, currently at position (0, 3). Current round: 0. Total team score: 0. Your current observation (this round): laser beam red at (2, 0) projecting at [(2, 2), (2, 4), (2, 1), (2, 3)]; diamond at (4, 0); Exit tile at (4, 3) and (4, 4); Walls at (2, 0). Teammates: Alpha is red at (0, 2). Your own message from last round: . Teammate messages received from last round: from Alpha : . Available actions: SOUTH, EAST, STAY.";"Below is your current belief
+- Role: Player Omega, color BLUE.
+- Position: (0, 3).
+- Observed entities:
+  * Red laser source at (2, 0) (also a wall). Red beam cells at (2, 2), (2, 4), (2, 1), (2, 3).
+  * Diamond at (4, 0).
+  * Exit tiles at (4, 3) and (4, 4).
+  * Wall at (2, 0) (laser source).
+- Teammate:
+  * Alpha (RED) at (0, 2).
+- Safety notes:
+  * All red beam cells are on row 2 (columns 1‑4). As BLUE I must not step on any of these cells.
+  * Row 2 column 0 is a wall, also impassable.
+  * Therefore any direct southward path to the exits (or diamond) would require stepping on a red beam or a wall, which is unsafe.
+- Current possible actions: SOUTH, EAST, STAY.
+- Plan:
+  * I will stay in place this turn to avoid accidental entry onto a red beam.
+  * I will ask Alpha if he can safely traverse the red‑beam row to reach an exit, which would give the team the extra +1 point when all agents have exited.
+  * I will wait for Alpha’s next move before attempting any further navigation.
 
+Action selection: 'move STAY'
+Message to Team: 'I am staying at (0,3) because row 2 is covered by red beams that I cannot step on. Alpha, you can walk on red beams safely – could you head south to reach an exit tile? Let me know your plan so we can coordinate.'"
+1;Alpha;(0, 1);"Below is your current belief about the game based on the observations and teammate interactions from the LAST round.
 
+- Role: Player Alpha, color red, currently at position (0,2)
+- Observed red laser source at (2,0) (wall also at (2,0)); its beam occupies cells (2,2), (2,4), (2,1), (2,3) – safe for red agents and blocks further propagation
+- Wall at (2,0)
+- Diamond located at (4,0)
+- Exit tiles located at (4,3) and (4,4)
+- Teammate Omega (blue) is at position (0,3)
+- No other diamonds, exits, walls, or lasers have been observed yet
+- Immediate plan: move WEST to (0,1) then proceed south toward the diamond at (4,0); later aim for an exit after collecting the diamond
+- Request: Omega, be aware of any blue laser beams you may encounter and avoid them";"Below is your current belief
+- Role: Player Alpha, color red, position (0,2)
+- Observed: red laser source at (2,0) (also a wall at (2,0)); its beam occupies cells (2,1), (2,2), (2,3), (2,4) – safe for red agents and blocks further propagation
+- Wall at (2,0)
+- Diamond located at (4,0)
+- Exit tiles at (4,3) and (4,4)
+- Teammate Omega (blue) at (0,3); last message: staying at (0,3) because red beams in row 2 are unsafe for blue, and asks me to head south toward an exit
+- Plans: I will move WEST to (0,1) this turn, then continue south toward the diamond at (4,0) and later head east to reach an exit. Omega, please continue monitoring for any blue lasers and let me know if any block my planned path.
+
+Action selection: 'move WEST'
+Message to Team: 'I am moving WEST to (0,1). After that I will go south to the diamond at (4,0) and then east toward an exit. Keep an eye out for blue beams that could affect my route and update me if you see any.'"
+1;Omega;(0, 3);"Below is your current belief about the game based on the observations and teammate interactions from the LAST round.
+
+- Role: Player Omega, color BLUE.
+- Position: (0, 3).
+- Observed entities:
+  * Red laser source at (2, 0) (also a wall). Red beam cells at (2, 2), (2, 4), (2, 1), (2, 3).
+  * Diamond at (4, 0).
+  * Exit tiles at (4, 3) and (4, 4).
+  * Wall at (2, 0) (laser source).
+- Teammate:
+  * Alpha (RED) at (0, 2).
+- Safety notes:
+  * All red beam cells are on row 2 (columns 1‑4). As BLUE I must not step on any of these cells.
+  * Row 2 column 0 is a wall, also impassable.
+  * Therefore any direct southward path to the exits (or diamond) would require stepping on a red beam or a wall, which is unsafe.
+- Current possible actions: SOUTH, EAST, STAY.
+- Plan:
+  * I will stay in place this turn to avoid accidental entry onto a red beam.
+  * I will ask Alpha if he can safely traverse the red‑beam row to reach an exit, which would give the team the extra +1 point when all agents have exited.
+  * I will wait for Alpha’s next move before attempting any further navigation.";"Below is your current belief  
+- Role: Player Omega, color BLUE.  
+- Position: (0, 3).  
+- Observed entities:  
+  * Red laser source / wall at (2, 0).  
+  * Red beam cells at (2, 1), (2, 2), (2, 3), (2, 4) – unsafe for BLUE.  
+  * Diamond at (4, 0).  
+  * Exit tiles at (4, 3) and (4, 4).  
+  * No blue lasers or beams observed yet.  
+- Teammate: Alpha (RED) now at (0, 1) (moved WEST).  
+- Alpha’s intention: head south toward the diamond at (4, 0) and eventually an exit; he can safely walk on red beams.  
+- My intention: avoid red‑beam row 2; I will move east to (0, 4) to stay clear of the dangerous row and remain ready to assist.  
+
+Action selection: 'move EAST'  
+Message to Team: 'I moved east to (0,4) and am staying clear of red beams. Alpha, let me know if you encounter any blue beams so I can avoid them. Good luck heading south to the diamond and exits.'"
+2;Alpha;(0, 0);"
+Run 1: Below is your current belief about the game based on the observations and teammate interactions from the LAST round.
+
+- Role: Player Alpha, color red, currently at position (0,2)
+- Observed red laser source at (2,0) (wall also at (2,0)); its beam occupies cells (2,2), (2,4), (2,1), (2,3) – safe for red agents and blocks further propagation
+- Wall at (2,0)
+- Diamond located at (4,0)
+- Exit tiles located at (4,3) and (4,4)
+- Teammate Omega (blue) is at position (0,3)
+- No other diamonds, exits, walls, or lasers have been observed yet
+- Immediate plan: move WEST to (0,1) then proceed south toward the diamond at (4,0); later aim for an exit after collecting the diamond
+- Request: Omega, be aware of any blue laser beams you may encounter and avoid themBelow is your current belief about the game based on the observations and teammate interactions from the LAST round.
+
+- Role: Player Alpha, color red, position (0,2)
+- Observed: red laser source at (2,0) (also a wall at (2,0)); its beam occupies cells (2,1), (2,2), (2,3), (2,4) – safe for red agents and blocks further propagation
+- Wall at (2,0)
+- Diamond located at (4,0)
+- Exit tiles at (4,3) and (4,4)
+- Teammate Omega (blue) at (0,3); last message: staying at (0,3) because red beams in row 2 are unsafe for blue, and asks me to head south toward an exit
+- Plans: I will move WEST to (0,1) this turn, then continue south toward the diamond at (4,0) and later head east to reach an exit. Omega, please continue monitoring for any blue lasers and let me know if any block my planned path.";"Below is your current belief:
+- Role: Player Alpha, color red, position (0,2)
+- Observed red laser source at (2,0) (also a wall); its red beam occupies cells (2,1), (2,2), (2,3), (2,4) – safe for red agents and blocks further propagation
+- Wall at (2,0)
+- Diamond at (4,0)
+- Exit tiles at (4,3) and (4,4)
+- Teammate Omega (blue) is at position (0,4) after moving east; Omega plans to stay here and monitor for any blue laser beams that could affect my route
+- Immediate plan: this turn I will move WEST to (0,1), then continue south toward the diamond at (4,0) and later head east to an exit
+- Request: Omega, please let me know immediately if you see any blue lasers or beams that intersect my planned south‑bound path (column 0‑1).
+
+Action selection: 'move WEST'
+Message to Team: 'Moving west to (0,1). After that I’ll go south toward the diamond at (4,0) and then east to an exit. Omega, keep an eye out for any blue laser beams that could block my path and alert me right away.'"
+2;Omega;(0, 4);"
+Run 1: Below is your current belief about the game based on the observations and teammate interactions from the LAST round.
+
+- Role: Player Omega, color BLUE.
+- Position: (0, 3).
+- Observed entities:
+  * Red laser source at (2, 0) (also a wall). Red beam cells at (2, 2), (2, 4), (2, 1), (2, 3).
+  * Diamond at (4, 0).
+  * Exit tiles at (4, 3) and (4, 4).
+  * Wall at (2, 0) (laser source).
+- Teammate:
+  * Alpha (RED) at (0, 2).
+- Safety notes:
+  * All red beam cells are on row 2 (columns 1‑4). As BLUE I must not step on any of these cells.
+  * Row 2 column 0 is a wall, also impassable.
+  * Therefore any direct southward path to the exits (or diamond) would require stepping on a red beam or a wall, which is unsafe.
+- Current possible actions: SOUTH, EAST, STAY.
+- Plan:
+  * I will stay in place this turn to avoid accidental entry onto a red beam.
+  * I will ask Alpha if he can safely traverse the red‑beam row to reach an exit, which would give the team the extra +1 point when all agents have exited.
+  * I will wait for Alpha’s next move before attempting any further navigation.Below is your current belief about the game based on the observations and teammate interactions from the LAST round.
+  
+- Role: Player Omega, color BLUE.  
+- Position: (0, 3).  
+- Observed entities:  
+  * Red laser source / wall at (2, 0).  
+  * Red beam cells at (2, 1), (2, 2), (2, 3), (2, 4) – unsafe for BLUE.  
+  * Diamond at (4, 0).  
+  * Exit tiles at (4, 3) and (4, 4).  
+  * No blue lasers or beams observed yet.  
+- Teammate: Alpha (RED) now at (0, 1) (moved WEST).  
+- Alpha’s intention: head south toward the diamond at (4, 0) and eventually an exit; he can safely walk on red beams.  
+- My intention: avoid red‑beam row 2; I will move east to (0, 4) to stay clear of the dangerous row and remain ready to assist.";"Below is your current belief  
+- Role: Player Omega, color BLUE, position (0, 4)  
+- Observed entities:  
+  * Red laser source / wall at (2, 0)  
+  * Red beam cells at (2, 1), (2, 2), (2, 3), (2, 4) – unsafe for BLUE  
+  * Diamond at (4, 0)  
+  * Exit tiles at (4, 3) and (4, 4)  
+  * No BLUE lasers or beams observed yet  
+- Teammate: Alpha (RED) at (0, 1); intention: move south toward the diamond at (4, 0) then east toward an exit (he can safely walk on red beams)  
+- My intention: I cannot cross row 2 because of red beams; I will stay at (0, 4) this turn and wait for Alpha’s updates, asking him to inform me of any BLUE beams or safe paths.
+
+Action selection: 'move STAY'  
+Message to Team: 'I am at (0,4). Row 2 is fully covered by red beams, so I cannot cross it. I will stay here this turn. Alpha, let me know if you see any blue beams or a safe route I can take later. Good luck moving toward the diamond and exit.'"

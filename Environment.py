@@ -300,11 +300,8 @@ class Environment():
                         current_round,
                     )
 
-            # done = step.is_terminal 
+            done = step.is_terminal 
 
-            # done == True if current_round >= 7 else False  # For testing
-            if current_round == 7:
-                done = True
 
         if done == True:
             team_score += 1
