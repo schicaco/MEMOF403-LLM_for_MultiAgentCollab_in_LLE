@@ -8,5 +8,10 @@ __pycache__
 scratch.py 
 play.csv 
 
+*.csv
+
 .vscode
+
+papers 
+
 
