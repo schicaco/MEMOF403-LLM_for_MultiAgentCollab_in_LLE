@@ -2,9 +2,11 @@
 __pycache__
 
 # Environment variable 
-.venv
+.env
 
 # Scratch files 
 scratch.py 
 play.csv 
+
+.vscode
 
