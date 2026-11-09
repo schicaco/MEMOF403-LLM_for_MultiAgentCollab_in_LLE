@@ -29,7 +29,8 @@ class ChatAgent():
         self.belief_history = []
         self.own_messages_history = []  # Track this agent's sent messages
 
-    def set_background_prompt(self, background_prompt): 
+
+    def set_background_prompt(self, background_prompt):
         self.background_prompt = background_prompt
 
     def set_background_prompt_first(self, background_prompt_first): 
@@ -123,10 +124,8 @@ class ChatAgent():
 
         client = Client()
         messages = [
-        {
-            'role': 'user',
-            'content': text,
-        },
+            {'role': 'system', 'content': background_prompt},
+            {'role': 'user','content': self.last_belief},
         ]
         message = ''
         for part in client.chat(LLM_MODEL, messages=messages, stream=True):

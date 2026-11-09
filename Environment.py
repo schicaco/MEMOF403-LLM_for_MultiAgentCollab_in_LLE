@@ -311,7 +311,10 @@ class Environment():
 
 
 def main(): 
+
     world = LLE.from_file("maps/map_2A1G1L.txt").obs_type("layered").build()
+    # world = LLE.from_file("maps/map_3A1L.txt").obs_type("layered").build()
+    # world = LLE.from_file("maps/map_3A2G2L.txt").obs_type("layered").build()
 
     env = Environment(world)
     
@@ -327,10 +330,21 @@ def main():
             print("Please provide a valid mode argument: '-z'/'--zero_shot' or '-f'/'--few_shot'.")
             sys.exit(1)
 
-        env.run_experiment("history/new_belief_handling/history_new_belief_handling.csv", zero_shot, "history/new_belief_handling/prompt_history_new_belief_handling.csv")
+        # env.run_experiment("history/new_belief_handling/history_new_belief_handling.csv", zero_shot, "history/new_belief_handling/prompt_history_new_belief_handling.csv")
+        # env.run_experiment("history/2A1G1L/history_2A1G1L.csv", zero_shot, "history/2A1G1L/prompt_history_2A1G1L.csv")
+        # env.run_experiment("history/3A1L/history_3A1L.csv", zero_shot, "history/3A1L/prompt_history_3A1L.csv")
+        # env.run_experiment("history/3A2G2L/history_3A2G2L.csv", zero_shot, "history/3A2G2L/prompt_history_3A2G2L.csv")
 
+        # env.run_experiment("history/2A1G1G_backPrpt_short/history_2A1G1L_short.csv", zero_shot, "history/2A1G1G_backPrpt_short/prompt_history_2A1G1L_short.csv")
+        
+        env.run_experiment("history.csv", zero_shot, "prompt_history.csv")
+        
     elif arg == "play":
-        env.play_history("play.csv")
+        # env.play_history("play.csv")
+
+        env.play_history("play2A1G1L.csv")
+        # env.play_history("play3A1L.csv")
+        # env.play_history("play3A2G2L.csv")
     else:
         print("Please provide a valid argument: 'run' or 'play'.")
         sys.exit(1)
