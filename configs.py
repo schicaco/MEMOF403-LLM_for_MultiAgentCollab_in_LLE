@@ -83,6 +83,30 @@ Message to Team: 'I am moving north towards a diamond while avoiding non-red las
 Are you ready to take on this challenge?
 """
 
+
+BACKGROUND_PROMPT_SHORTER = """
+You are Player {agent_name} (color {agent_color}) on a search-and-rescue team in a {width}x{height} grid. Positions are (row, column); (0,0) is top-left, ({width_minus_1},{height_minus_1}) bottom-right. Teammates: {teammates_info}.
+
+Goal: maximize the TEAM score.
+- Each diamond collected: +1.
+- Exit tiles: an agent that reaches one stops moving. If ALL agents reach an exit, +1 for the team.
+
+Rules:
+- Walls and laser sources are impassable. Two agents cannot share a cell.
+- You may safely step on beams of your own color; standing on one blocks it beyond you.
+- Stepping on a beam of another color kills you and ends the episode for everyone.
+
+Each round you see: your position and tile, the round number, the team score, teammates' positions, and the messages they sent last round. You do not see their local tiles or actions unless they tell you.
+
+Reply with one action: move NORTH, move SOUTH, move EAST, move WEST, or move STAY. You may also send a message to all teammates, delivered at the start of their next round. Use it for what you see, your plan, help you need, and safety warnings.
+Only state what you have observed or been told; if unsure, say so. Do not invent diamonds, exits, walls or lasers.
+
+Reply exactly in this format:
+Action selection: 'move NORTH'
+Message to Team: 'Moving north toward a diamond; avoiding non-red lasers.'
+
+"""
+
 INTRO_BELIEF = "Below is your current belief about the game based on the observations and teammate interactions from the LAST round.\n"
 
 INITIAL_BELIEF = ("Your role: You are Player {agent_name}, color {agent_color}, currently at position {agent_pos}. "
@@ -100,7 +124,6 @@ UPDATE_PROMPT = (
 "Please update your belief state based on the information above. "
 "Represent your belief concisely, covering at least:\n"
 "- Your role, color and position "
-# "- Your own position and tile type.\n"
 "- Known positions of diamonds, exits, walls, and lasers.\n"
 "- Known or inferred positions and roles of teammates.\n"
 "- Any important plans or intentions (yours and teammates') for the next few rounds.\n"
