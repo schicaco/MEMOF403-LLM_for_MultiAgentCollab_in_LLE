@@ -64,19 +64,23 @@ class Environment():
 
         return background_prompt
 
+    def get_real_position(self, position): 
+        """Update position to a grid value that begins from 1"""
+        return (position[0] + 1, position[1] + 1)  
+
 
     def build_initial_belief(self, agent_id, current_round, team_score,own_messages, team_messages, available_actions):
         
         agent_name = AGENT_NAME_MAP[agent_id]
         agent_color = COLOR_MAP[agent_id]
-        agent_pos = self.env.world.agents_positions[agent_id]
+        agent_pos = self.get_real_position(self.env.world.agents_positions[agent_id])
         
         
         teammate_ids = [i for i in range(self.env.world.n_agents) if i != agent_id]
 
         # Teammates info: name, color, and position combined
         teammates_info = ", ".join(
-            f"{AGENT_NAME_MAP[i]} is {COLOR_MAP[i]} at {self.env.world.agents_positions[i]}"
+            f"{AGENT_NAME_MAP[i]} is {COLOR_MAP[i]} at {self.get_real_position(self.env.world.agents_positions[i])}"
             for i in teammate_ids
         )
 
@@ -97,11 +101,11 @@ class Environment():
             laser_source = self.env.world.laser_sources[i]
             laser_color = COLOR_MAP[laser_source.agent_id]
             laser_tile_pos = [
-                laser.pos for laser in self.env.world.lasers 
+                self.get_real_position(laser.pos) for laser in self.env.world.lasers 
                 if laser.agent_id == laser_source.agent_id
             ]
             laser_lines.append(
-                f"laser beam {laser_color} at {laser_source.pos} projecting at {laser_tile_pos}"
+                f"laser beam {laser_color} at {self.get_real_position(laser_source.pos)} projecting at {laser_tile_pos}"
             )
         laser_info = "; ".join(laser_lines) if laser_lines else "no lasers visible"
 
@@ -110,7 +114,7 @@ class Environment():
         gems_collected = state.gems_collected  # list[bool], indexed by gem id
 
         gems_positions = ", ".join(
-            str(self.env.world.gems[i].pos) 
+            str(self.get_real_position(self.env.world.gems[i].pos)) 
             for i in range(self.env.world.n_gems) 
             if not gems_collected[i]
         )
@@ -118,10 +122,10 @@ class Environment():
 
         # Build wall info string
         wall_positions = self.env.world.wall_pos if hasattr(self.env.world, "wall_pos") else []
-        walls_info = "; ".join(str(pos) for pos in wall_positions) if wall_positions else "no walls visible"
+        walls_info = "; ".join(str(self.get_real_position(pos)) for pos in wall_positions) if wall_positions else "no walls visible"
 
         # Exit tiles info
-        exits_str = " and ".join(str(pos) for pos in self.env.world.exit_pos)
+        exits_str = " and ".join(str(self.get_real_position(pos)) for pos in self.env.world.exit_pos)
 
         # Combine full observation string
         observation_str = (
@@ -237,7 +241,7 @@ class Environment():
             round_str = ", ".join(
                 ACTION_MAP_REVERSE[actions[i][j]] for j in range(n_agents)
             )
-            print("Round ", i, " actions: ", round_str)
+            print("Round ", i, " actions: ", round_str, " agents positions: ", self.env.world.agents_positions)
 
         self.env.render()
         cv2.waitKey(0)
@@ -312,9 +316,12 @@ class Environment():
 
 def main(): 
 
-    world = LLE.from_file("maps/map_2A1G1L.txt").obs_type("layered").build()
+    world = LLE.from_file("maps/map_2A1G1L_reversed.txt").obs_type("layered").build()
+    # world = LLE.from_file("maps/map_2A1G1L.txt").obs_type("layered").build()
     # world = LLE.from_file("maps/map_3A1L.txt").obs_type("layered").build()
+    # world = LLE.from_file("maps/map_3A1L1G.txt").obs_type("layered").build()
     # world = LLE.from_file("maps/map_3A2G2L.txt").obs_type("layered").build()
+    world = LLE.level(6).obs_type("layered").build()
 
     env = Environment(world)
     
@@ -333,6 +340,7 @@ def main():
         # env.run_experiment("history/new_belief_handling/history_new_belief_handling.csv", zero_shot, "history/new_belief_handling/prompt_history_new_belief_handling.csv")
         # env.run_experiment("history/2A1G1L/history_2A1G1L.csv", zero_shot, "history/2A1G1L/prompt_history_2A1G1L.csv")
         # env.run_experiment("history/3A1L/history_3A1L.csv", zero_shot, "history/3A1L/prompt_history_3A1L.csv")
+        # env.run_experiment("history/3A1L1G/history_3A1L1G.csv", zero_shot, "history/3A1L1G/prompt_history_3A1L1G.csv")
         # env.run_experiment("history/3A2G2L/history_3A2G2L.csv", zero_shot, "history/3A2G2L/prompt_history_3A2G2L.csv")
 
         # env.run_experiment("history/2A1G1G_backPrpt_short/history_2A1G1L_short.csv", zero_shot, "history/2A1G1G_backPrpt_short/prompt_history_2A1G1L_short.csv")
@@ -340,11 +348,8 @@ def main():
         env.run_experiment("history.csv", zero_shot, "prompt_history.csv")
         
     elif arg == "play":
-        # env.play_history("play.csv")
 
-        env.play_history("play2A1G1L.csv")
-        # env.play_history("play3A1L.csv")
-        # env.play_history("play3A2G2L.csv")
+        env.play_history("play.csv")
     else:
         print("Please provide a valid argument: 'run' or 'play'.")
         sys.exit(1)
