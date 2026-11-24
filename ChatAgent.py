@@ -4,6 +4,7 @@ import csv
 import sys
 import os
 import sys
+import collections
 
 from configs import AGENT_NAME_MAP, INTRO_BELIEF, ACTION_MAP, UPDATE_PROMPT
 
@@ -41,6 +42,12 @@ class ChatAgent():
 
     def set_initial_belief(self, initial_belief): 
         self.last_belief = INTRO_BELIEF + initial_belief
+
+    def set_last_belief(self, last_belief): 
+        self.last_belief = last_belief
+
+    def set_current_round(self, round): 
+        self.current_round = round
 
     def parse_action(self, action_str): 
         """

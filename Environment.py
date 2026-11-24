@@ -3,7 +3,9 @@ import time
 import cv2
 import sys
 import os 
-import csv 
+import csv
+import collections  
+
 
 from ChatAgent import ChatAgent
 from configs import ACTION_MAP, ACTION_MAP_REVERSE, AGENT_NAME_MAP, COLOR_MAP, BACKGROUND_PROMPT, INITIAL_BELIEF, UPDATE_PROMPT
@@ -145,8 +147,8 @@ class Environment():
             available_actions = available_actions
         )
 
-
         return initial_belief
+
 
     def build_update_prompt(self,agent_id, current_round, own_message, team_messages): 
 
@@ -190,7 +192,7 @@ class Environment():
         print("Record:", record)
 
         with open(data_path, 'a', newline='') as csvfile:
-            fieldnames = ['round','agent_name','agent_id','agent position', 'action', 'message']
+            fieldnames = ['round','agent_name','agent_id','agent position', 'action', 'message', 'gems_collected']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames, delimiter=';')
             
             # Write header only if file is new
@@ -233,7 +235,7 @@ class Environment():
         time.sleep(2)
 
         for i in range(len(actions)):
-            time.sleep(1)
+            time.sleep(0.4)
             self.env.render()
             self.env.step(actions[i])
             self.env.render()
@@ -248,10 +250,45 @@ class Environment():
         cv2.destroyAllWindows()
 
 
-    def run_experiment(self, history_path, zero_shot=False, prompt_history = "prompt_history.csv"): 
+    def run_from_paused_experiment(self, parsed_history = "history.csv", prompt_history = "prompt_history.csv", zero_shot = False): 
+        # TODO : Make it cleaner, erase for last lines after 
+        n_agents = self.env.n_agents
+        actions = []
+
+        self.set_chat_agents(self.env.world.agents, zero_shot)
+
+        with open(prompt_history, newline="") as f:
+            last_prompt_history_n = list(csv.reader(f, delimiter=";"))[-n_agents:]
+
+        with open(parsed_history) as f: 
+            last_parsed_history_n = list(csv.reader(f, delimiter=";"))[-n_agents:]
+
+
+        for i in range(n_agents):
+
+            prompt_history_line = last_prompt_history_n[i]
+            parsed_history_line = last_parsed_history_n[i]
+            current_round = int(parsed_history_line[0])-1
+            chat_agent = self.chat_agents[i]
+            chat_agent.set_current_round(current_round)
+            chat_agent.set_last_belief(prompt_history_line[3])
+            self.env.world.set_agent_position(i, tuple(map(int, prompt_history_line[2].strip("()").split(","))))
+            actions.append(ACTION_MAP[parsed_history_line[4]])
+
+        state = self.env.get_state()        
+
+        state.gems_collected = parsed_history_line[-1]
+
+        # self.env.step(actions)
+        print(self.env.world.get_state())
+        print(current_round)
+        # self.run_experiment(parsed_history, False, prompt_history, current_round )
+                    
+
+
+    def run_experiment(self, history_path, zero_shot=False, prompt_history = "prompt_history.csv", current_round = -1): 
       
         done = False
-        current_round = -1
         team_score = None 
         new_belief = ''
 
@@ -284,7 +321,8 @@ class Environment():
                     "agent_id": agent.agent_id,
                     "agent position": agents_positions[i],
                     "action": ACTION_MAP_REVERSE[response["action"]],
-                    "message": response["message"]
+                    "message": response["message"], 
+                    "gems_collected": self.env.world.get_state().gems_collected
                 }
                 self.history.append(record)
                 # Save to CSV
@@ -350,6 +388,8 @@ def main():
     elif arg == "play":
 
         env.play_history("play.csv")
+
+        # env.run_from_paused_experiment()
     else:
         print("Please provide a valid argument: 'run' or 'play'.")
         sys.exit(1)
