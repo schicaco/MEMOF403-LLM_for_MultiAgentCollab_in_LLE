@@ -6,7 +6,7 @@ import os
 import sys
 import collections
 
-from configs import AGENT_NAME_MAP, INTRO_BELIEF, ACTION_MAP, UPDATE_PROMPT
+from configs import AGENT_NAME_MAP, INTRO_BELIEF, ACTION_MAP, UPDATE_PROMPT, ACTION_MAP_REVERSE
 
 LLM_MODEL = 'gpt-oss:120b-cloud'
 
@@ -66,20 +66,18 @@ class ChatAgent():
 
     def parse_agent_response(self, text):
         result = {"action": None, "message": None, "belief": None}
-
         belief_match = None
         if self.zero_shot:
             belief_match = re.search(
-                r"Below is your current belief.*?(?=\n\s*Action selection:|\Z)",
+                r"Belief state: .*?(?=\n\s*Action selection:|\Z)",
                 text,
                 re.DOTALL
             )
             if not belief_match:
                 print("Error: Response format is incorrect. Expected a belief state "
-                    "starting with 'Below is your current belief'.")
+                    "starting with 'Belief state: '.")
                 sys.exit(1)
-            raw_belief = belief_match.group(0).strip()
-            result["belief"] = raw_belief.replace("Below is your current belief", INTRO_BELIEF, 1)
+            result["belief"] = belief_match.group(0).strip()
 
         action_match = re.search(r"Action selection:\s*(.+?)(?=\n\s*Message to Team:|\Z)", text, re.DOTALL)
         message_match = re.search(r"Message to Team:\s*(.+)", text, re.DOTALL)
@@ -125,24 +123,25 @@ class ChatAgent():
         background_prompt = self.background_prompt
 
         if self.zero_shot: 
-            text = background_prompt + "\n" + self.last_belief + "\n" +  self.update_prompt
+            text =  self.last_belief + "\n" +  self.update_prompt
         else: 
-            text = background_prompt + "\n" + self.last_belief + "\n" 
+            text = self.last_belief + "\n" 
 
         client = Client()
         messages = [
             {'role': 'system', 'content': background_prompt},
-            {'role': 'user','content': self.last_belief},
+            {'role': 'user','content': text},
         ]
-        message = ''
+        raw_message = ''
         for part in client.chat(LLM_MODEL, messages=messages, stream=True):
-             message += part['message']['content']
+             raw_message += part['message']['content']
 
-        # message ="- Below is your current belief  : '[from agent id ="  + str(self.agent_id) +"] , Action selection: 'STAY', Message to Team: my message to the team from me with id " + str(self.agent_id)+ " in the current round - " + str(current_round) 
+        parsed_message = self.parse_agent_response(raw_message)
         
-        self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, message)
-
-        parsed_message = self.parse_agent_response(message)
+        self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, "raw message " + str(current_round))
+        
+        # parsed_message = {"action": 1, "message": "test","belief": " belief " + str(current_round) }
+        # self.save_prompt(prompt_history, current_round, agent_pos, self.last_belief, "raw message " + str(current_round))
 
         return parsed_message 
     
@@ -156,10 +155,15 @@ class ChatAgent():
         if round_number is None:
             round_number = self.current_round
 
+        print("\n NEW BELIEF (agent id :   " +  str(self.agent_id) + ") :  " + new_belief + "\n")
+
+
         # Store each belief with its real round number and keep only the last 5
         self.belief_history.append((round_number, new_belief))
         if len(self.belief_history) > 5:
             self.belief_history = self.belief_history[-5:]
+
+        print("\n belief history: ", self.belief_history)
 
         belief_string = ""
         # Build the new belief state with actual run numbers for historical entries
@@ -167,8 +171,9 @@ class ChatAgent():
             belief_string += f"\nRun {history_round+1}: {old_belief}"
         
 
-        if not self.zero_shot: 
-            belief_string += "\n" + INTRO_BELIEF
+        belief_string += "\n" + INTRO_BELIEF
+        
         belief_string += new_belief
-
+        # else: 
+        #     belief_string = new_belief
         self.last_belief = belief_string

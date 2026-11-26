@@ -302,17 +302,39 @@ class Environment():
             response = []
             current_round += 1
 
+            action = ""
+            message = ""
+            belief = ""
+
             responses = []
             for i in range(self.env.n_agents):
                 
                 agent = self.chat_agents[i]
 
-                response = agent.makeApiCall(current_round, agents_positions[i], prompt_history)
+                if current_round == 5: 
+                    done = True 
 
-                responses.append(response)
+                if not self.env.world.get_state().agents_positions[i] in self.env.world.exit_pos: # if agent alive
 
-                actions.append(response["action"])
-                messages.append(response["message"])
+                    response = agent.makeApiCall(current_round, agents_positions[i], prompt_history)
+
+                    responses.append(response)
+
+                    action = response["action"]
+                    message = response["message"]
+                    belief = response["belief"]
+
+                    actions.append(action)
+                    messages.append(message)
+
+                else: 
+                    action = 4
+                    message = "I reach an exit cell, I cannot move anymore, waiting for you to arrive as well "
+
+                    actions.append(action)
+                    messages.append(message)
+
+                    agent.save_prompt(prompt_history, current_round, self.env.world.get_state().agents_positions[i], "", message)
 
                 # Increment round and save the action and message to history
                 record = {
@@ -320,8 +342,8 @@ class Environment():
                     "agent_name": AGENT_NAME_MAP[agent.agent_id],
                     "agent_id": agent.agent_id,
                     "agent position": agents_positions[i],
-                    "action": ACTION_MAP_REVERSE[response["action"]],
-                    "message": response["message"], 
+                    "action": ACTION_MAP_REVERSE[action],
+                    "message": message, 
                     "gems_collected": self.env.world.get_state().gems_collected
                 }
                 self.history.append(record)
@@ -334,7 +356,7 @@ class Environment():
 
             for i in range(self.env.n_agents): 
                 if zero_shot: 
-                    self.chat_agents[i].set_update_prompt(self.build_update_prompt(i, current_round, messages[i], messages))
+                    # self.chat_agents[i].set_update_prompt(self.build_update_prompt(i, current_round, messages[i], messages))
                     self.chat_agents[i].update_history(responses[i]["belief"], current_round)
                 else : 
                     self.chat_agents[i].update_history(
@@ -354,12 +376,12 @@ class Environment():
 
 def main(): 
 
-    world = LLE.from_file("maps/map_2A1G1L_reversed.txt").obs_type("layered").build()
-    # world = LLE.from_file("maps/map_2A1G1L.txt").obs_type("layered").build()
+    # world = LLE.from_file("maps/map_2A1G1L_reversed.txt").obs_type("layered").build()
+    world = LLE.from_file("maps/map_2A1G1L.txt").obs_type("layered").build()
     # world = LLE.from_file("maps/map_3A1L.txt").obs_type("layered").build()
     # world = LLE.from_file("maps/map_3A1L1G.txt").obs_type("layered").build()
     # world = LLE.from_file("maps/map_3A2G2L.txt").obs_type("layered").build()
-    world = LLE.level(6).obs_type("layered").build()
+    # world = LLE.level(6).obs_type("layered").build()
 
     env = Environment(world)
     
@@ -380,15 +402,16 @@ def main():
         # env.run_experiment("history/3A1L/history_3A1L.csv", zero_shot, "history/3A1L/prompt_history_3A1L.csv")
         # env.run_experiment("history/3A1L1G/history_3A1L1G.csv", zero_shot, "history/3A1L1G/prompt_history_3A1L1G.csv")
         # env.run_experiment("history/3A2G2L/history_3A2G2L.csv", zero_shot, "history/3A2G2L/prompt_history_3A2G2L.csv")
-
         # env.run_experiment("history/2A1G1G_backPrpt_short/history_2A1G1L_short.csv", zero_shot, "history/2A1G1G_backPrpt_short/prompt_history_2A1G1L_short.csv")
-        
+        # env.run_experiment("history/level6/history_level6.csv", zero_shot, "history/level6/prompt_history_level6.csv")
+
         env.run_experiment("history.csv", zero_shot, "prompt_history.csv")
         
+
+
     elif arg == "play":
 
         env.play_history("play.csv")
-
         # env.run_from_paused_experiment()
     else:
         print("Please provide a valid argument: 'run' or 'play'.")
