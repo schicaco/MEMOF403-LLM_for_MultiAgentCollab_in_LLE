@@ -6,7 +6,8 @@ Goal: maximize the TEAM score.
 - Exit tiles: an agent that reaches one stops moving. If ALL agents reach an exit, +1 for the team.
 
 Rules:
-- Walls and laser sources are impassable. Two agents cannot share a cell.
+- Walls and laser sources are impassable. 
+- Two agents cannot share a cell.
 - You may safely step on beams of your own color; standing on one blocks it beyond you.
 - Stepping on a beam of another color kills you and ends the episode for everyone.
 - An agent cannot move when he reach an exit tile. 
@@ -41,7 +42,7 @@ UPDATE_PROMPT = (
 "- Known positions of diamonds, exits, walls, and lasers.\n"
 "- Known or inferred positions and roles of teammates.\n"
 "- Any important plans or intentions (yours and teammates') for the next few rounds.\n"
-"Begin your answer EXACTLY with: 'Below is your current belief' followed by Action selection: 'your action' Message to Team: 'your message'  "
+"Begin your answer EXACTLY with: 'Belief state: ' followed by Action selection: 'your action' Message to Team: 'your message'  "
 "Do NOT add extra explanations outside the belief description."
 )
 
