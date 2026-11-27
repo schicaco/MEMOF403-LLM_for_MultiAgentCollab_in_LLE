@@ -41,7 +41,8 @@ class ChatAgent():
         self.update_prompt = update_prompt
 
     def set_initial_belief(self, initial_belief): 
-        self.last_belief = INTRO_BELIEF + initial_belief
+        self.last_belief = initial_belief
+        self.update_history(self.last_belief, self.current_round)
 
     def set_last_belief(self, last_belief): 
         self.last_belief = last_belief
@@ -136,10 +137,12 @@ class ChatAgent():
         for part in client.chat(LLM_MODEL, messages=messages, stream=True):
              raw_message += part['message']['content']
 
+        self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, raw_message)
+        
         parsed_message = self.parse_agent_response(raw_message)
         
-        self.save_prompt(prompt_history, self.current_round, agent_pos, self.last_belief, "raw message " + str(current_round))
-        
+
+        # Testing: 
         # parsed_message = {"action": 1, "message": "test","belief": " belief " + str(current_round) }
         # self.save_prompt(prompt_history, current_round, agent_pos, self.last_belief, "raw message " + str(current_round))
 
@@ -155,7 +158,7 @@ class ChatAgent():
         if round_number is None:
             round_number = self.current_round
 
-        print("\n NEW BELIEF (agent id :   " +  str(self.agent_id) + ") :  " + new_belief + "\n")
+        # print("\n NEW BELIEF (agent id :   " +  str(self.agent_id) + ") :  " + new_belief + "\n")
 
 
         # Store each belief with its real round number and keep only the last 5
@@ -163,12 +166,12 @@ class ChatAgent():
         if len(self.belief_history) > 5:
             self.belief_history = self.belief_history[-5:]
 
-        print("\n belief history: ", self.belief_history)
+        # print("\n belief history: ", self.belief_history)
 
         belief_string = ""
         # Build the new belief state with actual run numbers for historical entries
         for history_round, old_belief in self.belief_history[:-1]:
-            belief_string += f"\nRun {history_round+1}: {old_belief}"
+            belief_string += f"\nRun {history_round}: {old_belief}"
         
 
         belief_string += "\n" + INTRO_BELIEF

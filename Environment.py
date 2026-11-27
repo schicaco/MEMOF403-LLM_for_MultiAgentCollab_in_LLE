@@ -286,7 +286,7 @@ class Environment():
                     
 
 
-    def run_experiment(self, history_path, zero_shot=False, prompt_history = "prompt_history.csv", current_round = -1): 
+    def run_experiment(self, history_path, zero_shot=False, prompt_history = "prompt_history.csv", current_round = 0): 
       
         done = False
         team_score = None 
@@ -310,9 +310,6 @@ class Environment():
             for i in range(self.env.n_agents):
                 
                 agent = self.chat_agents[i]
-
-                if current_round == 5: 
-                    done = True 
 
                 if not self.env.world.get_state().agents_positions[i] in self.env.world.exit_pos: # if agent alive
 
